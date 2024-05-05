@@ -1,4 +1,6 @@
+import 'dart:async';
 import 'package:flutter/material.dart';
+import 'finish.dart';
 
 class Soal1Pages extends StatefulWidget {
   const Soal1Pages({Key? key}) : super(key: key);
@@ -8,6 +10,81 @@ class Soal1Pages extends StatefulWidget {
 }
 
 class _Soal1PagesState extends State<Soal1Pages> {
+  int _currentQuestionIndex = 0;
+  int _selectedAnswerIndex = -1;
+  late Timer _timer; // Tambahkan timer
+
+  // Definisikan durasi timer
+  static const int _durationInSeconds = 60;
+  int _secondsRemaining = _durationInSeconds;
+  @override
+  void initState() {
+    super.initState();
+    // Mulai timer saat initState dipanggil
+    _startTimer();
+  }
+
+  @override
+  void dispose() {
+    _timer.cancel(); // Batalkan timer saat widget dihapus
+    super.dispose();
+  }
+
+void _startTimer() {
+    _timer = Timer.periodic(Duration(seconds: 1), (timer) {
+      setState(() {
+        if (_secondsRemaining > 0) {
+          _secondsRemaining--;
+        } else {
+          // Jika waktu habis, navigasikan ke halaman finish
+          timer.cancel();
+          Navigator.push(
+            context,
+            MaterialPageRoute(builder: (context) => FinishPage()),
+          );
+        }
+      });
+    });
+  }
+ List<Map<String, dynamic>> _questions = [
+    {
+      'question': '“ Is Ranti still sick? ”. Yes, I wish she …. here now to help me type the report.',
+      'answers': ['had been', 'is', 'would be', 'were', 'will'],
+      'correctAnswerIndex': 0,
+    },
+    {
+      'question': '“Let’s go hiking.” I wish I .... We have a test next Tuesday.',
+      'answers': ['will be able to', ' am able to', 'be able to', 'could', ' could be'],
+      'correctAnswerIndex': 1,
+    },
+      {
+      'question': '“I wish you ….tomorrow.',
+      'answers': ['are going to go', '  have gone', 'would go', 'will go', '  shall go'],
+      'correctAnswerIndex': 2,
+    },
+    // Tambahkan data soal dan jawaban lainnya sesuai kebutuhan
+  ];
+
+  void _checkAnswer(int selectedIndex) {
+    setState(() {
+      _selectedAnswerIndex = selectedIndex;
+    });
+  }
+
+  void _nextQuestion() {
+    setState(() {
+      if (_currentQuestionIndex < _questions.length - 1) {
+        _currentQuestionIndex++;
+        _selectedAnswerIndex = -1;
+      } else {
+        Navigator.push(
+          context,
+          MaterialPageRoute(builder: (context) => FinishPage()),
+        );
+      }
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -32,7 +109,13 @@ class _Soal1PagesState extends State<Soal1Pages> {
                   Icons.arrow_back,
                 ),
                 onPressed: () {
-                  Navigator.of(context).pop();
+                  if (_currentQuestionIndex > 0) {
+                    setState(() {
+                      _currentQuestionIndex--;
+                    });
+                  } else {
+                    Navigator.of(context).pop();
+                  }
                 },
               ),
             ),
@@ -56,10 +139,237 @@ class _Soal1PagesState extends State<Soal1Pages> {
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
                 Expanded(
-                  child:
-                      Container(), // Ganti dengan konten halaman yang diinginkan
+                  child: Container(),
                 ),
               ],
+            ),
+          ),
+          Positioned(
+            left: 58,
+            top: 425,
+            child: InkWell(
+              onTap: () {
+                _nextQuestion();
+              },
+              child: Container(
+                width: 72,
+                height: 24,
+                decoration: BoxDecoration(
+                  color: Color(0xFFCE1A1A),
+                  borderRadius: BorderRadius.circular(20),
+                  boxShadow: [
+                    BoxShadow(
+                      color: Color(0x3F000000),
+                      blurRadius: 3,
+                      offset: Offset(0, 0),
+                      spreadRadius: 1,
+                    ),
+                  ],
+                ),
+                child: Center(
+                  child: Text(
+                    'FINISH',
+                    style: TextStyle(
+                      color: Colors.white,
+                      fontSize: 15,
+                      fontFamily: 'Istok Web',
+                      fontWeight: FontWeight.w400,
+                      height: 0,
+                    ),
+                  ),
+                ),
+              ),
+            ),
+          ),
+          Positioned(
+            left: 301,
+            top: 425,
+            child: InkWell(
+              onTap: () {
+                _nextQuestion();
+              },
+              child: Container(
+                width: 72,
+                height: 24,
+                child: Stack(
+                  children: [
+                    Positioned(
+                      left: 0,
+                      top: 0,
+                      child: Container(
+                        width: 72,
+                        height: 24,
+                        decoration: ShapeDecoration(
+                          color: Color(0xFF1A6DCE),
+                          shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(20),
+                          ),
+                          shadows: [
+                            BoxShadow(
+                              color: Color(0x3F000000),
+                              blurRadius: 3,
+                              offset: Offset(0, 0),
+                              spreadRadius: 1,
+                            ),
+                          ],
+                        ),
+                      ),
+                    ),
+                    Positioned(
+                      left: 17,
+                      top: 1,
+                      child: Text(
+                        'NEXT',
+                        style: TextStyle(
+                          color: Colors.white,
+                          fontSize: 15,
+                          fontFamily: 'Istok Web',
+                          fontWeight: FontWeight.w400,
+                          height: 0,
+                        ),
+                      ),
+                    ),
+                  ],
+                ),
+              ),
+            ),
+          ),
+          Positioned(
+            left: 3,
+            top: 100,
+            child: Container(
+              width: 403,
+              height: 263,
+              child: Stack(
+                children: [
+                  Positioned(
+                    left: 0,
+                    top: 0,
+                    child: Container(
+                      width: 403,
+                      height: 263,
+                      decoration: ShapeDecoration(
+                        color: Colors.white,
+                        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(5)),
+                        shadows: [
+                          BoxShadow(
+                            color: Color(0x3F000000),
+                            blurRadius: 4,
+                            offset: Offset(4, 4),
+                            spreadRadius: 0,
+                          )
+                        ],
+                      ),
+                    ),
+                  ),
+                  Positioned(
+                    left: 11,
+                    top: 57,
+                    child: SizedBox(
+                      width: 386,
+                      child: Text(
+                        _questions[_currentQuestionIndex]['question'],
+                        style: TextStyle(
+                          color: Colors.black,
+                          fontSize: 15,
+                          fontFamily: 'Poppins',
+                          fontWeight: FontWeight.w400,
+                          height: 0,
+                        ),
+                      ),
+                    ),
+                  ),
+                  for (int i = 0; i < _questions[_currentQuestionIndex]['answers'].length; i++)
+                    Positioned(
+                      left: 33,
+                      top: 113 + i * 27,
+                      child: InkWell(
+                        onTap: () {
+                          _checkAnswer(i);
+                        },
+                        child: Row(
+                          children: [
+                            SizedBox(
+                              width: 14,
+                              height: 14,
+                              child: Container(
+                                decoration: BoxDecoration(
+                                  color: _selectedAnswerIndex == i ? Colors.blue : Color(0xFFF2F2F2),
+                                  shape: BoxShape.circle,
+                                ),
+                              ),
+                            ),
+                            SizedBox(width: 8),
+                            Text(
+                              _questions[_currentQuestionIndex]['answers'][i],
+                              style: TextStyle(
+                                color: _selectedAnswerIndex == i ? Colors.blue : Colors.black,
+                                fontSize: 15,
+                                fontFamily: 'Poppins',
+                                fontWeight: FontWeight.w400,
+                                height: 0,
+                              ),
+                            ),
+                          ],
+                        ),
+                      ),
+                    ),
+                  Positioned(
+                    left: 150,
+                    top: 15,
+                    child: Text(
+                      'Question ${_currentQuestionIndex + 1}',
+                      style: TextStyle(
+                        color: Colors.black,
+                        fontSize: 20,
+                        fontFamily: 'Poppins',
+                        fontWeight: FontWeight.w700,
+                        height: 0,
+                      ),
+                    ),
+                  ),
+                ],
+              ),
+            ),
+          ),
+          Positioned(
+            left: 330,
+            top: 15,
+            child: Container(
+              width: 76,
+              height: 30,
+              child: Stack(
+                children: [
+                  Positioned(
+                    left: 0,
+                    top: 0,
+                    child: Container(
+                      width: 76,
+                      height: 30,
+                      decoration: BoxDecoration(color: Color(0xFFD9D9D9)),
+                    ),
+                  ),
+                  Positioned(
+                    left: 9,
+                    top: 5,
+                    child: SizedBox(
+                      width: 58,
+                      height: 20,
+                      child: Text(
+                        '${_secondsRemaining ~/ 60}:${(_secondsRemaining % 60).toString().padLeft(2, '0')}',
+                        textAlign: TextAlign.center,
+                        style: TextStyle(
+                          color: Colors.black,
+                          fontSize: 15,
+                          fontFamily: 'Poppins',
+                          fontWeight: FontWeight.w400,
+                          height: 0,
+                        ),
+                      ),
+                    ),
+                  ),
+                ],
+              ),
             ),
           ),
           Positioned(
@@ -96,95 +406,6 @@ class _Soal1PagesState extends State<Soal1Pages> {
                     ),
                   ),
                 ],
-              ),
-            ),
-          ),
-        ],
-      ),
-    );
-  }
-}
-
-class Soal1Page extends StatelessWidget {
-  const Soal1Page({Key? key}) : super(key: key);
-
-  @override
-  Widget build(BuildContext context) {
-    return Padding(
-      padding: const EdgeInsets.symmetric(horizontal: 20),
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.center,
-        children: [
-          Image.asset(
-            'images/test_grammar.png',
-            width: 300,
-            height: 300,
-          ),
-          Padding(
-            padding:
-                const EdgeInsets.only(bottom: 15), // Menambahkan margin bawah
-            child: const Text(
-              'Test Grammar',
-              style: TextStyle(
-                fontSize: 40,
-                fontWeight: FontWeight.bold,
-              ),
-            ),
-          ),
-          Padding(
-            padding:
-                const EdgeInsets.only(bottom: 30), // Menambahkan margin bawah
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                const Icon(Icons.access_time),
-                const SizedBox(width: 5),
-                Text(
-                  '100 menit',
-                  style: TextStyle(
-                    fontSize: 18, // Ubah ukuran font menjadi 18px
-                    color: const Color(0xFF020052), // Ubah warna teks
-                  ),
-                ),
-                const SizedBox(width: 20),
-                const Icon(Icons.book),
-                const SizedBox(width: 5),
-                Text(
-                  '50 soal',
-                  style: TextStyle(
-                    fontSize: 18, // Ubah ukuran font menjadi 18px
-                    color: const Color(0xFF020052), // Ubah warna teks
-                  ),
-                ),
-              ],
-            ),
-          ),
-          Container(
-            width: 138,
-            height: 34,
-            decoration: BoxDecoration(
-              borderRadius: BorderRadius.circular(20),
-              color: const Color(0xFFFBFF4A),
-              boxShadow: [
-                BoxShadow(
-                  color: Colors.black.withOpacity(0.3),
-                  spreadRadius: 0,
-                  blurRadius: 4,
-                  offset: const Offset(
-                      0, 2), // Sesuaikan offset sesuai dengan preferensi
-                ),
-              ],
-            ),
-            child: TextButton(
-              onPressed: () {
-                // arahkan ke soal2.dart
-              },
-              child: const Text(
-                'GET STARTED',
-                style: TextStyle(
-                  fontSize: 13,
-                  color: const Color(0xFF2E00BA),
-                ),
               ),
             ),
           ),
