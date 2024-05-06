@@ -27,10 +27,10 @@ class MyApp extends StatelessWidget {
       //   debugShowCheckedModeBanner: false,
       // title: 'Flutter Demo',
       // home: the_simle_present_tensePage(),
-      
-        debugShowCheckedModeBanner: false,
+
+      debugShowCheckedModeBanner: false,
       title: 'Flutter Demo',
-      home: HomeTestGrammarPages(),
+      home: HomeMateriPages(),
     );
   }
 }

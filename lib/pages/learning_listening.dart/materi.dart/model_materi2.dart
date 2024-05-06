@@ -1,14 +1,14 @@
 import 'package:flutter/material.dart';
 import 'model_materi2.dart'; // Import halaman ModelMateri2Pages
 
-class ModelMateriPages extends StatefulWidget {
-  const ModelMateriPages({Key? key}) : super(key: key);
+class ModelMateri2Pages extends StatefulWidget {
+  const ModelMateri2Pages({Key? key}) : super(key: key);
 
   @override
-  State<ModelMateriPages> createState() => _ModelMateriPagesState();
+  State<ModelMateri2Pages> createState() => _ModelMateriPagesState();
 }
 
-class _ModelMateriPagesState extends State<ModelMateriPages> {
+class _ModelMateriPagesState extends State<ModelMateri2Pages> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -132,14 +132,14 @@ class MateriPage extends StatelessWidget {
           Padding(
             padding: const EdgeInsets.only(
               top: 10,
-              bottom: 10,
+              bottom: 0,
             ), // Menambahkan space antara gambar dan teks
             child: Align(
               alignment: Alignment.center,
               child: const Text(
-                'Pengenalan',
+                'TOEFL Listening terdiri dari tiga bagian yang berbeda :',
                 style: TextStyle(
-                  fontSize: 20,
+                  fontSize: 15,
                   fontFamily: 'Poppins',
                   fontWeight: FontWeight.bold,
                 ),
@@ -154,79 +154,135 @@ class MateriPage extends StatelessWidget {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                const SizedBox(height: 3),
                 Text(
-                  'Listening TOEFL adalah bagian ujian yang menguji kemampuan seseorang dalam mendengarkan dan memahami bahasa Inggris secara lisan.',
+                  'Bagian A',
                   style: TextStyle(
                     fontSize: 13,
                     fontFamily: 'Poppins',
-                    color: Colors.black,
+                    fontWeight: FontWeight.bold,
                   ),
                 ),
-                const SizedBox(height: 10),
                 Text(
-                  'Di sini, peserta ujian akan mendengarkan percakapan, penjelasan singkat, atau diskusi, lalu menjawab pertanyaan tentang apa yang mereka dengar.',
+                  'Bagian B',
                   style: TextStyle(
                     fontSize: 13,
                     fontFamily: 'Poppins',
-                    color: Colors.black,
+                    fontWeight: FontWeight.bold,
                   ),
                 ),
-                const SizedBox(height: 10),
                 Text(
-                  'Kemampuan mendengarkan yang baik sangat penting untuk skor TOEFL yang tinggi.',
+                  'Bagian C',
                   style: TextStyle(
                     fontSize: 13,
                     fontFamily: 'Poppins',
-                    color: Colors.black,
+                    fontWeight: FontWeight.bold,
                   ),
                 ),
-                const SizedBox(height: 10),
                 Text(
-                  'Kamu harus baca petunjuk dan pertanyaan dengan hati-hati sebelum mendengarkan rekaman. Selain itu kamu juga perlu menjaga konsentrasi dan fokus karena audio listening hanya diperdengarkan sekali.',
+                  'Mari kita bahas masing-masingnya :',
                   style: TextStyle(
                     fontSize: 13,
                     fontFamily: 'Poppins',
-                    color: Colors.black,
+                    fontWeight: FontWeight.bold,
                   ),
                 ),
-                const SizedBox(height: 10),
-                Text(
-                  'Cobalah mendapatkan ide dari situasi yang kamu dengar, seperti siapa pembicaranya, dimana mereka, dan mengapa mereka membicarakan hal tersebut. Biasanya pertanyaan yang sering muncul dalam sesi ini akan seperti berikut ini:',
-                  style: TextStyle(
-                    fontSize: 13,
-                    fontFamily: 'Poppins',
-                    color: Colors.black,
+                Center(
+                  child: Column(
+                    children: [
+                      SizedBox(height: 20),
+                      Text(
+                        'Bagian A : Short Conversation',
+                        style: TextStyle(
+                          fontSize: 13,
+                          fontFamily: 'Poppins',
+                          fontWeight: FontWeight.bold,
+                        ),
+                      ),
+                    ],
                   ),
                 ),
-                const SizedBox(height: 10),
-                Text(
-                  '-> What is the main topic of the lecture?'
-                  'Apa topik utama dari kuliah ini?',
-                  style: TextStyle(
-                    fontSize: 13,
-                    fontFamily: 'Poppins',
-                    color: Colors.black,
+                Center(
+                  child: Column(
+                    children: [
+                      SizedBox(height: 10),
+                      RichText(
+                        textAlign: TextAlign.center,
+                        text: TextSpan(
+                          style: TextStyle(
+                            fontSize: 13,
+                            fontFamily: 'Poppins',
+                            color: Colors.black,
+                          ),
+                          children: [
+                            TextSpan(
+                              text: '\u2022 ',
+                              style: TextStyle(
+                                fontSize: 13,
+                                fontFamily: 'Poppins',
+                                color: Colors.black,
+                              ),
+                            ),
+                            TextSpan(
+                              text:
+                                  'Bagian ini biasanya terdiri dari percakapan antara dua orang di lingkungan sehari-hari. seperti di kampus, di kantor, atau di tempat umum lainnya.',
+                              style: TextStyle(
+                                fontSize: 13,
+                                fontFamily: 'Poppins',
+                                color: Colors.black,
+                              ),
+                            ),
+                            TextSpan(text: '\n'),
+                            TextSpan(
+                              text: '\u2022 ',
+                              style: TextStyle(
+                                fontSize: 13,
+                                fontFamily: 'Poppins',
+                                color: Colors.black,
+                              ),
+                            ),
+                            TextSpan(
+                              text:
+                                  'Tujuannya adalah untuk menguji kemampuanmu dalam memahami percakapan informal antara orang-orang dalam berbagai situasi.',
+                              style: TextStyle(
+                                fontSize: 13,
+                                fontFamily: 'Poppins',
+                                color: Colors.black,
+                              ),
+                            ),
+                          ],
+                        ),
+                      ),
+                    ],
                   ),
                 ),
-                const SizedBox(height: 10),
-                Text(
-                  '-> What are the speakers mainly discussing?'
-                  'Apa yang dibahas oleh pembicara utamanya?',
-                  style: TextStyle(
-                    fontSize: 13,
-                    fontFamily: 'Poppins',
-                    color: Colors.black,
+                Center(
+                  child: Column(
+                    children: [
+                      SizedBox(height: 20),
+                      Text(
+                        'Bagian A : Short Conversation',
+                        style: TextStyle(
+                          fontSize: 13,
+                          fontFamily: 'Poppins',
+                          fontWeight: FontWeight.bold,
+                        ),
+                      ),
+                    ],
                   ),
                 ),
-                const SizedBox(height: 10),
-                Text(
-                  '-> What is the lecture mainly about...'
-                  'Apa yang utamanya dibahas dalam kuliah ini...',
-                  style: TextStyle(
-                    fontSize: 13,
-                    fontFamily: 'Poppins',
-                    color: Colors.black,
+                Center(
+                  child: Column(
+                    children: [
+                      SizedBox(height: 20),
+                      Text(
+                        'Bagian A : Short Conversation',
+                        style: TextStyle(
+                          fontSize: 13,
+                          fontFamily: 'Poppins',
+                          fontWeight: FontWeight.bold,
+                        ),
+                      ),
+                    ],
                   ),
                 ),
               ],
