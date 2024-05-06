@@ -57,7 +57,7 @@ class ContohSoalLearningReading extends StatelessWidget {
                   fontWeight: FontWeight.bold,
                 ),
               ),
-              const SizedBox(height: 15),
+              const SizedBox(height: 10),
               _buildQuestionCard(
                 description:
                     'Pablo Picasso was one of the most influential artists of the 20th century. He is best known for co-founding the Cubist movement and for his contributions to Surrealism. Picassos work is characterized by a radical departure from traditional artistic forms, with a focus on geometric shapes and abstract representations.',
@@ -116,7 +116,7 @@ class ContohSoalLearningReading extends StatelessWidget {
               Text(
                 description,
                 style: const TextStyle(
-                  fontSize: 16,
+                  fontSize: 14,
                   fontFamily: 'Poppins',
                   color: Colors.black,
                 ),
@@ -128,7 +128,7 @@ class ContohSoalLearningReading extends StatelessWidget {
         Text(
           question,
           style: const TextStyle(
-            fontSize: 16,
+            fontSize: 14,
             fontFamily: 'Poppins',
             color: Colors.black,
           ),
@@ -137,7 +137,7 @@ class ContohSoalLearningReading extends StatelessWidget {
         Text(
           'Answer : $answer',
           style: const TextStyle(
-            fontSize: 16,
+            fontSize: 14,
             fontWeight: FontWeight.bold,
             fontFamily: 'Poppins',
             color: Colors.black,
