@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:toefl_app/pages/learning_listening.dart/contoh_soal.dart/short_conversation.dart';
 //import 'package:toefl_app/pages/learning_reading.dart/home_learning_reading.dart';
 import 'package:toefl_app/pages/test_grammar/home_test_grammar.dart';
 
@@ -15,10 +16,10 @@ class MyApp extends StatelessWidget {
       // debugShowCheckedModeBanner: false,
       // title: 'Flutter Demo',
       // home: const HomeLearningReadingPages(),
-      
-       debugShowCheckedModeBanner: false,
+
+      debugShowCheckedModeBanner: false,
       title: 'Flutter Demo',
-      home: const HomeTestGrammarPages(),
+      home: ShortConversationPages(),
     );
   }
 }
