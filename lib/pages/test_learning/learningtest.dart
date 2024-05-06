@@ -62,11 +62,13 @@ class _learningTestState extends State<learningTest> {
                     CircleAvatar(
                       radius: 60,
                       backgroundColor: Colors.yellow,
-                      child: Image.asset('images/user.png'), // Change as per your asset directory
+                      child: Image.asset(
+                          'images/user.png'), // Change as per your asset directory
                     ),
                     SizedBox(height: 20),
                     Text('Test learning',
-                        style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold)),
+                        style: TextStyle(
+                            fontSize: 24, fontWeight: FontWeight.bold)),
                     SizedBox(height: 10),
                     Text('⏱ 100 menit    🖊️ 50 soal',
                         style: TextStyle(fontSize: 18, color: Colors.grey)),
@@ -76,7 +78,8 @@ class _learningTestState extends State<learningTest> {
                       child: Text('GET STARTED'),
                       style: ElevatedButton.styleFrom(
                         backgroundColor: Colors.yellow,
-                        padding: EdgeInsets.symmetric(horizontal: 50, vertical: 20),
+                        padding:
+                            EdgeInsets.symmetric(horizontal: 50, vertical: 20),
                       ),
                     ),
                     SizedBox(height: 30),

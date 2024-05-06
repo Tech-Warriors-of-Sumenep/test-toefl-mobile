@@ -17,7 +17,7 @@ class MyApp extends StatelessWidget {
       theme: ThemeData(
         colorScheme: ColorScheme.fromSwatch(primarySwatch: Colors.deepPurple),
       ),
-      home: const HomeLearningReadingPages(),    
+      home: const HomeLearningReadingPages(),
     );
   }
 }
