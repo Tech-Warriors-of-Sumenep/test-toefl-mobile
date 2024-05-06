@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:toefl_app/pages/learning_grammar/future_tense.dart';
 import 'package:toefl_app/pages/learning_grammar/subject_and_verb_aggrement.dart';
 import 'package:toefl_app/pages/learning_grammar/the_simple_present_tense.dart';
 import 'nouns.dart';
@@ -644,6 +645,13 @@ class TestGrammarPage extends StatelessWidget {
                                   Positioned(
                                     left: 278,
                                     top: 24,
+                                     child: GestureDetector(
+                                            onTap: () {
+  Navigator.push(
+    context,
+    MaterialPageRoute(builder: (context) => FutureTensePage()),
+  );
+},
                                     child: Container(
                                       width: 29,
                                       height: 31,
@@ -662,6 +670,7 @@ class TestGrammarPage extends StatelessWidget {
                                         ],
                                       ),
                                     ),
+                                  ),
                                   ),
                                 ],
                               ),
