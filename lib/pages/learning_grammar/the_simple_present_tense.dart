@@ -145,7 +145,7 @@ class LearningReadingPage extends StatelessWidget {
                     ),
                     const SizedBox(height: 16),
                     Text(
-                      'We use it when:',
+                      'Kami menggunakan saat::',
                       style: TextStyle(
                         color: Colors.black,
                         fontSize: 16,
@@ -155,7 +155,7 @@ class LearningReadingPage extends StatelessWidget {
                     ),
                     const SizedBox(height: 8),
                     Text(
-                      '- An action happens regularly, sometimes, or never.',
+                      '- tindakan terjadi secara teratur, kadang-kadang atau tidak pernah.',
                       style: TextStyle(
                         color: Colors.black,
                         fontSize: 12,
@@ -175,7 +175,7 @@ class LearningReadingPage extends StatelessWidget {
                     ),
                     const SizedBox(height: 8),
                     Text(
-                      '- Stating facts.',
+                      '- Nyatakan Fakta.',
                       style: TextStyle(
                         color: Colors.black,
                         fontSize: 12,
@@ -195,7 +195,7 @@ class LearningReadingPage extends StatelessWidget {
                     ),
                     const SizedBox(height: 8),
                     Text(
-                      "- Narrating events of a story happening right now.",
+                      "- Kami menceritakan peristiwa sebuah kisah yang terjadi sekarang.",
                       style: TextStyle(
                         color: Colors.black,
                         fontSize: 12,
@@ -215,7 +215,7 @@ class LearningReadingPage extends StatelessWidget {
                     ),
                     const SizedBox(height: 8),
                     Text(
-                      '- Actions that are going to happen very soon.',
+                      '- Tindakan yang akan sangat terjadi di masa depan.',
                       style: TextStyle(
                         color: Colors.black,
                         fontSize: 12,
@@ -235,7 +235,7 @@ class LearningReadingPage extends StatelessWidget {
                     ),
                     const SizedBox(height: 16),
                     Text(
-                      'Note:',
+                      'Catatan:',
                       style: TextStyle(
                         color: Colors.black,
                         fontSize: 16,
