@@ -235,33 +235,35 @@ void _startTimer() {
             ),
           ),
           Positioned(
-            left: 3,
-            top: 100,
+
+  top: 100,
+  child: Container(
+    width: 403,
+    height: 263,
+    child: Stack(
+      children: [
+        Positioned(
+          left: 0,
+          top: 0,
+          child: Center( // Center widget added here
             child: Container(
               width: 403,
               height: 263,
-              child: Stack(
-                children: [
-                  Positioned(
-                    left: 0,
-                    top: 0,
-                    child: Container(
-                      width: 403,
-                      height: 263,
-                      decoration: ShapeDecoration(
-                        color: Colors.white,
-                        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(5)),
-                        shadows: [
-                          BoxShadow(
-                            color: Color(0x3F000000),
-                            blurRadius: 4,
-                            offset: Offset(4, 4),
-                            spreadRadius: 0,
-                          )
-                        ],
-                      ),
-                    ),
-                  ),
+              decoration: ShapeDecoration(
+                color: Colors.white,
+                shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(5)),
+                shadows: [
+                  BoxShadow(
+                    color: Color(0x3F000000),
+                    blurRadius: 4,
+                    offset: Offset(4, 4),
+                    spreadRadius: 0,
+                  )
+                ],
+              ),
+            ),
+          ),
+        ),
                   Positioned(
                     left: 11,
                     top: 57,
@@ -333,45 +335,46 @@ void _startTimer() {
             ),
           ),
           Positioned(
-            left: 330,
-            top: 15,
-            child: Container(
-              width: 76,
-              height: 30,
-              child: Stack(
-                children: [
-                  Positioned(
-                    left: 0,
-                    top: 0,
-                    child: Container(
-                      width: 76,
-                      height: 30,
-                      decoration: BoxDecoration(color: Color(0xFFD9D9D9)),
-                    ),
-                  ),
-                  Positioned(
-                    left: 9,
-                    top: 5,
-                    child: SizedBox(
-                      width: 58,
-                      height: 20,
-                      child: Text(
-                        '${_secondsRemaining ~/ 60}:${(_secondsRemaining % 60).toString().padLeft(2, '0')}',
-                        textAlign: TextAlign.center,
-                        style: TextStyle(
-                          color: Colors.black,
-                          fontSize: 15,
-                          fontFamily: 'Poppins',
-                          fontWeight: FontWeight.w400,
-                          height: 0,
-                        ),
-                      ),
-                    ),
-                  ),
-                ],
+  top: 15,
+  right: 15,
+  child: Container(
+    width: 76,
+    height: 30,
+    child: Stack(
+      children: [
+        Positioned(
+          left: 0,
+          top: 0,
+          child: Container(
+            width: 76,
+            height: 30,
+            decoration: BoxDecoration(color: Color(0xFFD9D9D9)),
+          ),
+        ),
+        Positioned(
+          left: 9,
+          top: 5,
+          child: SizedBox(
+            width: 58,
+            height: 20,
+            child: Text(
+              '${_secondsRemaining ~/ 60}:${(_secondsRemaining % 60).toString().padLeft(2, '0')}',
+              textAlign: TextAlign.center,
+              style: TextStyle(
+                color: Colors.black,
+                fontSize: 15,
+                fontFamily: 'Poppins',
+                fontWeight: FontWeight.w400,
+                height: 0,
               ),
             ),
           ),
+        ),
+      ],
+    ),
+  ),
+),
+
           Positioned(
             left: 0,
             right: 0,

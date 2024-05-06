@@ -323,54 +323,58 @@ class _FinishPageState extends State<FinishPage> {
               ),
             ),
           ),
+       Center(
+  child: Transform.translate(
+    offset: Offset(0, -150), // Sesuaikan dengan nilai yang sesuai untuk posisi vertikal
+    child: Container(
+      width: 160,
+      height: 160,
+      child: Stack(
+        children: [
           Positioned(
-            left: 129,
-            top: 100,
+            left: 0,
+            top: 0,
             child: Container(
               width: 160,
               height: 160,
-              child: Stack(
-                children: [
-                  Positioned(
-                    left: 0,
-                    top: 0,
-                    child: Container(
-                      width: 160,
-                      height: 160,
-                      decoration: ShapeDecoration(
-                        color: Color.fromARGB(255, 255, 255, 255).withOpacity(0),
-                        shape: OvalBorder(
-                          side: BorderSide(width: 3, color: Color(0xFF027D44)),
-                        ),
-                        shadows: [
-                          BoxShadow(
-                            color: Color.fromARGB(59, 255, 255, 255),
-                            blurRadius: 4,
-                            offset: Offset(0, 0),
-                            spreadRadius: 5,
-                          )
-                        ],
-                      ),
-                    ),
-                  ),
-                  Positioned(
-                    left: 31,
-                    top: 62,
-                    child: Text(
-                      'FINISH ',
-                      style: TextStyle(
-                        color: Color(0xFF2BB231),
-                        fontSize: 30,
-                        fontFamily: 'Inter',
-                        fontWeight: FontWeight.w600,
-                        height: 0,
-                      ),
-                    ),
-                  ),
+              decoration: ShapeDecoration(
+                color: Color.fromARGB(255, 253, 253, 253).withOpacity(0),
+                shape: OvalBorder(
+                  side: BorderSide(width: 3, color: Color(0xFF027D44)),
+                ),
+                shadows: [
+                  BoxShadow(
+                    color: Color.fromARGB(57, 255, 255, 255),
+                    blurRadius: 4,
+                    offset: Offset(0, 0),
+                    spreadRadius: 5,
+                  )
                 ],
               ),
             ),
           ),
+          Positioned(
+            left: 31,
+            top: 62,
+            child: Text(
+              'FINISH ',
+              style: TextStyle(
+                color: Color(0xFF2BB231),
+                backgroundColor: Colors.white,
+                fontSize: 30,
+                fontFamily: 'Inter',
+                fontWeight: FontWeight.w600,
+                height: 0,
+              ),
+            ),
+          ),
+        ],
+      ),
+    ),
+  ),
+),
+
+
           
           Positioned(
             left: 116,
