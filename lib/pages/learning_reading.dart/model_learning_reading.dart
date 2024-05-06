@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:toefl_app/pages/learning_reading.dart/contoh_soal_learning_reading.dart';
 import 'home_learning_reading.dart';
 
 class ModelLearningReadingPages extends StatefulWidget {
@@ -213,7 +214,7 @@ class LearningReadingPage extends StatelessWidget {
                   context,
                   MaterialPageRoute(
                       builder: (context) =>
-                          ModelLearningReadingPages()), // Pindah ke ModelLearningReadingPages
+                          ContohSoalLearningReading()), // Pindah ke ModelLearningReadingPages
                 );
               },
               child: const Text(
