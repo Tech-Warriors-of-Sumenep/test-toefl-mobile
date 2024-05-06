@@ -144,8 +144,9 @@ void _startTimer() {
               ],
             ),
           ),
+          
           Positioned(
-            left: 58,
+            left: 60,
             top: 425,
             child: InkWell(
               onTap: () {
@@ -181,8 +182,10 @@ void _startTimer() {
               ),
             ),
           ),
-          Positioned(
-            left: 301,
+
+
+           Positioned(
+            left: 250,
             top: 425,
             child: InkWell(
               onTap: () {
@@ -234,107 +237,116 @@ void _startTimer() {
               ),
             ),
           ),
-          Positioned(
 
-  top: 100,
-  child: Container(
-    width: 403,
-    height: 263,
-    child: Stack(
-      children: [
-        Positioned(
-          left: 0,
-          top: 0,
-          child: Center( // Center widget added here
-            child: Container(
-              width: 403,
-              height: 263,
-              decoration: ShapeDecoration(
-                color: Colors.white,
-                shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(5)),
-                shadows: [
-                  BoxShadow(
-                    color: Color(0x3F000000),
-                    blurRadius: 4,
-                    offset: Offset(4, 4),
-                    spreadRadius: 0,
-                  )
-                ],
-              ),
+          
+    Center(
+  child: Align(
+    alignment: Alignment(0, -0.7), // Sesuaikan nilai untuk mengatur posisi vertikal
+    child: Container(
+      width: 403,
+      height: 263,
+      child: Stack(
+        alignment: Alignment.center,
+        children: [
+          Container(
+            width: 403,
+            height: 263,
+            decoration: ShapeDecoration(
+              color: Color.fromARGB(255, 255, 255, 255),
+              shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(5)),
+              shadows: [
+                BoxShadow(
+                  color: Color(0x3F000000),
+                  blurRadius: 4,
+                  offset: Offset(4, 4),
+                  spreadRadius: 0,
+                )
+              ],
             ),
-          ),
-        ),
-                  Positioned(
-                    left: 11,
-                    top: 57,
-                    child: SizedBox(
-                      width: 386,
-                      child: Text(
-                        _questions[_currentQuestionIndex]['question'],
-                        style: TextStyle(
-                          color: Colors.black,
-                          fontSize: 15,
-                          fontFamily: 'Poppins',
-                          fontWeight: FontWeight.w400,
-                          height: 0,
-                        ),
-                      ),
-                    ),
-                  ),
-                  for (int i = 0; i < _questions[_currentQuestionIndex]['answers'].length; i++)
-                    Positioned(
-                      left: 33,
-                      top: 113 + i * 27,
-                      child: InkWell(
-                        onTap: () {
-                          _checkAnswer(i);
-                        },
-                        child: Row(
-                          children: [
-                            SizedBox(
-                              width: 14,
-                              height: 14,
-                              child: Container(
-                                decoration: BoxDecoration(
-                                  color: _selectedAnswerIndex == i ? Colors.blue : Color(0xFFF2F2F2),
-                                  shape: BoxShape.circle,
-                                ),
-                              ),
-                            ),
-                            SizedBox(width: 8),
-                            Text(
-                              _questions[_currentQuestionIndex]['answers'][i],
-                              style: TextStyle(
-                                color: _selectedAnswerIndex == i ? Colors.blue : Colors.black,
-                                fontSize: 15,
-                                fontFamily: 'Poppins',
-                                fontWeight: FontWeight.w400,
-                                height: 0,
-                              ),
-                            ),
-                          ],
-                        ),
-                      ),
-                    ),
-                  Positioned(
-                    left: 150,
-                    top: 15,
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                SizedBox(
+                  width: 350,
+                  child: Padding(
+                    padding: const EdgeInsets.only(left: 13),
                     child: Text(
-                      'Question ${_currentQuestionIndex + 1}',
+                      _questions[_currentQuestionIndex]['question'],
                       style: TextStyle(
                         color: Colors.black,
-                        fontSize: 20,
+                        fontSize: 15,
                         fontFamily: 'Poppins',
-                        fontWeight: FontWeight.w700,
+                        fontWeight: FontWeight.w400,
                         height: 0,
                       ),
                     ),
                   ),
-                ],
-              ),
+                ),
+                SizedBox(height: 20), // Jarak antara pertanyaan dan jawaban
+                Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: List.generate(
+                    _questions[_currentQuestionIndex]['answers'].length,
+                    (index) {
+                      return InkWell(
+                        onTap: () {
+                          _checkAnswer(index);
+                        },
+                        child: Padding(
+                          padding: const EdgeInsets.only(left: 33),
+                          child: Row(
+                            children: [
+                              Container(
+                                width: 14,
+                                height: 14,
+                                decoration: BoxDecoration(
+                                  color: _selectedAnswerIndex == index ? Colors.blue : Color(0xFFF2F2F2),
+                                  shape: BoxShape.circle,
+                                ),
+                              ),
+                              SizedBox(width: 8),
+                              Text(
+                                _questions[_currentQuestionIndex]['answers'][index],
+                                style: TextStyle(
+                                  color: _selectedAnswerIndex == index ? Colors.blue : Colors.black,
+                                  fontSize: 15,
+                                  fontFamily: 'Poppins',
+                                  fontWeight: FontWeight.w400,
+                                  height: 0,
+                                ),
+                              ),
+                            ],
+                          ),
+                        ),
+                      );
+                    },
+                  ),
+                ),
+              ],
             ),
           ),
           Positioned(
+            left: 150,
+            top: 15,
+            child: Text(
+              'Question ${_currentQuestionIndex + 1}',
+              style: TextStyle(
+                color: Colors.black,
+                fontSize: 20,
+                fontFamily: 'Poppins',
+                fontWeight: FontWeight.w700,
+                height: 0,
+              ),
+            ),
+          ),
+        ],
+      ),
+    ),
+  ),
+),
+
+  Positioned(
   top: 15,
   right: 15,
   child: Container(

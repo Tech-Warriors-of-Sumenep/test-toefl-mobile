@@ -20,9 +20,17 @@ class MyApp extends StatelessWidget {
       // title: 'Flutter Demo',
       // home: const HomeLearningReadingPages(),
 
-      debugShowCheckedModeBanner: false,
+      // debugShowCheckedModeBanner: false,
+      // title: 'Flutter Demo',
+      // home: the_simle_present_tensePage(),
+
+      //   debugShowCheckedModeBanner: false,
+      // title: 'Flutter Demo',
+      // home: the_simle_present_tensePage(),
+      
+        debugShowCheckedModeBanner: false,
       title: 'Flutter Demo',
-      home: HomeMateriPages(),
+      home: HomeTestGrammarPages(),
     );
   }
 }

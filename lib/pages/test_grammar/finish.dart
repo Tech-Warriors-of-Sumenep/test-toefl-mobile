@@ -51,279 +51,291 @@ class _FinishPageState extends State<FinishPage> {
       body: Stack(
         children: [
           // Konten halaman
-          Positioned(
-            left: 210,
-            top: 410,
-            child: Container(
-              width: 195,
-              height: 49,
-              child: Stack(
+         Center(
+          child: Row(
+            children: [
+              Spacer(), // Menambahkan ruang kosong di sebelah kiri agar kotak-kotak di sebelah kanan berada lebih dekat dengan tengah
+              Column(
+                mainAxisAlignment: MainAxisAlignment.center,
                 children: [
-                  Positioned(
-                    left: 0,
-                    top: 0,
-                    child: Container(
-                      width: 195,
-                      height: 49,
-                      decoration: ShapeDecoration(
-                        color: Color(0xFFF1F1F1),
-                        shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(10),
+                  Container(
+                    margin: EdgeInsets.only(top: 120),
+                    width: 170,
+                    height: 49,
+                    child: Stack(
+                      children: [
+                        Positioned(
+                          left: 0,
+                          top: 0,
+                          child: Container(
+                            width: 170,
+                            height: 49,
+                            decoration: ShapeDecoration(
+                              color: Color(0xFFF1F1F1),
+                              shape: RoundedRectangleBorder(
+                                borderRadius: BorderRadius.circular(10),
+                              ),
+                              shadows: [
+                                BoxShadow(
+                                  color: Color(0x3F000000),
+                                  blurRadius: 4,
+                                  offset: Offset(0, 0),
+                                  spreadRadius: 1,
+                                )
+                              ],
+                            ),
+                          ),
                         ),
-                        shadows: [
-                          BoxShadow(
-                            color: Color(0x3F000000),
-                            blurRadius: 4,
-                            offset: Offset(0, 0),
-                            spreadRadius: 1,
-                          )
-                        ],
-                      ),
+                        Positioned(
+                          left: 126,
+                          top: 16,
+                          child: SizedBox(
+                            width: 35,
+                            child: Text(
+                              '  : 43',
+                              style: TextStyle(
+                                color: Colors.black,
+                                fontSize: 15,
+                                fontFamily: 'Poppins',
+                                fontWeight: FontWeight.w400,
+                                height: 0,
+                              ),
+                            ),
+                          ),
+                        ),
+                        Positioned(
+                          left: 13.85,
+                          top: 16,
+                          child: SizedBox(
+                            width: 120,
+                            child: Text(
+                              'Correct Answer',
+                              style: TextStyle(
+                                color: Colors.black,
+                                fontSize: 15,
+                                fontFamily: 'Poppins',
+                                fontWeight: FontWeight.w400,
+                                height: 0,
+                              ),
+                            ),
+                          ),
+                        ),
+                      ],
                     ),
                   ),
-                  Positioned(
-                    left: 126,
-                    top: 16,
-                    child: SizedBox(
-                      width: 31.97,
-                      child: Text(
-                        ': 50',
-                        style: TextStyle(
-                          color: Colors.black,
-                          fontSize: 15,
-                          fontFamily: 'Poppins',
-                          fontWeight: FontWeight.w400,
-                          height: 0,
+                  
+                  SizedBox(height: 10),
+                  Container(
+                    width: 170,
+                    height: 49,
+                    child: Stack(
+                      children: [
+                        Positioned(
+                          left: 0,
+                          top: 0,
+                          child: Container(
+                            width: 170,
+                            height: 49,
+                            decoration: ShapeDecoration(
+                              color: Color(0xFFF1F1F1),
+                              shape: RoundedRectangleBorder(
+                                borderRadius: BorderRadius.circular(10),
+                              ),
+                              shadows: [
+                                BoxShadow(
+                                  color: Color(0x3F000000),
+                                  blurRadius: 4,
+                                  offset: Offset(0, 0),
+                                  spreadRadius: 1,
+                                )
+                              ],
+                            ),
+                          ),
                         ),
-                      ),
-                    ),
-                  ),
-                  Positioned(
-                    left: 13.85,
-                    top: 16,
-                    child: SizedBox(
-                      width: 118.28,
-                      child: Text(
-                        'Total Question',
-                        style: TextStyle(
-                          color: Colors.black,
-                          fontSize: 15,
-                          fontFamily: 'Poppins',
-                          fontWeight: FontWeight.w400,
-                          height: 0,
+                        Positioned(
+                          left: 96,
+                          top: 16,
+                          child: SizedBox(
+                            width: 70,
+                            child: Text(
+                              ': 98 m 5s',
+                              style: TextStyle(
+                                color: Colors.black,
+                                fontSize: 15,
+                                fontFamily: 'Poppins',
+                                fontWeight: FontWeight.w400,
+                                height: 0,
+                              ),
+                            ),
+                          ),
                         ),
-                      ),
+                        Positioned(
+                          left: 15,
+                          top: 16,
+                          child: SizedBox(
+                            width: 88,
+                            child: Text(
+                              'Total Time',
+                              style: TextStyle(
+                                color: Colors.black,
+                                fontSize: 15,
+                                fontFamily: 'Poppins',
+                                fontWeight: FontWeight.w400,
+                                height: 0,
+                              ),
+                            ),
+                          ),
+                        ),
+                      ],
                     ),
                   ),
                 ],
               ),
-            ),
-          ),
-          Positioned(
-            left: 10,
-            top: 410,
-            child: Container(
-              width: 183,
-              height: 49,
-              child: Stack(
+              Spacer(), // Menambahkan ruang kosong di sebelah kanan agar kotak-kotak di sebelah kiri berada lebih dekat dengan tengah
+            Column(
+                mainAxisAlignment: MainAxisAlignment.center,
                 children: [
-                  Positioned(
-                    left: 0,
-                    top: 0,
-                    child: Container(
-                      width: 183,
-                      height: 49,
-                      decoration: ShapeDecoration(
-                        color: Color(0xFFF1F1F1),
-                        shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(10),
+                  Container(
+                    margin: EdgeInsets.only(top: 120),
+                    width: 170,
+                    height: 49,
+                    child: Stack(
+                      children: [
+                        Positioned(
+                          left: 0,
+                          top: 0,
+                          child: Container(
+                            width: 170,
+                            height: 49,
+                            decoration: ShapeDecoration(
+                              color: Color(0xFFF1F1F1),
+                              shape: RoundedRectangleBorder(
+                                borderRadius: BorderRadius.circular(10),
+                              ),
+                              shadows: [
+                                BoxShadow(
+                                  color: Color(0x3F000000),
+                                  blurRadius: 4,
+                                  offset: Offset(0, 0),
+                                  spreadRadius: 1,
+                                )
+                              ],
+                            ),
+                          ),
                         ),
-                        shadows: [
-                          BoxShadow(
-                            color: Color(0x3F000000),
-                            blurRadius: 4,
-                            offset: Offset(0, 0),
-                            spreadRadius: 1,
-                          )
-                        ],
-                      ),
+                        Positioned(
+                          left: 126,
+                          top: 16,
+                          child: SizedBox(
+                            width:40,
+                            child: Text(
+                              '     : 7',
+                              style: TextStyle(
+                                color: Colors.black,
+                                fontSize: 15,
+                                fontFamily: 'Poppins',
+                                fontWeight: FontWeight.w400,
+                                height: 0,
+                              ),
+                            ),
+                          ),
+                        ),
+                        Positioned(
+                          left: 13.85,
+                          top: 16,
+                          child: SizedBox(
+                            width: 130,
+                            child: Text(
+                              'Incorrect Answer',
+                              style: TextStyle(
+                                color: Colors.black,
+                                fontSize: 15,
+                                fontFamily: 'Poppins',
+                                fontWeight: FontWeight.w400,
+                                height: 0,
+                              ),
+                            ),
+                          ),
+                        ),
+                      ],
                     ),
                   ),
-                  Positioned(
-                    left: 96,
-                    top: 16,
-                    child: SizedBox(
-                      width: 70,
-                      child: Text(
-                        ': 98 m 5s',
-                        style: TextStyle(
-                          color: Colors.black,
-                          fontSize: 15,
-                          fontFamily: 'Poppins',
-                          fontWeight: FontWeight.w400,
-                          height: 0,
+                  SizedBox(height: 10),
+                  Container(
+                    width: 170,
+                    height: 49,
+                    child: Stack(
+                      children: [
+                        Positioned(
+                          left: 0,
+                          top: 0,
+                          child: Container(
+                            width: 170,
+                            height: 49,
+                            decoration: ShapeDecoration(
+                              color: Color(0xFFF1F1F1),
+                              shape: RoundedRectangleBorder(
+                                borderRadius: BorderRadius.circular(10),
+                              ),
+                              shadows: [
+                                BoxShadow(
+                                  color: Color(0x3F000000),
+                                  blurRadius: 4,
+                                  offset: Offset(0, 0),
+                                  spreadRadius: 1,
+                                )
+                              ],
+                            ),
+                          ),
                         ),
-                      ),
-                    ),
-                  ),
-                  Positioned(
-                    left: 15,
-                    top: 16,
-                    child: SizedBox(
-                      width: 88,
-                      child: Text(
-                        'Total Time',
-                        style: TextStyle(
-                          color: Colors.black,
-                          fontSize: 15,
-                          fontFamily: 'Poppins',
-                          fontWeight: FontWeight.w400,
-                          height: 0,
+                        Positioned(
+                          left: 96,
+                          top: 16,
+                          child: SizedBox(
+                            width: 70,
+                            child: Text(
+                              '         : 50',
+                              style: TextStyle(
+                                color: Colors.black,
+                                fontSize: 15,
+                                fontFamily: 'Poppins',
+                                fontWeight: FontWeight.w400,
+                                height: 0,
+                              ),
+                            ),
+                          ),
                         ),
-                      ),
+                        Positioned(
+                          left: 15,
+                          top: 16,
+                          child: SizedBox(
+                            width: 120,
+                            child: Text(
+                              'Total Question',
+                              style: TextStyle(
+                                color: Colors.black,
+                                fontSize: 15,
+                                fontFamily: 'Poppins',
+                                fontWeight: FontWeight.w400,
+                                height: 0,
+                              ),
+                            ),
+                          ),
+                        ),
+                      ],
                     ),
                   ),
                 ],
               ),
-            ),
+              Spacer(), // Menambahkan ruang kosong di sebelah kanan dari kotak-kotak di sebelah kanan
+            ],
           ),
-          Positioned(
-            left: 10,
-            top: 340,
-            child: Container(
-              width: 190.82,
-              height: 49,
-              child: Stack(
-                children: [
-                  Positioned(
-                    left: 0,
-                    top: 0,
-                    child: Container(
-                      width: 183,
-                      height: 49,
-                      decoration: ShapeDecoration(
-                        color: Color(0xFFF1F1F1),
-                        shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(10),
-                        ),
-                        shadows: [
-                          BoxShadow(
-                            color: Color(0x3F000000),
-                            blurRadius: 4,
-                            offset: Offset(0, 0),
-                            spreadRadius: 1,
-                          )
-                        ],
-                      ),
-                    ),
-                  ),
-                  Positioned(
-                    left: 134,
-                    top: 16,
-                    child: SizedBox(
-                      width: 56.82,
-                      child: Text(
-                        ': 43',
-                        style: TextStyle(
-                          color: Colors.black,
-                          fontSize: 15,
-                          fontFamily: 'Poppins',
-                          fontWeight: FontWeight.w400,
-                          height: 0,
-                        ),
-                      ),
-                    ),
-                  ),
-                  Positioned(
-                    left: 15,
-                    top: 16,
-                    child: SizedBox(
-                      width: 130,
-                      child: Text(
-                        'Correct Answer',
-                        style: TextStyle(
-                          color: Colors.black,
-                          fontSize: 15,
-                          fontFamily: 'Poppins',
-                          fontWeight: FontWeight.w400,
-                          height: 0,
-                        ),
-                      ),
-                    ),
-                  ),
-                ],
-              ),
-            ),
-          ),
-          Positioned(
-            left: 210,
-            top: 340,
-            child: Container(
-              width: 195,
-              height: 49,
-              child: Stack(
-                children: [
-                  Positioned(
-                    left: 0,
-                    top: 0,
-                    child: Container(
-                      width: 194.75,
-                      height: 49,
-                      decoration: ShapeDecoration(
-                        color: Color(0xFFF1F1F1),
-                        shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(10),
-                        ),
-                        shadows: [
-                          BoxShadow(
-                            color: Color(0x3F000000),
-                            blurRadius: 4,
-                            offset: Offset(0, 0),
-                            spreadRadius: 1,
-                          )
-                        ],
-                      ),
-                    ),
-                  ),
-                  Positioned(
-                    left: 148,
-                    top: 16,
-                    child: SizedBox(
-                      width: 47,
-                      child: Text(
-                        ': 7',
-                        style: TextStyle(
-                          color: Colors.black,
-                          fontSize: 15,
-                          fontFamily: 'Poppins',
-                          fontWeight: FontWeight.w400,
-                          height: 0,
-                        ),
-                      ),
-                    ),
-                  ),
-                  Positioned(
-                    left: 15.96,
-                    top: 16,
-                    child: SizedBox(
-                      width: 131.96,
-                      child: Text(
-                        'Incorrect Answer',
-                        style: TextStyle(
-                          color: Colors.black,
-                          fontSize: 15,
-                          fontFamily: 'Poppins',
-                          fontWeight: FontWeight.w400,
-                          height: 0,
-                        ),
-                      ),
-                    ),
-                  ),
-                ],
-              ),
-            ),
-          ),
-       Center(
+        ),
+ 
+  
+  
+
+      Center(
   child: Transform.translate(
     offset: Offset(0, -150), // Sesuaikan dengan nilai yang sesuai untuk posisi vertikal
     child: Container(
@@ -354,17 +366,18 @@ class _FinishPageState extends State<FinishPage> {
             ),
           ),
           Positioned(
-            left: 31,
-            top: 62,
-            child: Text(
-              'FINISH ',
-              style: TextStyle(
-                color: Color(0xFF2BB231),
-                backgroundColor: Colors.white,
-                fontSize: 30,
-                fontFamily: 'Inter',
-                fontWeight: FontWeight.w600,
-                height: 0,
+            child: Align(
+              alignment: Alignment.center,
+              child: Text(
+                'FINISH ',
+                style: TextStyle(
+                  color: Color(0xFF2BB231),
+                  backgroundColor: Colors.white,
+                  fontSize: 30,
+                  fontFamily: 'Inter',
+                  fontWeight: FontWeight.w600,
+                  height: 0,
+                ),
               ),
             ),
           ),
@@ -374,61 +387,61 @@ class _FinishPageState extends State<FinishPage> {
   ),
 ),
 
-
           
-          Positioned(
-            left: 116,
-            top: 500,
-            child: Container(
-              width: 199,
-              height: 50,
-              child: Stack(
-                children: [
-                  Positioned(
-                    left: 0,
-                    top: 0,
-                    child: Container(
-                      width: 199,
-                      height: 50,
-                      decoration: ShapeDecoration(
-                        color: Color(0xFFCE1A1A),
-                        shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(10),
-                        ),
-                        shadows: [
-                          BoxShadow(
-                            color: Color(0x3F000000),
-                            blurRadius: 4,
-                            offset: Offset(0, 0),
-                            spreadRadius: 2,
-                          )
-                        ],
-                      ),
-                    ),
-                  ),
-                  Positioned(
-                    left: 0,
-                    top: 12,
-                    child: SizedBox(
-                      width: 197,
-                      height: 25,
-                      child: Text(
-                        'Advanced',
-                        textAlign: TextAlign.center,
-                        style: TextStyle(
-                          color: Colors.white,
-                          fontSize: 20,
-                          fontFamily: 'Poppins',
-                          fontWeight: FontWeight.w700,
-                          height: 0,
-                        ),
-                      ),
-                    ),
-                  ),
-                ],
+         Center(
+  child: Container(
+    margin: EdgeInsets.only(top: 400),
+    width: 199,
+    height: 50,
+    child: Stack(
+      children: [
+        Positioned(
+          left: 0,
+          top: 0,
+          child: Container(
+            width: 199,
+            height: 50,
+            decoration: ShapeDecoration(
+              color: Color(0xFFCE1A1A),
+              shape: RoundedRectangleBorder(
+                borderRadius: BorderRadius.circular(10),
+              ),
+              shadows: [
+                BoxShadow(
+                  color: Color(0x3F000000),
+                  blurRadius: 4,
+                  offset: Offset(0, 0),
+                  spreadRadius: 2,
+                )
+              ],
+            ),
+          ),
+        ),
+        Positioned(
+          left: 0,
+          top: 12,
+          child: SizedBox(
+            width: 197,
+            height: 25,
+            child: Text(
+              'Advanced',
+              textAlign: TextAlign.center,
+              style: TextStyle(
+                color: Colors.white,
+                fontSize: 20,
+                fontFamily: 'Poppins',
+                fontWeight: FontWeight.w700,
+                height: 0,
               ),
             ),
           ),
+        ),
+      ],
+    ),
+  ),
+),
+
+
         ],
       ),
       bottomNavigationBar: Container(
