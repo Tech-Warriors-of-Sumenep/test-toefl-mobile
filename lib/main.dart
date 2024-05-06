@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:toefl_app/pages/learning_grammar/grammar_dashboard.dart';
 import 'package:toefl_app/pages/learning_grammar/subject_and_verb_aggrement.dart';
 import 'package:toefl_app/pages/learning_grammar/the_simple_present_tense.dart';
 import 'package:toefl_app/pages/learning_listening.dart/contoh_soal.dart/short_conversation.dart';
@@ -21,7 +22,7 @@ class MyApp extends StatelessWidget {
 
       debugShowCheckedModeBanner: false,
       title: 'Flutter Demo',
-      home: the_simle_present_tensePage(),
+      home: grammarDashboard(),
     );
   }
 }

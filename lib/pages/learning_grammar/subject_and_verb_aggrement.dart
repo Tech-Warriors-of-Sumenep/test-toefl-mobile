@@ -1,15 +1,15 @@
 import 'package:flutter/material.dart';
 
-class subject_and_verb_aggrementPage extends StatefulWidget {
-  const subject_and_verb_aggrementPage({Key? key}) : super(key: key);
+class SubjectAndVerbPage extends StatefulWidget {
+  const SubjectAndVerbPage({Key? key}) : super(key: key);
 
   @override
-  State<subject_and_verb_aggrementPage> createState() =>
+  State<SubjectAndVerbPage> createState() =>
       _subject_and_verb_aggrementPageState();
 }
 
 class _subject_and_verb_aggrementPageState
-    extends State<subject_and_verb_aggrementPage> {
+    extends State<SubjectAndVerbPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(

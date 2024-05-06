@@ -1,15 +1,15 @@
 import 'package:flutter/material.dart';
 
-class the_simle_present_tensePage extends StatefulWidget {
-  const the_simle_present_tensePage({Key? key}) : super(key: key);
+class TheSimplePresentTensePages extends StatefulWidget {
+  const TheSimplePresentTensePages({Key? key}) : super(key: key);
 
   @override
-  State<the_simle_present_tensePage> createState() =>
+  State<TheSimplePresentTensePages> createState() =>
       _the_simle_present_tensePageState();
 }
 
 class _the_simle_present_tensePageState
-    extends State<the_simle_present_tensePage> {
+    extends State<TheSimplePresentTensePages> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
