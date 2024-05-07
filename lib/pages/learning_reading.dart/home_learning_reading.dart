@@ -130,6 +130,7 @@ class LearningReadingPage extends StatelessWidget {
               'Learning Reading',
               style: TextStyle(
                 fontSize: 30,
+                fontFamily: 'Poppins',
                 fontWeight: FontWeight.bold,
               ),
             ),
@@ -145,6 +146,7 @@ class LearningReadingPage extends StatelessWidget {
                   style: TextStyle(
                     fontSize: 20,
                     fontWeight: FontWeight.bold,
+                    fontFamily: 'Poppins',
                     color: const Color(0xFF020052),
                   ),
                 ),
@@ -183,6 +185,7 @@ class LearningReadingPage extends StatelessWidget {
                 style: TextStyle(
                   fontSize: 15,
                   fontWeight: FontWeight.bold,
+                  fontFamily: 'Poppins',
                   color: const Color(0xFF2E00BA),
                 ),
               ),
