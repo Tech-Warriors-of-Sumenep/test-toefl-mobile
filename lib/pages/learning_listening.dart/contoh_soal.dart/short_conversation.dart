@@ -8,6 +8,8 @@ class ShortConversationPages extends StatefulWidget {
   State<ShortConversationPages> createState() => _ShortConversationPagesState();
 }
 
+bool isPlaying = false;
+
 class _ShortConversationPagesState extends State<ShortConversationPages> {
   final player = AudioPlayer();
 
@@ -59,25 +61,26 @@ class _ShortConversationPagesState extends State<ShortConversationPages> {
         mainAxisAlignment: MainAxisAlignment.start,
         crossAxisAlignment: CrossAxisAlignment.stretch,
         children: [
-          Padding(
-            padding: const EdgeInsets.only(top: 36.0),
-            child: Text(
-              'Bagian A : Short Conversation',
-              textAlign: TextAlign.center,
-              style: TextStyle(
-                fontSize: 18,
-                fontWeight: FontWeight.w600,
-                color: Colors.black,
-                fontFamily: 'Poppins',
+          Column(
+            mainAxisAlignment: MainAxisAlignment.start,
+            crossAxisAlignment: CrossAxisAlignment.stretch,
+            children: [
+              const Padding(
+                padding: EdgeInsets.only(top: 36.0),
+                child: Text(
+                  'Bagian A : Short Conversation',
+                  textAlign: TextAlign.center,
+                  style: TextStyle(
+                    fontSize: 18,
+                    fontWeight: FontWeight.w600,
+                    color: Colors.black,
+                    fontFamily: 'Poppins',
+                  ),
+                ),
               ),
-            ),
-          ),
-          Padding(
-            padding: const EdgeInsets.only(top: 20.0, left: 15.0),
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: [
-                Text(
+              const Padding(
+                padding: EdgeInsets.only(top: 20.0, left: 15.0),
+                child: Text(
                   'Contoh Soal :',
                   style: TextStyle(
                     fontSize: 16,
@@ -85,15 +88,40 @@ class _ShortConversationPagesState extends State<ShortConversationPages> {
                     color: Colors.black,
                   ),
                 ),
-                ElevatedButton(
-                  onPressed: () {
-                    playAudioFromUrl(
-                        'https://commondatastorage.googleapis.com/codeskulptor-demos/DDR_assets/Kangaroo_MusiQue_-_The_Neverwritten_Role_Playing_Game.mp3');
-                  },
-                  child: Text('Play Audio'),
+              ),
+              Padding(
+                padding: const EdgeInsets.only(top: 16.0),
+                child: Container(
+                  margin: const EdgeInsets.symmetric(horizontal: 22.0),
+                  width: double.infinity,
+                  decoration: BoxDecoration(
+                    color: Colors.grey[300],
+                    borderRadius: BorderRadius.circular(8.0),
+                  ),
+                  child: Row(
+                    children: [
+                      IconButton(
+                        icon: Icon(isPlaying ? Icons.pause : Icons.play_arrow),
+                        onPressed: () async {
+                          if (isPlaying) {
+                            await player.pause();
+                          } else {
+                            await playAudioFromUrl(
+                                'https://commondatastorage.googleapis.com/codeskulptor-demos/DDR_assets/Kangaroo_MusiQue_-_The_Neverwritten_Role_Playing_Game.mp3');
+                          }
+                          setState(() {
+                            isPlaying = !isPlaying;
+                          });
+                        },
+                      ),
+                      const Expanded(
+                        child: SizedBox(), // Widget kosong untuk mengisi ruang
+                      ),
+                    ],
+                  ),
                 ),
-              ],
-            ),
+              ),
+            ],
           ),
           Expanded(
             child: Stack(
@@ -122,7 +150,7 @@ class _ShortConversationPagesState extends State<ShortConversationPages> {
                     child: Row(
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
-                        Text(
+                        const Text(
                           'Learning Listening TOEFL',
                           style: TextStyle(
                             color: Colors.black,
@@ -132,7 +160,7 @@ class _ShortConversationPagesState extends State<ShortConversationPages> {
                           ),
                         ),
                         IconButton(
-                          icon: Icon(Icons.arrow_forward_sharp),
+                          icon: const Icon(Icons.arrow_forward_sharp),
                           onPressed: () {
                             // Tambahkan logika untuk berpindah halaman di sini
                           },
