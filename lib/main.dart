@@ -6,6 +6,7 @@ import 'package:toefl_app/pages/learning_listening.dart/contoh_soal.dart/short_c
 import 'package:toefl_app/pages/learning_listening.dart/materi.dart/home_materi.dart';
 import 'package:toefl_app/pages/learning_reading.dart/home_learning_reading.dart';
 import 'package:toefl_app/pages/test_grammar/home_test_grammar.dart';
+import 'package:toefl_app/pages/test_reading/home_test_reading.dart';
 
 void main() {
   runApp(const MyApp());
@@ -18,26 +19,8 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
-      title: 'Flutter Demo',
-      home: const HomeLearningReadingPages(),
-
-      // debugShowCheckedModeBanner: false,
-      // title: 'Flutter Demo',
-      // home: the_simle_present_tensePage(),
-
-      //   debugShowCheckedModeBanner: false,
-      // title: 'Flutter Demo',
-      // home: the_simle_present_tensePage(),
-
-<<<<<<< HEAD
-      // debugShowCheckedModeBanner: false,
-      // title: 'Flutter Demo',
-      // home: HomeMateriPages(),
-=======
-      debugShowCheckedModeBanner: false,
-      title: 'Flutter Demo',
-      home: ShortConversationPages(),
->>>>>>> 243f14025cf42730ba70ea80a856227460b59b89
+      title: 'TOEFL App',
+      home: TestReadingPage(),
     );
   }
 }
