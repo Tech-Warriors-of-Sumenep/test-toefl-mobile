@@ -2,14 +2,14 @@ import 'dart:async';
 import 'package:flutter/material.dart';
 import 'finish.dart';
 
-class Soal1Pages extends StatefulWidget {
-  const Soal1Pages({Key? key}) : super(key: key);
+class latihanpages extends StatefulWidget {
+  const latihanpages({Key? key}) : super(key: key);
 
   @override
-  State<Soal1Pages> createState() => _Soal1PagesState();
+  State<latihanpages> createState() => _Soal1PagesState();
 }
 
-class _Soal1PagesState extends State<Soal1Pages> {
+class _Soal1PagesState extends State<latihanpages> {
   int _currentQuestionIndex = 0;
   int _selectedAnswerIndex = -1;
   late Timer _timer; // Tambahkan timer
@@ -40,7 +40,7 @@ void _startTimer() {
           timer.cancel();
           Navigator.push(
             context,
-            MaterialPageRoute(builder: (context) => FinishPage()),
+            MaterialPageRoute(builder: (context) => FinishPagereading()),
           );
         }
       });
@@ -79,7 +79,7 @@ void _startTimer() {
       } else {
         Navigator.push(
           context,
-          MaterialPageRoute(builder: (context) => FinishPage()),
+          MaterialPageRoute(builder: (context) => FinishPagereading()),
         );
       }
     });
@@ -145,18 +145,18 @@ void _startTimer() {
             ),
           ),
           
-       Center(
-
+          Center(
   child: Row(
+    
     mainAxisAlignment: MainAxisAlignment.center,
+    
     children: [
-      Spacer(), 
-
+       Spacer(), 
       InkWell(
-   onTap: () {
+      onTap: () {
   Navigator.push(
     context,
-    MaterialPageRoute(builder: (context) => FinishPage()), 
+    MaterialPageRoute(builder: (context) => FinishPagereading()),
   );
 },
 
@@ -188,8 +188,8 @@ void _startTimer() {
           ),
         ),
       ),
-      Spacer(), 
-      Spacer(), // Kolom kosong 
+     Spacer(), 
+      Spacer(), //kolom kosong 
       InkWell(
         onTap: () {
           _nextQuestion();
@@ -233,11 +233,10 @@ void _startTimer() {
           ),
         ),
       ),
-      Spacer(), 
+       Spacer(), 
     ],
   ),
 ),
-
 
           
     Center(
@@ -413,7 +412,7 @@ void _startTimer() {
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
                   const Text(
-                    'Test Grammar Page',
+                    'Test Reading Page',
                     style: TextStyle(
                       color: Colors.black,
                       fontSize: 20,

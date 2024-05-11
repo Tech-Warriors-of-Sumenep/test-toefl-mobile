@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'soal.dart';
+import 'soal_cerita.dart';
 
 class HomeTestReadingPages extends StatefulWidget {
   const HomeTestReadingPages({Key? key}) : super(key: key);
