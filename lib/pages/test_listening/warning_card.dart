@@ -1,12 +1,14 @@
 // ignore_for_file: camel_case_types, prefer_typing_uninitialized_variables
 
 import 'package:flutter/material.dart';
+import 'package:toefl_app/pages/test_listening/audio_page.dart';
+import 'package:toefl_app/pages/test_listening/learningtest.dart';
 
 class VolumeTest extends StatefulWidget {
-const VolumeTest({Key? key}) : super(key: key);
+  const VolumeTest({Key? key}) : super(key: key);
 
-@override
-State<VolumeTest> createState() => _VolumeTestState();
+  @override
+  State<VolumeTest> createState() => _VolumeTestState();
 }
 
 class _VolumeTestState extends State<VolumeTest> {
@@ -15,7 +17,7 @@ class _VolumeTestState extends State<VolumeTest> {
     return MaterialApp(
       home: Scaffold(
         appBar: AppBar(
-          title: Text('Sound Test Card'),
+          title: Text(''),
         ),
         body: Center(
           child: SoundTestCard(),
@@ -39,10 +41,10 @@ class SoundTestCard extends StatelessWidget {
             child: Icon(Icons.hearing, size: 100, color: Colors.yellow[700]),
           ),
           Padding(
-            padding: EdgeInsets.only(left: 16, right: 16, bottom: 4),
+            padding: EdgeInsets.only(left: 16, right: 16, bottom: 10),
             child: Text(
               'You need sound to take the test',
-              style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
+              style: TextStyle(fontSize: 18, fontWeight: FontWeight.w900),
               textAlign: TextAlign.center,
             ),
           ),
@@ -50,7 +52,7 @@ class SoundTestCard extends StatelessWidget {
             padding: EdgeInsets.only(left: 16, right: 16, bottom: 16),
             child: Text(
               'You need to listen to answer the questions',
-              style: TextStyle(fontSize: 14, color: Colors.blue),
+              style: TextStyle(fontSize: 12, color: Colors.blue),
               textAlign: TextAlign.center,
             ),
           ),
@@ -60,15 +62,41 @@ class SoundTestCard extends StatelessWidget {
               TextButton(
                 style: TextButton.styleFrom(
                   backgroundColor: Colors.blue, // Set background color to blue
-                  textStyle: const TextStyle(color: Colors.white,), // Set text color to white
+                  textStyle: const TextStyle(
+                    color: Colors.white,
+                  ), // Set text color to white
+                  padding: EdgeInsets.symmetric(horizontal: 85.0),
+                  shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(
+                        10.0), // Ubah ukuran rounded corners di sini
+                  ), // Atur padding di sini
                 ),
-                onPressed: () => print('Try again pressed'),
-                child: Text('TRY AGAIN', style: TextStyle(fontFamily: 'Poppins', color: Colors.white,)),
+                onPressed: () {
+                  // Navigasi ke halaman AudioPage() ketika tombol ditekan
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(builder: (context) => AudioPage()),
+                  );
+                },
+                child: Text('Try again',
+                    style: TextStyle(
+                      fontFamily: 'Poppins',
+                      color: Colors.white,
+                    )),
               ),
-              SizedBox(height: 8), // Adds space between the buttons
+
+              SizedBox(height: 4), // Adds space between the buttons
               TextButton(
-                onPressed: () => print('Take the test later pressed'),
-                child: Text('TAKE THE TEST LATER', style: TextStyle(color: Colors.black, fontFamily: 'Poppins')),
+                onPressed: () {
+                  // Navigasi ke halaman AudioPage() ketika tombol ditekan
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(builder: (context) => LearningTest()),
+                  );
+                },
+                child: Text('Take the test later',
+                    style:
+                        TextStyle(color: Colors.black, fontFamily: 'Poppins')),
               ),
             ],
           ),

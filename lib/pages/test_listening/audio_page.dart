@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:toefl_app/pages/test_listening/finish.dart';
+import 'package:toefl_app/pages/test_listening/warning_card.dart';
 
 class AudioPage extends StatefulWidget {
   const AudioPage({Key? key}) : super(key: key);
@@ -116,7 +117,12 @@ class _AudioPageState extends State<AudioPage> {
                   children: [
                     ElevatedButton(
                       onPressed: () {
-                        // Aksi saat tombol "No" ditekan
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                              builder: (context) =>
+                                  VolumeTest()), // Pindah ke ModelMateriPages
+                        );
                       },
                       style: ElevatedButton.styleFrom(
                         backgroundColor: Colors.white,
