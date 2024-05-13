@@ -50,21 +50,24 @@ class _FinishPageState extends State<FinishPage> {
         ),
       ),
       body: Stack(
+        alignment:
+            Alignment.center, // Menjadikan alignment stack menjadi center
         children: [
           // Konten halaman
           Positioned(
-            left: 210,
-            top: 410,
+            left: 240,
+            top: 370,
             child: Container(
-              width: 175,
+              width: 222,
               height: 49,
               child: Stack(
+                alignment: Alignment
+                    .center, // Menjadikan alignment stack menjadi center
                 children: [
                   Positioned(
-                    left: 0,
-                    top: 0,
+                    // Menggeser ke kiri setengah dari lebar container
                     child: Container(
-                      width: 175,
+                      width: 222,
                       height: 49,
                       decoration: ShapeDecoration(
                         color: Color(0xFFF1F1F1),
@@ -83,10 +86,9 @@ class _FinishPageState extends State<FinishPage> {
                     ),
                   ),
                   Positioned(
-                    left: 126,
-                    top: 16,
+                    right: 26,
                     child: SizedBox(
-                      width: 31.97,
+                      width: 40,
                       child: Text(
                         ': 50',
                         style: TextStyle(
@@ -100,10 +102,10 @@ class _FinishPageState extends State<FinishPage> {
                     ),
                   ),
                   Positioned(
-                    left: 13.85,
-                    top: 16,
+                    left:
+                        10, // Menggeser ke kanan setengah dari lebar container
                     child: SizedBox(
-                      width: 118.28,
+                      width: 130,
                       child: Text(
                         'Total Question',
                         style: TextStyle(
@@ -121,18 +123,17 @@ class _FinishPageState extends State<FinishPage> {
             ),
           ),
           Positioned(
-            left: 10,
-            top: 410,
+            left: 20,
+            top: 370,
             child: Container(
-              width: 175,
+              width: 207,
               height: 49,
               child: Stack(
+                alignment: Alignment.center,
                 children: [
                   Positioned(
-                    left: 0,
-                    top: 0,
                     child: Container(
-                      width: 175,
+                      width: 207,
                       height: 49,
                       decoration: ShapeDecoration(
                         color: Color(0xFFF1F1F1),
@@ -151,15 +152,14 @@ class _FinishPageState extends State<FinishPage> {
                     ),
                   ),
                   Positioned(
-                    left: 96,
-                    top: 16,
+                    right: 13,
                     child: SizedBox(
-                      width: 70,
+                      width: 80,
                       child: Text(
-                        ': 98 m 5s',
+                        ' 98 m 5s',
                         style: TextStyle(
                           color: Colors.black,
-                          fontSize: 15,
+                          fontSize: 14,
                           fontFamily: 'Poppins',
                           fontWeight: FontWeight.w400,
                           height: 0,
@@ -168,15 +168,14 @@ class _FinishPageState extends State<FinishPage> {
                     ),
                   ),
                   Positioned(
-                    left: 15,
-                    top: 16,
+                    left: 12,
                     child: SizedBox(
-                      width: 88,
+                      width: 100,
                       child: Text(
-                        'Total Time',
+                        'Total Time : ',
                         style: TextStyle(
                           color: Colors.black,
-                          fontSize: 15,
+                          fontSize: 13.6,
                           fontFamily: 'Poppins',
                           fontWeight: FontWeight.w400,
                           height: 0,
@@ -189,18 +188,17 @@ class _FinishPageState extends State<FinishPage> {
             ),
           ),
           Positioned(
-            left: 10,
-            top: 340,
+            left: 20,
+            top: 300,
             child: Container(
-              width: 180.82,
+              width: 207,
               height: 49,
               child: Stack(
+                alignment: Alignment.center,
                 children: [
                   Positioned(
-                    left: 0,
-                    top: 0,
                     child: Container(
-                      width: 173,
+                      width: 207,
                       height: 49,
                       decoration: ShapeDecoration(
                         color: Color(0xFFF1F1F1),
@@ -219,15 +217,14 @@ class _FinishPageState extends State<FinishPage> {
                     ),
                   ),
                   Positioned(
-                    left: 134,
-                    top: 16,
+                    right: 22,
                     child: SizedBox(
                       width: 46.82,
                       child: Text(
-                        ': 43',
+                        ':  43',
                         style: TextStyle(
                           color: Colors.black,
-                          fontSize: 15,
+                          fontSize: 13.6,
                           fontFamily: 'Poppins',
                           fontWeight: FontWeight.w400,
                           height: 0,
@@ -236,15 +233,14 @@ class _FinishPageState extends State<FinishPage> {
                     ),
                   ),
                   Positioned(
-                    left: 15,
-                    top: 16,
+                    left: 12,
                     child: SizedBox(
                       width: 130,
                       child: Text(
                         'Correct Answer',
                         style: TextStyle(
                           color: Colors.black,
-                          fontSize: 15,
+                          fontSize: 13.6,
                           fontFamily: 'Poppins',
                           fontWeight: FontWeight.w400,
                           height: 0,
@@ -257,18 +253,17 @@ class _FinishPageState extends State<FinishPage> {
             ),
           ),
           Positioned(
-            left: 210,
-            top: 340,
+            left: 240,
+            top: 300,
             child: Container(
-              width: 175,
+              width: 225,
               height: 49,
               child: Stack(
+                alignment: Alignment.center,
                 children: [
                   Positioned(
-                    left: 0,
-                    top: 0,
                     child: Container(
-                      width: 174.75,
+                      width: 225,
                       height: 49,
                       decoration: ShapeDecoration(
                         color: Color(0xFFF1F1F1),
@@ -287,8 +282,7 @@ class _FinishPageState extends State<FinishPage> {
                     ),
                   ),
                   Positioned(
-                    left: 148,
-                    top: 16,
+                    right: 27,
                     child: SizedBox(
                       width: 27,
                       child: Text(
@@ -304,10 +298,9 @@ class _FinishPageState extends State<FinishPage> {
                     ),
                   ),
                   Positioned(
-                    left: 15.96,
-                    top: 16,
+                    left: 13,
                     child: SizedBox(
-                      width: 131.96,
+                      width: 150,
                       child: Text(
                         'Incorrect Answer',
                         style: TextStyle(
@@ -325,23 +318,22 @@ class _FinishPageState extends State<FinishPage> {
             ),
           ),
           Positioned(
-            left: 129,
+            left: 156,
             top: 100,
             child: Container(
-              width: 160,
+              width: 162,
               height: 160,
               child: Stack(
+                alignment: Alignment.center,
                 children: [
                   Positioned(
-                    left: 0,
-                    top: 0,
                     child: Container(
-                      width: 160,
-                      height: 160,
+                      width: 162,
+                      height: 162,
                       decoration: ShapeDecoration(
                         color:
                             Color.fromARGB(255, 255, 255, 255).withOpacity(0),
-                        shape: OvalBorder(
+                        shape: CircleBorder(
                           side: BorderSide(width: 3, color: Color(0xFF027D44)),
                         ),
                         shadows: [
@@ -356,8 +348,7 @@ class _FinishPageState extends State<FinishPage> {
                     ),
                   ),
                   Positioned(
-                    left: 31,
-                    top: 62,
+                    right: 16.5,
                     child: Text(
                       'FINISH ',
                       style: TextStyle(
@@ -375,10 +366,10 @@ class _FinishPageState extends State<FinishPage> {
           ),
 
           Positioned(
-            left: 116,
-            top: 500,
+            left: 130,
+            top: 450,
             child: Container(
-              width: 199,
+              width: 210,
               height: 50,
               child: Stack(
                 children: [
@@ -386,7 +377,7 @@ class _FinishPageState extends State<FinishPage> {
                     left: 0,
                     top: 0,
                     child: Container(
-                      width: 199,
+                      width: 210,
                       height: 50,
                       decoration: ShapeDecoration(
                         color: HexColor("#BCD235"),
@@ -405,11 +396,11 @@ class _FinishPageState extends State<FinishPage> {
                     ),
                   ),
                   Positioned(
-                    left: 0,
-                    top: 12,
+                    left: 10,
+                    top: 9,
                     child: SizedBox(
                       width: 197,
-                      height: 25,
+                      height: 30,
                       child: Text(
                         'Elementary',
                         textAlign: TextAlign.center,
