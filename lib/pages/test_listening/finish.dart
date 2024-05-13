@@ -56,7 +56,7 @@ class _FinishPageState extends State<FinishPage> {
             left: 210,
             top: 410,
             child: Container(
-              width: 195,
+              width: 175,
               height: 49,
               child: Stack(
                 children: [
@@ -64,7 +64,7 @@ class _FinishPageState extends State<FinishPage> {
                     left: 0,
                     top: 0,
                     child: Container(
-                      width: 195,
+                      width: 175,
                       height: 49,
                       decoration: ShapeDecoration(
                         color: Color(0xFFF1F1F1),
@@ -124,7 +124,7 @@ class _FinishPageState extends State<FinishPage> {
             left: 10,
             top: 410,
             child: Container(
-              width: 183,
+              width: 175,
               height: 49,
               child: Stack(
                 children: [
@@ -132,7 +132,7 @@ class _FinishPageState extends State<FinishPage> {
                     left: 0,
                     top: 0,
                     child: Container(
-                      width: 183,
+                      width: 175,
                       height: 49,
                       decoration: ShapeDecoration(
                         color: Color(0xFFF1F1F1),
@@ -192,7 +192,7 @@ class _FinishPageState extends State<FinishPage> {
             left: 10,
             top: 340,
             child: Container(
-              width: 190.82,
+              width: 180.82,
               height: 49,
               child: Stack(
                 children: [
@@ -200,7 +200,7 @@ class _FinishPageState extends State<FinishPage> {
                     left: 0,
                     top: 0,
                     child: Container(
-                      width: 183,
+                      width: 173,
                       height: 49,
                       decoration: ShapeDecoration(
                         color: Color(0xFFF1F1F1),
@@ -222,7 +222,7 @@ class _FinishPageState extends State<FinishPage> {
                     left: 134,
                     top: 16,
                     child: SizedBox(
-                      width: 56.82,
+                      width: 46.82,
                       child: Text(
                         ': 43',
                         style: TextStyle(
@@ -260,7 +260,7 @@ class _FinishPageState extends State<FinishPage> {
             left: 210,
             top: 340,
             child: Container(
-              width: 195,
+              width: 175,
               height: 49,
               child: Stack(
                 children: [
@@ -268,7 +268,7 @@ class _FinishPageState extends State<FinishPage> {
                     left: 0,
                     top: 0,
                     child: Container(
-                      width: 194.75,
+                      width: 174.75,
                       height: 49,
                       decoration: ShapeDecoration(
                         color: Color(0xFFF1F1F1),
@@ -290,7 +290,7 @@ class _FinishPageState extends State<FinishPage> {
                     left: 148,
                     top: 16,
                     child: SizedBox(
-                      width: 47,
+                      width: 27,
                       child: Text(
                         ': 7',
                         style: TextStyle(

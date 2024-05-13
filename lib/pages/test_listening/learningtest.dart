@@ -1,13 +1,14 @@
 import 'package:flutter/material.dart';
+import 'package:toefl_app/pages/test_listening/audio_page.dart';
 
-class learningTest extends StatefulWidget {
-  const learningTest({Key? key}) : super(key: key);
+class LearningTest extends StatefulWidget {
+  const LearningTest({Key? key}) : super(key: key);
 
   @override
-  State<learningTest> createState() => _learningTestState();
+  State<LearningTest> createState() => _LearningTestState();
 }
 
-class _learningTestState extends State<learningTest> {
+class _LearningTestState extends State<LearningTest> {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
@@ -47,7 +48,7 @@ class _learningTestState extends State<learningTest> {
                       Padding(
                         padding: const EdgeInsets.only(right: 27.0),
                         child: Image.asset(
-                          'images/pens.png',
+                          'images/pens_remBG.png',
                           height: 50,
                         ),
                       ),
@@ -63,7 +64,7 @@ class _learningTestState extends State<learningTest> {
                       radius: 60,
                       backgroundColor: Colors.yellow,
                       child: Image.asset(
-                          'images/user.png'), // Change as per your asset directory
+                          'images/user.jpeg'), // Change as per your asset directory
                     ),
                     SizedBox(height: 20),
                     Text('Test learning',
@@ -74,7 +75,14 @@ class _learningTestState extends State<learningTest> {
                         style: TextStyle(fontSize: 18, color: Colors.grey)),
                     SizedBox(height: 20),
                     ElevatedButton(
-                      onPressed: () {},
+                      onPressed: () {
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                              builder: (context) =>
+                                  AudioPage()), // Pindah ke ModelMateriPages
+                        );
+                      },
                       child: Text('GET STARTED'),
                       style: ElevatedButton.styleFrom(
                         backgroundColor: Colors.yellow,

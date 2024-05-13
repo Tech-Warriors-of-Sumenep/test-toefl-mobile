@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:toefl_app/pages/test_listening/finish.dart';
 
 class AudioPage extends StatefulWidget {
   const AudioPage({Key? key}) : super(key: key);
@@ -85,7 +86,12 @@ class _AudioPageState extends State<AudioPage> {
                   children: [
                     ElevatedButton(
                       onPressed: () {
-                        // Aksi saat tombol "Yes" ditekan
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                              builder: (context) =>
+                                  FinishPage()), // Pindah ke ModelMateriPages
+                        );
                       },
                       style: ElevatedButton.styleFrom(
                         backgroundColor: Colors.blue,
