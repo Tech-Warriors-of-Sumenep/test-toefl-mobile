@@ -1,15 +1,14 @@
 import 'package:flutter/material.dart';
-import 'model_learning_reading.dart';
+import 'soal_cerita.dart';
 
-class HomeLearningReadingPages extends StatefulWidget {
-  const HomeLearningReadingPages({Key? key}) : super(key: key);
+class HomeTestReadingPages extends StatefulWidget {
+  const HomeTestReadingPages({Key? key}) : super(key: key);
 
   @override
-  State<HomeLearningReadingPages> createState() =>
-      _HomeLearningReadingPagesState();
+  State<HomeTestReadingPages> createState() => _HomeTestReadingPagesState();
 }
 
-class _HomeLearningReadingPagesState extends State<HomeLearningReadingPages> {
+class _HomeTestReadingPagesState extends State<HomeTestReadingPages> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -58,7 +57,7 @@ class _HomeLearningReadingPagesState extends State<HomeLearningReadingPages> {
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
                 Expanded(
-                  child: LearningReadingPage(),
+                  child: TestReadingPage(),
                 ),
               ],
             ),
@@ -88,7 +87,7 @@ class _HomeLearningReadingPagesState extends State<HomeLearningReadingPages> {
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
                   const Text(
-                    'Learning Reading TOEFL',
+                    'Test Reading Page',
                     style: TextStyle(
                       color: Colors.black,
                       fontSize: 20,
@@ -106,8 +105,8 @@ class _HomeLearningReadingPagesState extends State<HomeLearningReadingPages> {
   }
 }
 
-class LearningReadingPage extends StatelessWidget {
-  const LearningReadingPage({Key? key}) : super(key: key);
+class TestReadingPage extends StatelessWidget {
+  const TestReadingPage({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -116,38 +115,45 @@ class LearningReadingPage extends StatelessWidget {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.center,
         children: [
-          SizedBox(height: 100), // Space di atas gambar
           Image.asset(
-            'images/learning_reading.jpg',
-            width: 200,
-            height: 200,
+            'images/test_reading.png',
+            width: 300,
+            height: 300,
           ),
           Padding(
-            padding: const EdgeInsets.only(
-                top: 15,
-                bottom: 15), // Menambahkan space antara gambar dan teks
+            padding:
+                const EdgeInsets.only(bottom: 15), // Menambahkan margin bawah
             child: const Text(
-              'Learning Reading',
+              'Test Reading',
               style: TextStyle(
-                fontSize: 30,
-                fontFamily: 'Poppins',
+                fontSize: 40,
                 fontWeight: FontWeight.bold,
               ),
             ),
           ),
           Padding(
-            padding: const EdgeInsets.only(bottom: 20),
+            padding:
+                const EdgeInsets.only(bottom: 30), // Menambahkan margin bawah
             child: Row(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
+                const Icon(Icons.access_time),
                 const SizedBox(width: 5),
                 Text(
-                  '5 Model Pertanyaan',
+                  '100 menit',
                   style: TextStyle(
-                    fontSize: 20,
-                    fontWeight: FontWeight.bold,
-                    fontFamily: 'Poppins',
-                    color: const Color(0xFF020052),
+                    fontSize: 18, // Ubah ukuran font menjadi 18px
+                    color: const Color(0xFF020052), // Ubah warna teks
+                  ),
+                ),
+                const SizedBox(width: 20),
+                const Icon(Icons.book),
+                const SizedBox(width: 5),
+                Text(
+                  '50 soal',
+                  style: TextStyle(
+                    fontSize: 18, // Ubah ukuran font menjadi 18px
+                    color: const Color(0xFF020052), // Ubah warna teks
                   ),
                 ),
               ],
@@ -165,9 +171,7 @@ class LearningReadingPage extends StatelessWidget {
                   spreadRadius: 0,
                   blurRadius: 4,
                   offset: const Offset(
-                    0,
-                    2,
-                  ),
+                      0, 2), // Sesuaikan offset sesuai dengan preferensi
                 ),
               ],
             ),
@@ -175,17 +179,13 @@ class LearningReadingPage extends StatelessWidget {
               onPressed: () {
                 Navigator.push(
                   context,
-                  MaterialPageRoute(
-                      builder: (context) =>
-                          ModelLearningReadingPages()), // Pindah ke ModelLearningReadingPages
+                  MaterialPageRoute(builder: (context) => SoalPages()),
                 );
               },
               child: const Text(
                 'GET STARTED',
                 style: TextStyle(
-                  fontSize: 15,
-                  fontWeight: FontWeight.bold,
-                  fontFamily: 'Poppins',
+                  fontSize: 13,
                   color: const Color(0xFF2E00BA),
                 ),
               ),
