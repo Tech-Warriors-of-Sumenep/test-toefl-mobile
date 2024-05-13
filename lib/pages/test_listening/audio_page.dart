@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:toefl_app/pages/test_listening/finish.dart';
+import 'package:toefl_app/pages/test_listening/listening_test.dart';
 import 'package:toefl_app/pages/test_listening/warning_card.dart';
 
 class AudioPage extends StatefulWidget {
@@ -91,7 +92,7 @@ class _AudioPageState extends State<AudioPage> {
                           context,
                           MaterialPageRoute(
                               builder: (context) =>
-                                  FinishPage()), // Pindah ke ModelMateriPages
+                                  listening()), // Pindah ke ModelMateriPages
                         );
                       },
                       style: ElevatedButton.styleFrom(

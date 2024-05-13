@@ -1,6 +1,8 @@
 // ignore_for_file: camel_case_types, prefer_typing_uninitialized_variables
 
 import 'package:flutter/material.dart';
+import 'package:toefl_app/pages/test_listening/finish.dart';
+import 'package:toefl_app/pages/test_listening/listening_test.dart';
 
 class ExitCard extends StatefulWidget {
   const ExitCard({Key? key}) : super(key: key);
@@ -15,7 +17,7 @@ class _ExitCardState extends State<ExitCard> {
     return MaterialApp(
       home: Scaffold(
         appBar: AppBar(
-          title: Text('Exit Confirmation'),
+          title: Text(''),
         ),
         body: Center(
           child: ExitConfirmationCard(),
@@ -51,13 +53,19 @@ class ExitConfirmationCard extends StatelessWidget {
             ),
           ),
           Padding(
-            padding: EdgeInsets.only(left: 16, right: 16, bottom: 16),
+            padding: EdgeInsets.only(left: 16, right: 16, bottom: 4),
             child: Text(
-              'You will lose your progress and will need to start the test from the beginning',
+              'You will lose your progress and will need to',
               style: TextStyle(
-                  fontFamily: 'Poppins', fontSize: 14, color: Colors.blue),
+                  fontFamily: 'Poppins', fontSize: 10, color: Colors.blue),
               textAlign: TextAlign.center,
             ),
+          ),
+          Text(
+            'start the test from the beginning',
+            style: TextStyle(
+                fontFamily: 'Poppins', fontSize: 10, color: Colors.blue),
+            textAlign: TextAlign.center,
           ),
           Column(
             mainAxisSize: MainAxisSize.min,
@@ -67,23 +75,39 @@ class ExitConfirmationCard extends StatelessWidget {
                   backgroundColor: Colors.blue, // Set background color to blue
                   textStyle: const TextStyle(
                     color: Colors.white,
-                  ), // Set text color to white
+                  ),
+                  shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(
+                        10), // Bentuk tombol menjadi bulat
+                  ),
+                  padding: EdgeInsets.symmetric(
+                      horizontal: 85), // Set text color to white
                 ),
                 onPressed: () {
-                  Navigator.of(context).pop(); // Close the dialog
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                        builder: (context) =>
+                            listening()), // Pindah ke ModelMateriPages
+                  );
                 },
-                child: Text('GO BACK',
+                child: Text('Go back',
                     style: TextStyle(
                       fontFamily: 'Poppins',
                       color: Colors.white,
                     )),
               ),
-              SizedBox(height: 8), // Adds space between the buttons
+              SizedBox(height: 4), // Adds space between the buttons
               TextButton(
                 onPressed: () {
-                  Navigator.of(context).pop(); // Assume exiting the app
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                        builder: (context) =>
+                            FinishPage()), // Pindah ke ModelMateriPages
+                  );
                 },
-                child: Text('EXIT THE TEST',
+                child: Text('Exit the test',
                     style:
                         TextStyle(color: Colors.black, fontFamily: 'Poppins')),
               ),

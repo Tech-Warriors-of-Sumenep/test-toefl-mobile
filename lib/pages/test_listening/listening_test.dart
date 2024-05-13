@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:toefl_app/pages/test_listening/exit_card.dart';
 
 class listening extends StatefulWidget {
   const listening({super.key});
@@ -407,7 +408,12 @@ class _listeningState extends State<listening> {
                   color: Colors.black,
                 ),
                 onPressed: () {
-                  Navigator.of(context).pop();
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                        builder: (context) =>
+                            ExitCard()), // Pindah ke ModelMateriPages
+                  );
                 },
               ),
             ),
