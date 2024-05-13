@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'soal1.dart';
+import 'package:toefl_app/pages/menu_page/navigasi.dart';
 
 class HomeTestGrammarPages extends StatefulWidget {
   const HomeTestGrammarPages({Key? key}) : super(key: key);
@@ -29,11 +30,14 @@ class _HomeTestGrammarPagesState extends State<HomeTestGrammarPages> {
             leading: Padding(
               padding: const EdgeInsets.only(left: 17.0),
               child: IconButton(
-                icon: const Icon(
-                  Icons.arrow_back,
-                ),
+                icon: const Icon(Icons.arrow_back),
                 onPressed: () {
-                  Navigator.of(context).pop();
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                        builder: (context) =>
+                            MainPage()), // Ganti HalamanLain() dengan halaman tujuan Anda
+                  );
                 },
               ),
             ),

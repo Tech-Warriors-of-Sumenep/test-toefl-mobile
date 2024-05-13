@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'soal_cerita.dart';
+import 'package:toefl_app/pages/menu_page/navigasi.dart';
 
 class HomeTestReadingPages extends StatefulWidget {
   const HomeTestReadingPages({Key? key}) : super(key: key);
@@ -29,11 +30,14 @@ class _HomeTestReadingPagesState extends State<HomeTestReadingPages> {
             leading: Padding(
               padding: const EdgeInsets.only(left: 17.0),
               child: IconButton(
-                icon: const Icon(
-                  Icons.arrow_back,
-                ),
+                icon: const Icon(Icons.arrow_back),
                 onPressed: () {
-                  Navigator.of(context).pop();
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                        builder: (context) =>
+                            MainPage()), // Ganti HalamanLain() dengan halaman tujuan Anda
+                  );
                 },
               ),
             ),
