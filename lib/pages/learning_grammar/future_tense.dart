@@ -10,24 +10,19 @@ class FutureTensePage extends StatefulWidget {
 class _FutureTensePageState extends State<FutureTensePage> {
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      theme: ThemeData.dark().copyWith(
-        scaffoldBackgroundColor: Color.fromARGB(255, 246, 246, 247),
-      ),
-      home: Scaffold(
-        backgroundColor: Colors.white, // Set background color to white
-        body: Column(
-          children: [
-            Navbar(), // Navbar added here
-            Expanded(
-              child: ListView(
-                children: [
-                  Frame2(),
-                ],
-              ),
+    return Scaffold(
+      backgroundColor: Colors.white, // Set background color to white
+      body: Column(
+        children: [
+          Navbar(), // Navbar added here
+          Expanded(
+            child: ListView(
+              children: [
+                Frame2(),
+              ],
             ),
-          ],
-        ),
+          ),
+        ],
       ),
     );
   }
@@ -234,7 +229,7 @@ class Frame2 extends StatelessWidget {
                               ),
                               TextSpan(
                                 text:
-                                    'depan. Kami menggunakan will/shall + Verb" untuk membentuk bentuk kata kerja masa depan Example: I will miss you when you leave.\n',
+                                    'depan. Kami menggunakan will/shall + Verb" untuk membentuk bentuk kata kerja masa depan Example: I will miss you when you leave.\n',
                                 style: TextStyle(
                                   color: Colors.black,
                                   fontSize: 12,
