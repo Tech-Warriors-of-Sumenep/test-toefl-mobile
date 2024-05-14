@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:toefl_app/pages/learning_listening.dart/contoh_soal.dart/short_conversation.dart';
 import 'package:toefl_app/pages/test_listening/audio_page.dart';
 import 'package:toefl_app/pages/test_listening/learningtest.dart';
 import 'model_materi.dart';
@@ -176,7 +177,7 @@ class MateriPage extends StatelessWidget {
                   context,
                   MaterialPageRoute(
                       builder: (context) =>
-                          AudioPage()), // Pindah ke ModelMateriPages
+                          ShortConversationPages()), // Pindah ke ModelMateriPages
                 );
               },
               child: const Text(
