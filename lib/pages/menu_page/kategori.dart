@@ -194,256 +194,208 @@ class _MenuPageState extends State<kategoripage> {
                   child: Stack(
                     children: [
                       Positioned(
-                        left: 1,
-                        top: 299,
-                        child: Container(
-                          width: 329,
-                          height: 57,
-                          child: Stack(
-                            children: [
-                              Positioned(
-                                left: 0,
-                                top: 0,
-                                child: Container(
-                                  width: 328.97,
-                                  height: 57,
-                                  decoration: ShapeDecoration(
-                                    color: Color(0xFFBCD235),
-                                    shape: RoundedRectangleBorder(
-                                      borderRadius: BorderRadius.circular(15),
-                                    ),
-                                    shadows: [
-                                      BoxShadow(
-                                        color: Color(0x3F000000),
-                                        blurRadius: 4,
-                                        offset: Offset(0, 4),
-                                        spreadRadius: 0,
-                                      )
-                                    ],
-                                  ),
-                                ),
-                              ),
-                              Positioned(
-                                left: 59,
-                                top: 10,
-                                child: SizedBox(
-                                  width: 270,
-                                  child: Text(
-                                    'Tingkat Dasar (Elementary) \n= 310 - 420',
-                                    style: TextStyle(
-                                      color: Colors.white,
-                                      fontSize: 15,
-                                      fontFamily: 'Fugaz One',
-                                      fontWeight: FontWeight.w400,
-                                      height: 0,
-                                    ),
-                                  ),
-                                ),
-                              ),
-                            ],
-                          ),
-                        ),
-                      ),
-                      Positioned(
-                        left: 1,
-                        top: 216,
+                        left: 0,
+                        bottom: 0,
                         child: Container(
                           width: 328.97,
                           height: 57,
-                          child: Stack(
-                            children: [
-                              Positioned(
-                                left: 0,
-                                top: 0,
-                                child: Container(
-                                  width: 328.97,
-                                  height: 57,
-                                  decoration: ShapeDecoration(
-                                    color: Color(0xFFD2A635),
-                                    shape: RoundedRectangleBorder(
-                                      borderRadius: BorderRadius.circular(15),
-                                    ),
-                                    shadows: [
-                                      BoxShadow(
-                                        color: Color(0x3F000000),
-                                        blurRadius: 4,
-                                        offset: Offset(0, 4),
-                                        spreadRadius: 0,
-                                      )
-                                    ],
-                                  ),
-                                ),
-                              ),
-                              Positioned(
-                                left: 53,
-                                top: 10,
-                                child: SizedBox(
-                                  width: 275,
-                                  child: Text.rich(
-                                    TextSpan(
-                                      children: [
-                                        TextSpan(
-                                          text:
-                                              'Tingkat Menengah Bawah (Low Intermediate) \n',
-                                          style: TextStyle(
-                                            color: Colors.white,
-                                            fontSize: 12,
-                                            fontFamily: 'Fugaz One',
-                                            fontWeight: FontWeight.w400,
-                                            height: 0,
-                                          ),
-                                        ),
-                                        TextSpan(
-                                          text: '= 420 - 480',
-                                          style: TextStyle(
-                                            color: Colors.white,
-                                            fontSize: 15,
-                                            fontFamily: 'Fugaz One',
-                                            fontWeight: FontWeight.w400,
-                                            height: 0,
-                                          ),
-                                        ),
-                                      ],
-                                    ),
-                                  ),
-                                ),
-                              ),
+                          decoration: ShapeDecoration(
+                            color: Color(0xFFBCD235),
+                            shape: RoundedRectangleBorder(
+                              borderRadius: BorderRadius.circular(15),
+                            ),
+                            shadows: [
+                              BoxShadow(
+                                color: Color(0x3F000000),
+                                blurRadius: 4,
+                                offset: Offset(0, 4),
+                                spreadRadius: 0,
+                              )
                             ],
                           ),
-                        ),
-                      ),
-                      Positioned(
-                        left: 1,
-                        top: 133,
-                        child: Container(
-                          width: 328.97,
-                          height: 57,
-                          child: Stack(
-                            children: [
-                              Positioned(
-                                left: 0,
-                                top: 0,
-                                child: Container(
-                                  width: 328.97,
-                                  height: 57,
-                                  decoration: ShapeDecoration(
-                                    color: Color(0xFFD27634),
-                                    shape: RoundedRectangleBorder(
-                                      borderRadius: BorderRadius.circular(15),
-                                    ),
-                                    shadows: [
-                                      BoxShadow(
-                                        color: Color(0x3F000000),
-                                        blurRadius: 4,
-                                        offset: Offset(0, 4),
-                                        spreadRadius: 0,
-                                      )
-                                    ],
-                                  ),
+                          child: Center(
+                            child: SizedBox(
+                              width: 270,
+                              child: Text(
+                                'Tingkat Dasar (Elementary) 310 - 420',
+                                style: TextStyle(
+                                  color: Colors.white,
+                                  fontSize: 12,
+                                  fontFamily: 'Fugaz One',
+                                  fontWeight: FontWeight.w400,
+                                  height: 1.2,
                                 ),
+                                textAlign: TextAlign.center,
                               ),
-                              Positioned(
-                                left: 53,
-                                top: 10,
-                                child: SizedBox(
-                                  width: 275,
-                                  child: Text.rich(
-                                    TextSpan(
-                                      children: [
-                                        TextSpan(
-                                          text:
-                                              'Tingkat Menengah Atas (High Intermediate)\n',
-                                          style: TextStyle(
-                                            color: Colors.white,
-                                            fontSize: 12,
-                                            fontFamily: 'Fugaz One',
-                                            fontWeight: FontWeight.w400,
-                                            height: 0,
-                                          ),
-                                        ),
-                                        TextSpan(
-                                          text: '= 480 - 520',
-                                          style: TextStyle(
-                                            color: Colors.white,
-                                            fontSize: 15,
-                                            fontFamily: 'Fugaz One',
-                                            fontWeight: FontWeight.w400,
-                                            height: 0,
-                                          ),
-                                        ),
-                                      ],
-                                    ),
-                                  ),
-                                ),
-                              ),
-                            ],
+                            ),
                           ),
                         ),
                       ),
                       Positioned(
                         left: 0,
-                        top: 50,
+                        bottom: 83,
                         child: Container(
                           width: 328.97,
                           height: 57,
-                          child: Stack(
-                            children: [
-                              Positioned(
-                                left: 0,
-                                top: 0,
-                                child: Container(
-                                  width: 328.97,
-                                  height: 57,
-                                  decoration: ShapeDecoration(
-                                    color: Color(0xFFCE1A1A),
-                                    shape: RoundedRectangleBorder(
-                                      borderRadius: BorderRadius.circular(15),
-                                    ),
-                                    shadows: [
-                                      BoxShadow(
-                                        color: Color(0x3F000000),
-                                        blurRadius: 4,
-                                        offset: Offset(0, 4),
-                                        spreadRadius: 0,
-                                      )
-                                    ],
-                                  ),
-                                ),
-                              ),
-                              Positioned(
-                                left: 54,
-                                top: 7,
-                                child: SizedBox(
-                                  width: 242,
-                                  child: Text(
-                                    'Tingkat Mahir (Advanced) \n= 565-677',
-                                    style: TextStyle(
-                                      color: Colors.white,
-                                      fontSize: 15,
-                                      fontFamily: 'Fugaz One',
-                                      fontWeight: FontWeight.w400,
-                                      height: 0,
-                                    ),
-                                  ),
-                                ),
-                              ),
+                          decoration: ShapeDecoration(
+                            color: Color(0xFFD2A635),
+                            shape: RoundedRectangleBorder(
+                              borderRadius: BorderRadius.circular(15),
+                            ),
+                            shadows: [
+                              BoxShadow(
+                                color: Color(0x3F000000),
+                                blurRadius: 4,
+                                offset: Offset(0, 4),
+                                spreadRadius: 0,
+                              )
                             ],
+                          ),
+                          child: Center(
+                            child: SizedBox(
+                              width: 275,
+                              child: Text.rich(
+                                TextSpan(
+                                  children: [
+                                    TextSpan(
+                                      text:
+                                          'Tingkat Menengah Bawah (Low Intermediate)',
+                                      style: TextStyle(
+                                        color: Colors.white,
+                                        fontSize: 12,
+                                        fontFamily: 'Fugaz One',
+                                        fontWeight: FontWeight.w400,
+                                        height: 1.2,
+                                      ),
+                                    ),
+                                    TextSpan(
+                                      text: ' = 420 - 480',
+                                      style: TextStyle(
+                                        color: Colors.white,
+                                        fontSize: 15,
+                                        fontFamily: 'Fugaz One',
+                                        fontWeight: FontWeight.w400,
+                                        height: 1.2,
+                                      ),
+                                    ),
+                                  ],
+                                ),
+                                textAlign: TextAlign.center,
+                              ),
+                            ),
                           ),
                         ),
                       ),
                       Positioned(
-                        left: 6.03,
+                        left: 0,
+                        bottom: 166,
+                        child: Container(
+                          width: 328.97,
+                          height: 57,
+                          decoration: ShapeDecoration(
+                            color: Color(0xFFD27634),
+                            shape: RoundedRectangleBorder(
+                              borderRadius: BorderRadius.circular(15),
+                            ),
+                            shadows: [
+                              BoxShadow(
+                                color: Color(0x3F000000),
+                                blurRadius: 4,
+                                offset: Offset(0, 4),
+                                spreadRadius: 0,
+                              )
+                            ],
+                          ),
+                          child: Center(
+                            child: SizedBox(
+                              width: 275,
+                              child: Text.rich(
+                                TextSpan(
+                                  children: [
+                                    TextSpan(
+                                      text:
+                                          'Tingkat Menengah Atas (High Intermediate)',
+                                      style: TextStyle(
+                                        color: Colors.white,
+                                        fontSize: 12,
+                                        fontFamily: 'Fugaz One',
+                                        fontWeight: FontWeight.w400,
+                                        height: 1.2,
+                                      ),
+                                    ),
+                                    TextSpan(
+                                      text: ' = 480 - 520',
+                                      style: TextStyle(
+                                        color: Colors.white,
+                                        fontSize: 15,
+                                        fontFamily: 'Fugaz One',
+                                        fontWeight: FontWeight.w400,
+                                        height: 1.2,
+                                      ),
+                                    ),
+                                  ],
+                                ),
+                                textAlign: TextAlign.center,
+                              ),
+                            ),
+                          ),
+                        ),
+                      ),
+                      Positioned(
+                        left: 0,
+                        bottom: 249,
+                        child: Container(
+                          width: 328.97,
+                          height: 57,
+                          decoration: ShapeDecoration(
+                            color: Color(0xFFCE1A1A),
+                            shape: RoundedRectangleBorder(
+                              borderRadius: BorderRadius.circular(15),
+                            ),
+                            shadows: [
+                              BoxShadow(
+                                color: Color(0x3F000000),
+                                blurRadius: 4,
+                                offset: Offset(0, 4),
+                                spreadRadius: 0,
+                              )
+                            ],
+                          ),
+                          child: Center(
+                            child: SizedBox(
+                              width: 242,
+                              child: Text(
+                                'Tingkat Mahir (Advanced) = 565 - 677',
+                                style: TextStyle(
+                                  color: Colors.white,
+                                  fontSize: 12,
+                                  fontFamily: 'Fugaz One',
+                                  fontWeight: FontWeight.w400,
+                                  height: 1.2,
+                                ),
+                                textAlign: TextAlign.center,
+                              ),
+                            ),
+                          ),
+                        ),
+                      ),
+                      Positioned(
+                        left: 0,
                         top: 0,
-                        child: SizedBox(
-                          width: 192.24,
-                          child: Text(
-                            'TOEFL Category',
-                            style: TextStyle(
-                              color: Colors.black,
-                              fontSize: 20,
-                              fontFamily: 'Fugaz One',
-                              fontWeight: FontWeight.w400,
-                              height: 0,
+                        child: Container(
+                          width: 328.97,
+                          height: 57,
+                          child: Center(
+                            child: Text(
+                              'TOEFL Category',
+                              style: TextStyle(
+                                color: Colors.black,
+                                fontSize: 20,
+                                fontFamily: 'Fugaz One',
+                                fontWeight: FontWeight.w400,
+                                height: 1.2,
+                              ),
+                              textAlign: TextAlign.center,
                             ),
                           ),
                         ),
@@ -473,8 +425,16 @@ class _MenuPageState extends State<kategoripage> {
                             color: Color(0xFF010051),
                             fontSize: 18,
                             fontFamily: 'JejuGothic',
-                            fontWeight: FontWeight.w400,
+                            fontWeight: FontWeight.w700,
                             height: 0,
+                            shadows: [
+                              Shadow(
+                                offset: Offset(2.0, 3.0), // Offset bayangan
+                                blurRadius: 5.0, // Tingkat blur bayangan
+                                color: Color.fromARGB(128, 0, 0,
+                                    0), // Warna bayangan dengan transparansi
+                              ),
+                            ],
                           ),
                         ),
                       ),
