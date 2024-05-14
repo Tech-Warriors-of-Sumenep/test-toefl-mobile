@@ -118,14 +118,10 @@ class _listeningState extends State<listening> {
                                         child: Container(
                                           width: 30,
                                           height: 30,
-                                          decoration: BoxDecoration(
-                                            shape: BoxShape.circle,
-                                            color: Colors.black,
-                                          ),
                                           child: Center(
                                             child: Icon(
                                               Icons.play_arrow,
-                                              color: Colors.white,
+                                              color: Colors.grey,
                                               size: 30,
                                             ),
                                           ),
@@ -141,19 +137,6 @@ class _listeningState extends State<listening> {
                                   alignment: Alignment.center,
                                   child: Row(
                                     mainAxisAlignment: MainAxisAlignment.center,
-                                    children: [
-                                      Container(
-                                        width: 10,
-                                        height: 23,
-                                        color: Colors.black,
-                                      ),
-                                      SizedBox(width: 1),
-                                      Container(
-                                        width: 10,
-                                        height: 23,
-                                        color: Colors.black,
-                                      ),
-                                    ],
                                   ),
                                 ),
                               ),
