@@ -4,12 +4,10 @@ class SubjectAndVerbPage extends StatefulWidget {
   const SubjectAndVerbPage({Key? key}) : super(key: key);
 
   @override
-  State<SubjectAndVerbPage> createState() =>
-      _subject_and_verb_aggrementPageState();
+  State<SubjectAndVerbPage> createState() => _SubjectAndVerbPageState();
 }
 
-class _subject_and_verb_aggrementPageState
-    extends State<SubjectAndVerbPage> {
+class _SubjectAndVerbPageState extends State<SubjectAndVerbPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -62,7 +60,7 @@ class _subject_and_verb_aggrementPageState
       body: Stack(
         children: [
           Padding(
-            padding: EdgeInsets.symmetric(vertical: 10),
+            padding: const EdgeInsets.symmetric(vertical: 10),
             child: Column(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
@@ -97,7 +95,7 @@ class _subject_and_verb_aggrementPageState
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
                   const Text(
-                    'Grammer Page',
+                    'Grammar Page',
                     style: TextStyle(
                       color: Colors.black,
                       fontSize: 20,
@@ -115,8 +113,20 @@ class _subject_and_verb_aggrementPageState
   }
 }
 
-class LearningReadingPage extends StatelessWidget {
+class LearningReadingPage extends StatefulWidget {
   const LearningReadingPage({Key? key}) : super(key: key);
+
+  @override
+  _LearningReadingPageState createState() => _LearningReadingPageState();
+}
+
+class _LearningReadingPageState extends State<LearningReadingPage> {
+  bool _showText1 = false;
+  bool _showText2 = false;
+  bool _showText3 = false;
+  bool _showText4 = false;
+  bool _showText5 = false;
+  bool _showText6 = false;
 
   @override
   Widget build(BuildContext context) {
@@ -132,9 +142,9 @@ class LearningReadingPage extends StatelessWidget {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     const SizedBox(height: 16),
-                    Center( // Center added here
+                    Center(
                       child: Text(
-                        'Subject and Verb Agreement', // Title added here
+                        'Subject and Verb Agreement',
                         style: TextStyle(
                           color: Colors.black,
                           fontSize: 20,
@@ -174,14 +184,88 @@ class LearningReadingPage extends StatelessWidget {
                       ),
                     ),
                     const SizedBox(height: 8),
-                    Text(
-                      '-He always drinks wine when he is sad.\n-She often has bananas for her breakfast.',
-                      style: TextStyle(
-                        color: Colors.black,
-                        fontSize: 12,
-                        fontFamily: 'Poppins',
-                        fontWeight: FontWeight.w400,
-                      ),
+                    Row(
+                      children: [
+                        Expanded(
+                          child: Text(
+                            '-He always drinks wine when he is sad.',
+                            style: TextStyle(
+                              color: Colors.black,
+                              fontSize: 12,
+                              fontFamily: 'Poppins',
+                              fontWeight: FontWeight.w400,
+                            ),
+                          ),
+                        ),
+                        GestureDetector(
+                          onTap: () {
+                            setState(() {
+                              _showText1 = !_showText1;
+                            });
+                          },
+                          child: AnimatedSwitcher(
+                            duration: const Duration(milliseconds: 300),
+                            child: _showText1
+                                ? Text(
+                                    'cat',
+                                    key: ValueKey<int>(1),
+                                    style: TextStyle(
+                                      color: Colors.black,
+                                      fontSize: 12,
+                                      fontFamily: 'Poppins',
+                                      fontWeight: FontWeight.w400,
+                                    ),
+                                  )
+                                : Image.asset(
+                                    'images/cat.png',
+                                    key: ValueKey<int>(2),
+                                    height: 30,
+                                  ),
+                          ),
+                        ),
+                      ],
+                    ),
+                    const SizedBox(height: 8),
+                    Row(
+                      children: [
+                        Expanded(
+                          child: Text(
+                            '-She often has bananas for her breakfast.',
+                            style: TextStyle(
+                              color: Colors.black,
+                              fontSize: 12,
+                              fontFamily: 'Poppins',
+                              fontWeight: FontWeight.w400,
+                            ),
+                          ),
+                        ),
+                        GestureDetector(
+                          onTap: () {
+                            setState(() {
+                              _showText2 = !_showText2;
+                            });
+                          },
+                          child: AnimatedSwitcher(
+                            duration: const Duration(milliseconds: 300),
+                            child: _showText2
+                                ? Text(
+                                    'cat',
+                                    key: ValueKey<int>(3),
+                                    style: TextStyle(
+                                      color: Colors.black,
+                                      fontSize: 12,
+                                      fontFamily: 'Poppins',
+                                      fontWeight: FontWeight.w400,
+                                    ),
+                                  )
+                                : Image.asset(
+                                    'images/cat.png',
+                                    key: ValueKey<int>(4),
+                                    height: 30,
+                                  ),
+                          ),
+                        ),
+                      ],
                     ),
                     const SizedBox(height: 24),
                     Text(
@@ -214,14 +298,88 @@ class LearningReadingPage extends StatelessWidget {
                       ),
                     ),
                     const SizedBox(height: 8),
-                    Text(
-                      '-All students are playing in the school yard.\n-Birds lay eggs.',
-                      style: TextStyle(
-                        color: Colors.black,
-                        fontSize: 12,
-                        fontFamily: 'Poppins',
-                        fontWeight: FontWeight.w400,
-                      ),
+                    Row(
+                      children: [
+                        Expanded(
+                          child: Text(
+                            '-All students are playing in the school yard.',
+                            style: TextStyle(
+                              color: Colors.black,
+                              fontSize: 12,
+                              fontFamily: 'Poppins',
+                              fontWeight: FontWeight.w400,
+                            ),
+                          ),
+                        ),
+                        GestureDetector(
+                          onTap: () {
+                            setState(() {
+                              _showText3 = !_showText3;
+                            });
+                          },
+                          child: AnimatedSwitcher(
+                            duration: const Duration(milliseconds: 300),
+                            child: _showText3
+                                ? Text(
+                                    'cat',
+                                    key: ValueKey<int>(5),
+                                    style: TextStyle(
+                                      color: Colors.black,
+                                      fontSize: 12,
+                                      fontFamily: 'Poppins',
+                                      fontWeight: FontWeight.w400,
+                                    ),
+                                  )
+                                : Image.asset(
+                                    'images/cat.png',
+                                    key: ValueKey<int>(6),
+                                    height: 30,
+                                  ),
+                          ),
+                        ),
+                      ],
+                    ),
+                    const SizedBox(height: 8),
+                    Row(
+                      children: [
+                        Expanded(
+                          child: Text(
+                            '-Birds lay eggs.',
+                            style: TextStyle(
+                              color: Colors.black,
+                              fontSize: 12,
+                              fontFamily: 'Poppins',
+                              fontWeight: FontWeight.w400,
+                            ),
+                          ),
+                        ),
+                        GestureDetector(
+                          onTap: () {
+                            setState(() {
+                              _showText4 = !_showText4;
+                            });
+                          },
+                          child: AnimatedSwitcher(
+                            duration: const Duration(milliseconds: 300),
+                            child: _showText4
+                                ? Text(
+                                    'cat',
+                                    key: ValueKey<int>(7),
+                                    style: TextStyle(
+                                      color: Colors.black,
+                                      fontSize: 12,
+                                      fontFamily: 'Poppins',
+                                      fontWeight: FontWeight.w400,
+                                    ),
+                                  )
+                                : Image.asset(
+                                    'images/cat.png',
+                                    key: ValueKey<int>(8),
+                                    height: 30,
+                                  ),
+                          ),
+                        ),
+                      ],
                     ),
                     const SizedBox(height: 24),
                     Text(
@@ -254,14 +412,88 @@ class LearningReadingPage extends StatelessWidget {
                       ),
                     ),
                     const SizedBox(height: 8),
-                    Text(
-                      '-My aunt or my uncle is visiting my parents today.\n-Neither she, my friends, nor I am going to the flower festival.',
-                      style: TextStyle(
-                        color: Colors.black,
-                        fontSize: 12,
-                        fontFamily: 'Poppins',
-                        fontWeight: FontWeight.w400,
-                      ),
+                    Row(
+                      children: [
+                        Expanded(
+                          child: Text(
+                            '-My aunt or my uncle is visiting my parents today.',
+                            style: TextStyle(
+                              color: Colors.black,
+                              fontSize: 12,
+                              fontFamily: 'Poppins',
+                              fontWeight: FontWeight.w400,
+                            ),
+                          ),
+                        ),
+                        GestureDetector(
+                          onTap: () {
+                            setState(() {
+                              _showText5 = !_showText5;
+                            });
+                          },
+                          child: AnimatedSwitcher(
+                            duration: const Duration(milliseconds: 300),
+                            child: _showText5
+                                ? Text(
+                                    'cat',
+                                    key: ValueKey<int>(9),
+                                    style: TextStyle(
+                                      color: Colors.black,
+                                      fontSize: 12,
+                                      fontFamily: 'Poppins',
+                                      fontWeight: FontWeight.w400,
+                                    ),
+                                  )
+                                : Image.asset(
+                                    'images/cat.png',
+                                    key: ValueKey<int>(10),
+                                    height: 30,
+                                  ),
+                          ),
+                        ),
+                      ],
+                    ),
+                    const SizedBox(height: 8),
+                    Row(
+                      children: [
+                        Expanded(
+                          child: Text(
+                            '-Neither she, my friends, nor I am going to the flower festival.',
+                            style: TextStyle(
+                              color: Colors.black,
+                              fontSize: 12,
+                              fontFamily: 'Poppins',
+                              fontWeight: FontWeight.w400,
+                            ),
+                          ),
+                        ),
+                        GestureDetector(
+                          onTap: () {
+                            setState(() {
+                              _showText6 = !_showText6;
+                            });
+                          },
+                          child: AnimatedSwitcher(
+                            duration: const Duration(milliseconds: 300),
+                            child: _showText6
+                                ? Text(
+                                    'cat',
+                                    key: ValueKey<int>(11),
+                                    style: TextStyle(
+                                      color: Colors.black,
+                                      fontSize: 12,
+                                      fontFamily: 'Poppins',
+                                      fontWeight: FontWeight.w400,
+                                    ),
+                                  )
+                                : Image.asset(
+                                    'images/cat.png',
+                                    key: ValueKey<int>(12),
+                                    height: 30,
+                                  ),
+                          ),
+                        ),
+                      ],
                     ),
                   ],
                 ),
