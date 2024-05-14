@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:toefl_app/pages/learning_listening.dart/contoh_soal.dart/short_conversation.dart';
 import 'model_materi2.dart'; // Import halaman ModelMateri2Pages
 
 class ModelMateri2Pages extends StatefulWidget {
@@ -52,7 +53,7 @@ class _ModelMateriPagesState extends State<ModelMateri2Pages> {
       body: Stack(
         children: [
           Padding(
-            padding: EdgeInsets.symmetric(vertical: 10),
+            padding: const EdgeInsets.symmetric(vertical: 10),
             child: Column(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
@@ -87,7 +88,7 @@ class _ModelMateriPagesState extends State<ModelMateri2Pages> {
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
                   const Text(
-                    'Learning Reading TOEFL',
+                    'Learning Listening TOEFL',
                     style: TextStyle(
                       color: Colors.black,
                       fontSize: 20,
@@ -101,12 +102,12 @@ class _ModelMateriPagesState extends State<ModelMateri2Pages> {
                         context,
                         MaterialPageRoute(
                             builder: (context) =>
-                                ModelMateri2Pages()), // Pindah ke ModelMateri2Pages
+                                const ShortConversationPages()), // Pindah ke ModelMateri2Pages
                       );
                     },
                     child: Padding(
                       padding: const EdgeInsets.symmetric(horizontal: 10.0),
-                      child: Icon(Icons.arrow_forward),
+                      child: const Icon(Icons.arrow_forward),
                     ),
                   ),
                 ],
@@ -124,171 +125,142 @@ class MateriPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Padding(
-      padding: const EdgeInsets.symmetric(horizontal: 20),
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          Padding(
-            padding: const EdgeInsets.only(
-              top: 10,
-              bottom: 0,
-            ), // Menambahkan space antara gambar dan teks
-            child: Align(
-              alignment: Alignment.center,
-              child: const Text(
-                'TOEFL Listening terdiri dari tiga bagian yang berbeda :',
-                style: TextStyle(
-                  fontSize: 15,
-                  fontFamily: 'Poppins',
-                  fontWeight: FontWeight.bold,
+    return SingleChildScrollView(
+      child: Padding(
+        padding: const EdgeInsets.symmetric(horizontal: 20),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Padding(
+              padding: const EdgeInsets.only(
+                top: 10,
+                bottom: 0,
+              ), // Menambahkan space antara gambar dan teks
+              child: Align(
+                alignment: Alignment.center,
+                child: const Text(
+                  'TOEFL Listening terdiri dari tiga bagian yang berbeda :',
+                  style: TextStyle(
+                    fontSize: 15,
+                    fontFamily: 'Poppins',
+                    fontWeight: FontWeight.bold,
+                  ),
                 ),
               ),
             ),
-          ),
-          Padding(
-            padding: const EdgeInsets.only(
-              bottom: 20,
-              left: 10, // Memberikan jarak ke kiri
+            Padding(
+              padding: const EdgeInsets.only(
+                bottom: 20,
+                left: 10, // Memberikan jarak ke kiri
+              ),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: const [
+                  Text(
+                    '• Bagian A',
+                    style: TextStyle(
+                      fontSize: 13,
+                      fontFamily: 'Poppins',
+                      fontWeight: FontWeight.bold,
+                    ),
+                  ),
+                  Text(
+                    '• Bagian B',
+                    style: TextStyle(
+                      fontSize: 13,
+                      fontFamily: 'Poppins',
+                      fontWeight: FontWeight.bold,
+                    ),
+                  ),
+                  Text(
+                    '• Bagian C',
+                    style: TextStyle(
+                      fontSize: 13,
+                      fontFamily: 'Poppins',
+                      fontWeight: FontWeight.bold,
+                    ),
+                  ),
+                  SizedBox(height: 10),
+                  Text(
+                    'Mari kita bahas masing-masingnya :',
+                    style: TextStyle(
+                      fontSize: 13,
+                      fontFamily: 'Poppins',
+                      fontWeight: FontWeight.bold,
+                    ),
+                  ),
+                  SizedBox(height: 20),
+                  Text(
+                    'Bagian A : Short Conversation',
+                    style: TextStyle(
+                      fontSize: 13,
+                      fontFamily: 'Poppins',
+                      fontWeight: FontWeight.bold,
+                    ),
+                  ),
+                  SizedBox(height: 10),
+                  Text(
+                    '• Bagian ini biasanya terdiri dari percakapan antara dua orang di lingkungan sehari-hari. seperti di kampus, di kantor, atau di tempat umum lainnya.',
+                    style: TextStyle(
+                      fontSize: 13,
+                      fontFamily: 'Poppins',
+                    ),
+                  ),
+                  SizedBox(height: 5),
+                  Text(
+                    '• Tujuannya adalah untuk menguji kemampuanmu dalam memahami percakapan informal antara orang-orang dalam berbagai situasi.',
+                    style: TextStyle(
+                      fontSize: 13,
+                      fontFamily: 'Poppins',
+                    ),
+                  ),
+                  SizedBox(height: 20),
+                  Text(
+                    'Bagian B : Long Conversation',
+                    style: TextStyle(
+                      fontSize: 13,
+                      fontFamily: 'Poppins',
+                      fontWeight: FontWeight.bold,
+                    ),
+                  ),
+                  SizedBox(height: 10),
+                  Text(
+                    '• Pada bagian ini, kamu akan mendengarkan ceramah singkat mengenai topik-topik yang beragam seperti sejarah, seni, ilmu pengetahuan, dan lain-lain.',
+                    style: TextStyle(
+                      fontSize: 13,
+                      fontFamily: 'Poppins',
+                    ),
+                  ),
+                  SizedBox(height: 5),
+                  Text(
+                    '• Biasanya, setelah ceramah, kamu akan diminta untuk menjawab beberapa pertanyaan yang berkaitan dengan isi ceramah tersebut.',
+                    style: TextStyle(
+                      fontSize: 13,
+                      fontFamily: 'Poppins',
+                    ),
+                  ),
+                  SizedBox(height: 20),
+                  Text(
+                    'Bagian C : Talks',
+                    style: TextStyle(
+                      fontSize: 13,
+                      fontFamily: 'Poppins',
+                      fontWeight: FontWeight.bold,
+                    ),
+                  ),
+                  SizedBox(height: 10),
+                  Text(
+                    '• Bagian ini terdiri dari percakapan yang lebih panjang atau ceramah yang lebih mendalam menanai topik-topik akademis atau umum.',
+                    style: TextStyle(
+                      fontSize: 13,
+                      fontFamily: 'Poppins',
+                    ),
+                  ),
+                ],
+              ),
             ),
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Text(
-                  'Bagian A',
-                  style: TextStyle(
-                    fontSize: 13,
-                    fontFamily: 'Poppins',
-                    fontWeight: FontWeight.bold,
-                  ),
-                ),
-                Text(
-                  'Bagian B',
-                  style: TextStyle(
-                    fontSize: 13,
-                    fontFamily: 'Poppins',
-                    fontWeight: FontWeight.bold,
-                  ),
-                ),
-                Text(
-                  'Bagian C',
-                  style: TextStyle(
-                    fontSize: 13,
-                    fontFamily: 'Poppins',
-                    fontWeight: FontWeight.bold,
-                  ),
-                ),
-                Text(
-                  'Mari kita bahas masing-masingnya :',
-                  style: TextStyle(
-                    fontSize: 13,
-                    fontFamily: 'Poppins',
-                    fontWeight: FontWeight.bold,
-                  ),
-                ),
-                Center(
-                  child: Column(
-                    children: [
-                      SizedBox(height: 20),
-                      Text(
-                        'Bagian A : Short Conversation',
-                        style: TextStyle(
-                          fontSize: 13,
-                          fontFamily: 'Poppins',
-                          fontWeight: FontWeight.bold,
-                        ),
-                      ),
-                    ],
-                  ),
-                ),
-                Center(
-                  child: Column(
-                    children: [
-                      SizedBox(height: 10),
-                      RichText(
-                        textAlign: TextAlign.center,
-                        text: TextSpan(
-                          style: TextStyle(
-                            fontSize: 13,
-                            fontFamily: 'Poppins',
-                            color: Colors.black,
-                          ),
-                          children: [
-                            TextSpan(
-                              text: '\u2022 ',
-                              style: TextStyle(
-                                fontSize: 13,
-                                fontFamily: 'Poppins',
-                                color: Colors.black,
-                              ),
-                            ),
-                            TextSpan(
-                              text:
-                                  'Bagian ini biasanya terdiri dari percakapan antara dua orang di lingkungan sehari-hari. seperti di kampus, di kantor, atau di tempat umum lainnya.',
-                              style: TextStyle(
-                                fontSize: 13,
-                                fontFamily: 'Poppins',
-                                color: Colors.black,
-                              ),
-                            ),
-                            TextSpan(text: '\n'),
-                            TextSpan(
-                              text: '\u2022 ',
-                              style: TextStyle(
-                                fontSize: 13,
-                                fontFamily: 'Poppins',
-                                color: Colors.black,
-                              ),
-                            ),
-                            TextSpan(
-                              text:
-                                  'Tujuannya adalah untuk menguji kemampuanmu dalam memahami percakapan informal antara orang-orang dalam berbagai situasi.',
-                              style: TextStyle(
-                                fontSize: 13,
-                                fontFamily: 'Poppins',
-                                color: Colors.black,
-                              ),
-                            ),
-                          ],
-                        ),
-                      ),
-                    ],
-                  ),
-                ),
-                Center(
-                  child: Column(
-                    children: [
-                      SizedBox(height: 20),
-                      Text(
-                        'Bagian A : Short Conversation',
-                        style: TextStyle(
-                          fontSize: 13,
-                          fontFamily: 'Poppins',
-                          fontWeight: FontWeight.bold,
-                        ),
-                      ),
-                    ],
-                  ),
-                ),
-                Center(
-                  child: Column(
-                    children: [
-                      SizedBox(height: 20),
-                      Text(
-                        'Bagian A : Short Conversation',
-                        style: TextStyle(
-                          fontSize: 13,
-                          fontFamily: 'Poppins',
-                          fontWeight: FontWeight.bold,
-                        ),
-                      ),
-                    ],
-                  ),
-                ),
-              ],
-            ),
-          ),
-        ],
+          ],
+        ),
       ),
     );
   }

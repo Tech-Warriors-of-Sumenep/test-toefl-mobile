@@ -177,7 +177,7 @@ class MateriPage extends StatelessWidget {
                   context,
                   MaterialPageRoute(
                       builder: (context) =>
-                          ShortConversationPages()), // Pindah ke ModelMateriPages
+                          ModelMateriPages()), // Pindah ke ModelMateriPages
                 );
               },
               child: const Text(

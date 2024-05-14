@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:toefl_app/pages/learning_grammar/grammar_dashboard.dart';
 import 'package:toefl_app/pages/start_home/start_home.dart';
 
 void main() {
@@ -14,7 +13,7 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
       title: 'Flutter Demo',
-      home: grammarDashboard(),
+      home: StartHome(),
     );
   }
 }
