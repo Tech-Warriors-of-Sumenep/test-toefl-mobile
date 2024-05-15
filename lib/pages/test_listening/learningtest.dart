@@ -60,37 +60,74 @@ class _LearningTestState extends State<LearningTest> {
                 child: Column(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: <Widget>[
-                    CircleAvatar(
-                      radius: 60,
-                      backgroundColor: Colors.yellow,
-                      child: Image.asset(
-                          'images/user.jpeg'), // Change as per your asset directory
-                    ),
+                    Image.asset('images/user2.png'),
                     SizedBox(height: 20),
-                    Text('Test learning',
-                        style: TextStyle(
-                            fontSize: 24, fontWeight: FontWeight.bold)),
-                    SizedBox(height: 10),
-                    Text('⏱ 100 menit    🖊️ 50 soal',
-                        style: TextStyle(fontSize: 18, color: Colors.grey)),
-                    SizedBox(height: 20),
-                    ElevatedButton(
-                      onPressed: () {
-                        Navigator.push(
-                          context,
-                          MaterialPageRoute(
-                              builder: (context) =>
-                                  AudioPage()), // Pindah ke ModelMateriPages
-                        );
-                      },
-                      child: Text('GET STARTED'),
-                      style: ElevatedButton.styleFrom(
-                        backgroundColor: Colors.yellow,
-                        padding:
-                            EdgeInsets.symmetric(horizontal: 50, vertical: 20),
+                    Text(
+                      'Test Learning',
+                      style: TextStyle(
+                        fontSize: 40,
+                        fontWeight: FontWeight.bold,
                       ),
                     ),
+                    SizedBox(height: 10),
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        Icon(Icons.access_time),
+                        SizedBox(width: 5),
+                        Text(
+                          '100 menit',
+                          style: TextStyle(
+                            fontSize: 18,
+                            color: const Color(0xFF020052),
+                          ),
+                        ),
+                        SizedBox(width: 20),
+                        Icon(Icons.book),
+                        SizedBox(width: 5),
+                        Text(
+                          '50 soal',
+                          style: TextStyle(
+                            fontSize: 18,
+                            color: const Color(0xFF020052),
+                          ),
+                        ),
+                      ],
+                    ),
                     SizedBox(height: 30),
+                    Container(
+                      width: 138,
+                      height: 34,
+                      decoration: BoxDecoration(
+                        borderRadius: BorderRadius.circular(20),
+                        color: const Color(0xFFFBFF4A),
+                        boxShadow: [
+                          BoxShadow(
+                            color: Colors.black.withOpacity(0.3),
+                            spreadRadius: 0,
+                            blurRadius: 4,
+                            offset: const Offset(0,
+                                2), // Sesuaikan offset sesuai dengan preferensi
+                          ),
+                        ],
+                      ),
+                      child: TextButton(
+                        onPressed: () {
+                          Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                                builder: (context) => AudioPage()),
+                          );
+                        },
+                        child: const Text(
+                          'GET STARTED',
+                          style: TextStyle(
+                            fontSize: 13,
+                            color: const Color(0xFF2E00BA),
+                          ),
+                        ),
+                      ),
+                    ),
                   ],
                 ),
               ),
