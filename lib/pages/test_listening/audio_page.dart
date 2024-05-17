@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:toefl_app/pages/test_listening/finish.dart';
+
 import 'package:toefl_app/pages/test_listening/listening_test.dart';
 import 'package:toefl_app/pages/test_listening/warning_card.dart';
 
@@ -52,97 +52,102 @@ class _AudioPageState extends State<AudioPage> {
         ),
       ),
       body: Center(
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            Text(
-              'Volume check',
-              style: TextStyle(
-                color: Colors.black,
-                fontSize: 22,
-                fontFamily: 'Poppins',
-                fontWeight: FontWeight.bold,
-              ),
-            ),
-            SizedBox(height: 10),
-            Image.asset(
-              'images/audio_page2.png', // Ganti dengan lokasi dan nama file gambar Anda
-              height: 300,
-              width: 500,
-            ),
-            SizedBox(height: 10),
-            Text(
-              'Can you hear the person speaking?',
-              style: TextStyle(
-                color: Colors.black,
-                fontSize: 22,
-                fontFamily: 'Poppins',
-                fontWeight: FontWeight.bold,
-              ),
-            ),
-            SizedBox(height: 80),
-            Row(
+        child: LayoutBuilder(
+          builder: (context, constraints) {
+            double width = constraints.maxWidth;
+            double height = constraints.maxHeight;
+
+            return Column(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
-                Column(
+                Text(
+                  'Volume check',
+                  style: TextStyle(
+                    color: Colors.black,
+                    fontSize: width * 0.05,
+                    fontFamily: 'Poppins',
+                    fontWeight: FontWeight.bold,
+                  ),
+                ),
+                SizedBox(height: height * 0.02),
+                Image.asset(
+                  'images/audio_page2.png', // Replace with your image path
+                  height: height * 0.4,
+                  width: width * 0.8,
+                ),
+                SizedBox(height: height * 0.02),
+                Text(
+                  'Can you hear the person speaking?',
+                  style: TextStyle(
+                    color: Colors.black,
+                    fontSize: width * 0.05,
+                    fontFamily: 'Poppins',
+                    fontWeight: FontWeight.bold,
+                  ),
+                ),
+                SizedBox(height: height * 0.1),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
                   children: [
-                    ElevatedButton(
-                      onPressed: () {
-                        Navigator.push(
-                          context,
-                          MaterialPageRoute(
-                              builder: (context) =>
-                                  listening()), // Pindah ke ModelMateriPages
-                        );
-                      },
-                      style: ElevatedButton.styleFrom(
-                        backgroundColor: Colors.blue,
-                        minimumSize: Size(450, 50),
-                      ),
-                      child: Text(
-                        'Yes',
-                        style: TextStyle(
-                          color: Colors.white,
+                    Column(
+                      children: [
+                        ElevatedButton(
+                          onPressed: () {
+                            Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                  builder: (context) => listening()),
+                            );
+                          },
+                          style: ElevatedButton.styleFrom(
+                            backgroundColor: Colors.blue,
+                            minimumSize: Size(width * 0.7, height * 0.08),
+                          ),
+                          child: Text(
+                            'Yes',
+                            style: TextStyle(
+                              color: Colors.white,
+                            ),
+                          ),
                         ),
-                      ),
+                        SizedBox(height: height * 0.03),
+                      ],
                     ),
-                    SizedBox(height: 30),
+                  ],
+                ),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    Column(
+                      children: [
+                        ElevatedButton(
+                          onPressed: () {
+                            Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                  builder: (context) => VolumeTest()),
+                            );
+                          },
+                          style: ElevatedButton.styleFrom(
+                            backgroundColor: Colors.white,
+                            minimumSize: Size(width * 0.7, height * 0.08),
+                          ),
+                          child: Text(
+                            'No',
+                            style: TextStyle(
+                              color: Colors.black,
+                              fontWeight: FontWeight.bold,
+                            ),
+                          ),
+                        ),
+                        SizedBox(height: height * 0.02),
+                      ],
+                    ),
                   ],
                 ),
               ],
-            ),
-            Row(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                Column(
-                  children: [
-                    ElevatedButton(
-                      onPressed: () {
-                        Navigator.push(
-                          context,
-                          MaterialPageRoute(
-                              builder: (context) =>
-                                  VolumeTest()), // Pindah ke ModelMateriPages
-                        );
-                      },
-                      style: ElevatedButton.styleFrom(
-                        backgroundColor: Colors.white,
-                        minimumSize: Size(450, 50),
-                      ),
-                      child: Text(
-                        'No',
-                        style: TextStyle(
-                          color: Colors.black,
-                          fontWeight: FontWeight.bold,
-                        ),
-                      ),
-                    ),
-                    SizedBox(height: 10),
-                  ],
-                ),
-              ],
-            ),
-          ],
+            );
+          },
         ),
       ),
       bottomNavigationBar: Container(

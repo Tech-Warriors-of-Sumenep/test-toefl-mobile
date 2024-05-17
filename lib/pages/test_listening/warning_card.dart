@@ -1,8 +1,8 @@
 // ignore_for_file: camel_case_types, prefer_typing_uninitialized_variables
 
 import 'package:flutter/material.dart';
+import 'package:toefl_app/pages/menu_page/dasboard.dart';
 import 'package:toefl_app/pages/test_listening/audio_page.dart';
-import 'package:toefl_app/pages/test_listening/learningtest.dart';
 
 class VolumeTest extends StatefulWidget {
   const VolumeTest({Key? key}) : super(key: key);
@@ -91,7 +91,7 @@ class SoundTestCard extends StatelessWidget {
                   // Navigasi ke halaman AudioPage() ketika tombol ditekan
                   Navigator.push(
                     context,
-                    MaterialPageRoute(builder: (context) => LearningTest()),
+                    MaterialPageRoute(builder: (context) => MenuPage()),
                   );
                 },
                 child: Text('Take the test later',

@@ -1,7 +1,8 @@
 // ignore_for_file: camel_case_types, prefer_typing_uninitialized_variables
 
 import 'package:flutter/material.dart';
-import 'package:toefl_app/pages/test_listening/finish.dart';
+import 'package:toefl_app/pages/menu_page/dasboard.dart';
+
 import 'package:toefl_app/pages/test_listening/listening_test.dart';
 
 class ExitCard extends StatefulWidget {
@@ -104,7 +105,7 @@ class ExitConfirmationCard extends StatelessWidget {
                     context,
                     MaterialPageRoute(
                         builder: (context) =>
-                            FinishPage()), // Pindah ke ModelMateriPages
+                            MenuPage()), // Pindah ke ModelMateriPages
                   );
                 },
                 child: Text('Exit the test',
