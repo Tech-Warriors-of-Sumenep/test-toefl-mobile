@@ -351,37 +351,47 @@ class _listeningState extends State<listening> {
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
                         Padding(
-                          padding: const EdgeInsets.symmetric(vertical: 0.0),
+                          padding: const EdgeInsets.symmetric(vertical: 8.0),
                           child: GestureDetector(
                             onTap: () => _onOptionSelected('A'),
-                            child: Row(
-                              crossAxisAlignment: CrossAxisAlignment.start,
+                            child: Stack(
+                              alignment: Alignment.centerLeft,
                               children: [
-                                RawMaterialButton(
-                                  onPressed: () => _onOptionSelected('A'),
-                                  fillColor: _selectedOption == 'A'
-                                      ? Colors.blue
-                                      : Colors.transparent,
-                                  shape: CircleBorder(),
-                                  elevation: 0,
-                                  child: Text(
-                                    'A',
-                                    style: TextStyle(
-                                      color: _selectedOption == 'A'
-                                          ? Colors.white
-                                          : Colors.black,
-                                      fontSize: screenWidth * 0.04,
-                                      fontFamily: 'Poppins',
+                                Positioned(
+                                  left: 0,
+                                  child: RawMaterialButton(
+                                    onPressed: () => _onOptionSelected('A'),
+                                    fillColor: _selectedOption == 'A'
+                                        ? Colors.blue
+                                        : Colors.transparent,
+                                    shape: CircleBorder(
+                                        side: BorderSide(
+                                            color: _selectedOption == 'A'
+                                                ? Colors.blue
+                                                : Colors.black)),
+                                    elevation: 0,
+                                    child: Text(
+                                      '',
+                                      style: TextStyle(
+                                        color: _selectedOption == 'A'
+                                            ? Colors.white
+                                            : Colors.black,
+                                        fontSize: screenWidth * 0.04,
+                                        fontFamily: 'Poppins',
+                                      ),
                                     ),
                                   ),
                                 ),
-                                SizedBox(
-                                    width: 2), // Spasi antara tombol dan teks
-                                Expanded(
+                                Padding(
+                                  padding:
+                                      EdgeInsets.only(left: screenWidth * 0.1),
                                   child: Text(
                                     'He is required to read one of his books but does not like his writing.',
                                     style: TextStyle(
-                                      color: Colors.black,
+                                      color: _selectedOption == 'A'
+                                          ? Colors
+                                              .blue // Jika dipilih, warna teks menjadi biru
+                                          : Colors.black,
                                       fontSize: screenWidth * 0.04,
                                       fontFamily: 'Poppins',
                                     ),
@@ -395,34 +405,44 @@ class _listeningState extends State<listening> {
                           padding: const EdgeInsets.symmetric(vertical: 8.0),
                           child: GestureDetector(
                             onTap: () => _onOptionSelected('B'),
-                            child: Row(
-                              crossAxisAlignment: CrossAxisAlignment.start,
+                            child: Stack(
+                              alignment: Alignment.centerLeft,
                               children: [
-                                RawMaterialButton(
-                                  onPressed: () => _onOptionSelected('B'),
-                                  fillColor: _selectedOption == 'B'
-                                      ? Colors.blue
-                                      : Colors.transparent,
-                                  shape: CircleBorder(),
-                                  elevation: 0,
-                                  child: Text(
-                                    'B',
-                                    style: TextStyle(
-                                      color: _selectedOption == 'B'
-                                          ? Colors.white
-                                          : Colors.black,
-                                      fontSize: screenWidth * 0.04,
-                                      fontFamily: 'Poppins',
+                                Positioned(
+                                  left: 0,
+                                  child: RawMaterialButton(
+                                    onPressed: () => _onOptionSelected('B'),
+                                    fillColor: _selectedOption == 'B'
+                                        ? Colors.blue
+                                        : Colors.transparent,
+                                    shape: CircleBorder(
+                                        side: BorderSide(
+                                            color: _selectedOption == 'B'
+                                                ? Colors.blue
+                                                : Colors.black)),
+                                    elevation: 0,
+                                    child: Text(
+                                      '',
+                                      style: TextStyle(
+                                        color: _selectedOption == 'B'
+                                            ? Colors.white
+                                            : Colors.black,
+                                        fontSize: screenWidth * 0.04,
+                                        fontFamily: 'Poppins',
+                                      ),
                                     ),
                                   ),
                                 ),
-                                SizedBox(
-                                    width: 2), // Spasi antara tombol dan teks
-                                Expanded(
+                                Padding(
+                                  padding:
+                                      EdgeInsets.only(left: screenWidth * 0.1),
                                   child: Text(
                                     'He has never read any of his works previously.',
                                     style: TextStyle(
-                                      color: Colors.black,
+                                      color: _selectedOption == 'B'
+                                          ? Colors
+                                              .blue // Jika dipilih, warna teks menjadi biru
+                                          : Colors.black,
                                       fontSize: screenWidth * 0.04,
                                       fontFamily: 'Poppins',
                                     ),
@@ -436,34 +456,44 @@ class _listeningState extends State<listening> {
                           padding: const EdgeInsets.symmetric(vertical: 8.0),
                           child: GestureDetector(
                             onTap: () => _onOptionSelected('C'),
-                            child: Row(
-                              crossAxisAlignment: CrossAxisAlignment.start,
+                            child: Stack(
+                              alignment: Alignment.centerLeft,
                               children: [
-                                RawMaterialButton(
-                                  onPressed: () => _onOptionSelected('C'),
-                                  fillColor: _selectedOption == 'C'
-                                      ? Colors.blue
-                                      : Colors.transparent,
-                                  shape: CircleBorder(),
-                                  elevation: 0,
-                                  child: Text(
-                                    'C',
-                                    style: TextStyle(
-                                      color: _selectedOption == 'C'
-                                          ? Colors.white
-                                          : Colors.black,
-                                      fontSize: screenWidth * 0.04,
-                                      fontFamily: 'Poppins',
+                                Positioned(
+                                  left: 0,
+                                  child: RawMaterialButton(
+                                    onPressed: () => _onOptionSelected('C'),
+                                    fillColor: _selectedOption == 'C'
+                                        ? Colors.blue
+                                        : Colors.transparent,
+                                    shape: CircleBorder(
+                                        side: BorderSide(
+                                            color: _selectedOption == 'C'
+                                                ? Colors.blue
+                                                : Colors.black)),
+                                    elevation: 0,
+                                    child: Text(
+                                      '',
+                                      style: TextStyle(
+                                        color: _selectedOption == 'C'
+                                            ? Colors.white
+                                            : Colors.black,
+                                        fontSize: screenWidth * 0.04,
+                                        fontFamily: 'Poppins',
+                                      ),
                                     ),
                                   ),
                                 ),
-                                SizedBox(
-                                    width: 2), // Spasi antara tombol dan teks
-                                Expanded(
+                                Padding(
+                                  padding:
+                                      EdgeInsets.only(left: screenWidth * 0.1),
                                   child: Text(
                                     'He appreciates his writing style.',
                                     style: TextStyle(
-                                      color: Colors.black,
+                                      color: _selectedOption == 'C'
+                                          ? Colors
+                                              .blue // Jika dipilih, warna teks menjadi biru
+                                          : Colors.black,
                                       fontSize: screenWidth * 0.04,
                                       fontFamily: 'Poppins',
                                     ),
@@ -477,34 +507,44 @@ class _listeningState extends State<listening> {
                           padding: const EdgeInsets.symmetric(vertical: 8.0),
                           child: GestureDetector(
                             onTap: () => _onOptionSelected('D'),
-                            child: Row(
-                              crossAxisAlignment: CrossAxisAlignment.start,
+                            child: Stack(
+                              alignment: Alignment.centerLeft,
                               children: [
-                                RawMaterialButton(
-                                  onPressed: () => _onOptionSelected('D'),
-                                  fillColor: _selectedOption == 'D'
-                                      ? Colors.blue
-                                      : Colors.transparent,
-                                  shape: CircleBorder(),
-                                  elevation: 0,
-                                  child: Text(
-                                    'D',
-                                    style: TextStyle(
-                                      color: _selectedOption == 'D'
-                                          ? Colors.white
-                                          : Colors.black,
-                                      fontSize: screenWidth * 0.04,
-                                      fontFamily: 'Poppins',
+                                Positioned(
+                                  left: 0,
+                                  child: RawMaterialButton(
+                                    onPressed: () => _onOptionSelected('D'),
+                                    fillColor: _selectedOption == 'D'
+                                        ? Colors.blue
+                                        : Colors.transparent,
+                                    shape: CircleBorder(
+                                        side: BorderSide(
+                                            color: _selectedOption == 'D'
+                                                ? Colors.blue
+                                                : Colors.black)),
+                                    elevation: 0,
+                                    child: Text(
+                                      '',
+                                      style: TextStyle(
+                                        color: _selectedOption == 'D'
+                                            ? Colors.white
+                                            : Colors.black,
+                                        fontSize: screenWidth * 0.04,
+                                        fontFamily: 'Poppins',
+                                      ),
                                     ),
                                   ),
                                 ),
-                                SizedBox(
-                                    width: 2), // Spasi antara tombol dan teks
-                                Expanded(
+                                Padding(
+                                  padding:
+                                      EdgeInsets.only(left: screenWidth * 0.1),
                                   child: Text(
                                     'He learned about his books from a computer.',
                                     style: TextStyle(
-                                      color: Colors.black,
+                                      color: _selectedOption == 'D'
+                                          ? Colors
+                                              .blue // Jika dipilih, warna teks menjadi biru
+                                          : Colors.black,
                                       fontSize: screenWidth * 0.04,
                                       fontFamily: 'Poppins',
                                     ),
