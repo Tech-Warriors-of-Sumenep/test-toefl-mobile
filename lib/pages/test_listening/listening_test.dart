@@ -351,7 +351,7 @@ class _listeningState extends State<listening> {
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
                         Padding(
-                          padding: const EdgeInsets.symmetric(vertical: 8.0),
+                          padding: const EdgeInsets.symmetric(vertical: 4.0),
                           child: GestureDetector(
                             onTap: () => _onOptionSelected('A'),
                             child: Stack(
@@ -365,11 +365,19 @@ class _listeningState extends State<listening> {
                                         ? Colors.blue
                                         : Colors.transparent,
                                     shape: CircleBorder(
-                                        side: BorderSide(
-                                            color: _selectedOption == 'A'
-                                                ? Colors.blue
-                                                : Colors.black)),
+                                      side: BorderSide(
+                                        color: _selectedOption == 'A'
+                                            ? Colors.blue
+                                            : Colors.black,
+                                      ),
+                                    ),
                                     elevation: 0,
+                                    constraints: BoxConstraints(
+                                      minWidth:
+                                          15.0, // ukuran minimum lingkaran
+                                      minHeight:
+                                          40.0, // ukuran minimum lingkaran
+                                    ),
                                     child: Text(
                                       '',
                                       style: TextStyle(
@@ -416,11 +424,19 @@ class _listeningState extends State<listening> {
                                         ? Colors.blue
                                         : Colors.transparent,
                                     shape: CircleBorder(
-                                        side: BorderSide(
-                                            color: _selectedOption == 'B'
-                                                ? Colors.blue
-                                                : Colors.black)),
+                                      side: BorderSide(
+                                        color: _selectedOption == 'B'
+                                            ? Colors.blue
+                                            : Colors.black,
+                                      ),
+                                    ),
                                     elevation: 0,
+                                    constraints: BoxConstraints(
+                                      minWidth:
+                                          15.0, // ukuran minimum lingkaran
+                                      minHeight:
+                                          40.0, // ukuran minimum lingkaran
+                                    ),
                                     child: Text(
                                       '',
                                       style: TextStyle(
@@ -467,11 +483,19 @@ class _listeningState extends State<listening> {
                                         ? Colors.blue
                                         : Colors.transparent,
                                     shape: CircleBorder(
-                                        side: BorderSide(
-                                            color: _selectedOption == 'C'
-                                                ? Colors.blue
-                                                : Colors.black)),
+                                      side: BorderSide(
+                                        color: _selectedOption == 'C'
+                                            ? Colors.blue
+                                            : Colors.black,
+                                      ),
+                                    ),
                                     elevation: 0,
+                                    constraints: BoxConstraints(
+                                      minWidth:
+                                          15.0, // ukuran minimum lingkaran
+                                      minHeight:
+                                          40.0, // ukuran minimum lingkaran
+                                    ),
                                     child: Text(
                                       '',
                                       style: TextStyle(
@@ -518,11 +542,19 @@ class _listeningState extends State<listening> {
                                         ? Colors.blue
                                         : Colors.transparent,
                                     shape: CircleBorder(
-                                        side: BorderSide(
-                                            color: _selectedOption == 'D'
-                                                ? Colors.blue
-                                                : Colors.black)),
+                                      side: BorderSide(
+                                        color: _selectedOption == 'D'
+                                            ? Colors.blue
+                                            : Colors.black,
+                                      ),
+                                    ),
                                     elevation: 0,
+                                    constraints: BoxConstraints(
+                                      minWidth:
+                                          15.0, // ukuran minimum lingkaran
+                                      minHeight:
+                                          40.0, // ukuran minimum lingkaran
+                                    ),
                                     child: Text(
                                       '',
                                       style: TextStyle(
