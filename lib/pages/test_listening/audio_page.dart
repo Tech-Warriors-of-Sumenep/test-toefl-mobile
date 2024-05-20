@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-
+import 'package:audioplayers/audioplayers.dart';
 import 'package:toefl_app/pages/test_listening/listening_test.dart';
 import 'package:toefl_app/pages/test_listening/warning_card.dart';
 
@@ -11,6 +11,31 @@ class AudioPage extends StatefulWidget {
 }
 
 class _AudioPageState extends State<AudioPage> {
+  late AudioPlayer _audioPlayer;
+
+  @override
+  void initState() {
+    super.initState();
+    _audioPlayer = AudioPlayer();
+    _playAudioFromUrl();
+  }
+
+  Future<void> _playAudioFromUrl() async {
+    const url =
+        'https://commondatastorage.googleapis.com/codeskulptor-demos/DDR_assets/Kangaroo_MusiQue_-_The_Neverwritten_Role_Playing_Game.mp3';
+    await _audioPlayer.play(UrlSource(url));
+  }
+
+  @override
+  void dispose() {
+    _audioPlayer.dispose();
+    super.dispose();
+  }
+
+  Future<void> _stopAudio() async {
+    await _audioPlayer.stop();
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -71,7 +96,7 @@ class _AudioPageState extends State<AudioPage> {
                 ),
                 SizedBox(height: height * 0.02),
                 Image.asset(
-                  'images/audio_page2.png', // Replace with your image path
+                  'images/audio_page2.png',
                   height: height * 0.4,
                   width: width * 0.8,
                 ),
@@ -92,7 +117,8 @@ class _AudioPageState extends State<AudioPage> {
                     Column(
                       children: [
                         ElevatedButton(
-                          onPressed: () {
+                          onPressed: () async {
+                            await _stopAudio();
                             Navigator.push(
                               context,
                               MaterialPageRoute(
@@ -121,7 +147,8 @@ class _AudioPageState extends State<AudioPage> {
                     Column(
                       children: [
                         ElevatedButton(
-                          onPressed: () {
+                          onPressed: () async {
+                            await _stopAudio();
                             Navigator.push(
                               context,
                               MaterialPageRoute(

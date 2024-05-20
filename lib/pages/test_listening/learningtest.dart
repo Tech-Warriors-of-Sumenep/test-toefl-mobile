@@ -63,7 +63,7 @@ class _LearningTestState extends State<LearningTest> {
                     Image.asset('images/user2.png'),
                     SizedBox(height: 20),
                     Text(
-                      'Test Learning',
+                      'Test Listening',
                       style: TextStyle(
                         fontSize: 40,
                         fontWeight: FontWeight.bold,
