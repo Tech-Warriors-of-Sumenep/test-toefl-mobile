@@ -1,39 +1,39 @@
 import 'package:flutter/material.dart';
 import 'package:toefl_app/model/learning_reading.dart';
-import 'package:toefl_app/pages/learning_reading.dart/contoh_soal_learning_reading.dart';
-import 'package:http/http.dart' as http;
-import 'dart:convert';
 
 class ModelLearningReadingPages extends StatefulWidget {
-  const ModelLearningReadingPages({Key? key}) : super(key: key);
+  final List<materIReading> materiList;
+  final int initialIndex;
+
+  const ModelLearningReadingPages({Key? key, required this.materiList, this.initialIndex = 0}) : super(key: key);
 
   @override
-  State<ModelLearningReadingPages> createState() => _ModelLearningReadingPagesState();
+  _ModelLearningReadingPagesState createState() => _ModelLearningReadingPagesState();
 }
 
 class _ModelLearningReadingPagesState extends State<ModelLearningReadingPages> {
-  late Future<List<materIReading>> futureMateri;
+  late int currentIndex;
 
   @override
   void initState() {
     super.initState();
-    futureMateri = fetchMaterIReading();
+    currentIndex = widget.initialIndex;
   }
 
-  Future<List<materIReading>> fetchMaterIReading() async {
-    final response = await http.get(Uri.parse('http://10.251.12.16:8000/api/materiReading'));
-
-    if (response.statusCode == 200) {
-      final data = json.decode(response.body);
-      final List<dynamic> payload = data['payload'];
-      return materIReading.fromJsonList(payload);
-    } else {
-      throw Exception('Failed to load data');
-    }
+  void navigateToNext() {
+    setState(() {
+      if (currentIndex < widget.materiList.length - 1) {
+        currentIndex++;
+      } else {
+        currentIndex = 0; // Loop back to the first item if at the end
+      }
+    });
   }
 
   @override
   Widget build(BuildContext context) {
+    final materi = widget.materiList[currentIndex];
+
     return Scaffold(
       appBar: PreferredSize(
         preferredSize: const Size.fromHeight(kToolbarHeight + 10),
@@ -67,36 +67,31 @@ class _ModelLearningReadingPagesState extends State<ModelLearningReadingPages> {
           ),
         ),
       ),
-      body: FutureBuilder<List<materIReading>>(
-        future: futureMateri,
-        builder: (context, snapshot) {
-          if (snapshot.connectionState == ConnectionState.waiting) {
-            return Center(child: CircularProgressIndicator());
-          } else if (snapshot.hasError) {
-            return Center(child: Text('Error: ${snapshot.error}'));
-          } else if (snapshot.hasData) {
-            return ListView.builder(
-              itemCount: snapshot.data!.length,
-              itemBuilder: (context, index) {
-                final materi = snapshot.data![index];
-                return ListTile(
-                  title: Text(materi.title),
-                  subtitle: Text(materi.description),
-                  onTap: () {
-                    Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                        builder: (context) => LearningReadingPage(materiList: snapshot.data!),
-                      ),
-                    );
-                  },
-                );
-              },
-            );
-          } else {
-            return Center(child: Text('No data found'));
-          }
-        },
+      body: Padding(
+        padding: const EdgeInsets.all(16.0),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Text(
+              materi.title,
+              style: TextStyle(
+                fontSize: 24,
+                fontWeight: FontWeight.bold,
+                fontFamily: 'Fugaz One',
+              ),
+            ),
+            SizedBox(height: 10),
+            Text(
+              materi.description,
+              style: TextStyle(
+                fontSize: 16,
+                fontFamily: 'Poppins',
+                color: Colors.black,
+              ),
+            ),
+            // Add more fields as necessary
+          ],
+        ),
       ),
       bottomNavigationBar: Container(
         decoration: BoxDecoration(
@@ -128,9 +123,7 @@ class _ModelLearningReadingPagesState extends State<ModelLearningReadingPages> {
               ),
             ),
             GestureDetector(
-              onTap: () {
-                // Your function here
-              },
+              onTap: navigateToNext,
               child: Padding(
                 padding: const EdgeInsets.symmetric(horizontal: 10.0),
                 child: Icon(Icons.arrow_forward),
@@ -138,53 +131,6 @@ class _ModelLearningReadingPagesState extends State<ModelLearningReadingPages> {
             ),
           ],
         ),
-      ),
-    );
-  }
-}
-
-class LearningReadingPage extends StatelessWidget {
-  const LearningReadingPage({Key? key, required this.materiList}) : super(key: key);
-
-  final List<materIReading> materiList;
-
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        title: const Text('Learning Reading'),
-      ),
-      body: ListView.builder(
-        itemCount: materiList.length,
-        itemBuilder: (context, index) {
-          final materi = materiList[index];
-          return Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 10),
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Text(
-                  materi.title,
-                  style: TextStyle(
-                    fontSize: 16,
-                    fontWeight: FontWeight.bold,
-                    fontFamily: 'Poppins',
-                    color: const Color(0xFF020052),
-                  ),
-                ),
-                const SizedBox(height: 10),
-                Text(
-                  materi.description,
-                  style: TextStyle(
-                    fontSize: 14,
-                    fontFamily: 'Poppins',
-                    color: Colors.black,
-                  ),
-                ),
-              ],
-            ),
-          );
-        },
       ),
     );
   }
