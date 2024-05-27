@@ -89,7 +89,7 @@ class ExitConfirmationCard extends StatelessWidget {
                     context,
                     MaterialPageRoute(
                         builder: (context) =>
-                            listening()), // Pindah ke ModelMateriPages
+                            Listening()), // Pindah ke ModelMateriPages
                   );
                 },
                 child: Text('Go back',
