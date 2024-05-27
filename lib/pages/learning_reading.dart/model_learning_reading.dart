@@ -1,14 +1,18 @@
 import 'package:flutter/material.dart';
 import 'package:toefl_app/model/learning_reading.dart';
+import 'package:toefl_app/pages/learning_reading.dart/materi_learning_reading.dart'; // Import halaman tujuan
 
 class ModelLearningReadingPages extends StatefulWidget {
   final List<materIReading> materiList;
   final int initialIndex;
 
-  const ModelLearningReadingPages({Key? key, required this.materiList, this.initialIndex = 0}) : super(key: key);
+  const ModelLearningReadingPages(
+      {Key? key, required this.materiList, this.initialIndex = 0})
+      : super(key: key);
 
   @override
-  _ModelLearningReadingPagesState createState() => _ModelLearningReadingPagesState();
+  _ModelLearningReadingPagesState createState() =>
+      _ModelLearningReadingPagesState();
 }
 
 class _ModelLearningReadingPagesState extends State<ModelLearningReadingPages> {
@@ -89,7 +93,43 @@ class _ModelLearningReadingPagesState extends State<ModelLearningReadingPages> {
                 color: Colors.black,
               ),
             ),
-            // Add more fields as necessary
+            // Tambahkan tombol "GET STARTED" di bawah deskripsi
+            SizedBox(height: 20), // Space di antara deskripsi dan tombol
+            Container(
+              width: 120,
+              height: 30,
+              decoration: BoxDecoration(
+                borderRadius: BorderRadius.circular(20),
+                color: const Color(0xFFFBFF4A),
+                boxShadow: [
+                  BoxShadow(
+                    color: Colors.black.withOpacity(0.3),
+                    spreadRadius: 0,
+                    blurRadius: 4,
+                    offset: const Offset(0, 2),
+                  ),
+                ],
+              ),
+              child: TextButton(
+                onPressed: () {
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                        builder: (context) =>
+                            MateriLearningReadingPage()), // Pindah ke MateriLearningReadingPage
+                  );
+                },
+                child: const Text(
+                  'Contoh Soal',
+                  style: TextStyle(
+                    fontSize: 13,
+                    fontWeight: FontWeight.bold,
+                    fontFamily: 'Poppins',
+                    color: const Color(0xFF2E00BA),
+                  ),
+                ),
+              ),
+            ),
           ],
         ),
       ),

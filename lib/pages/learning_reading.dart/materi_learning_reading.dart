@@ -6,7 +6,8 @@ import 'dart:convert';
 
 class MateriLearningReadingPage extends StatefulWidget {
   @override
-  _MateriLearningReadingPageState createState() => _MateriLearningReadingPageState();
+  _MateriLearningReadingPageState createState() =>
+      _MateriLearningReadingPageState();
 }
 
 class _MateriLearningReadingPageState extends State<MateriLearningReadingPage> {
@@ -19,7 +20,8 @@ class _MateriLearningReadingPageState extends State<MateriLearningReadingPage> {
   }
 
   Future<List<materIReading>> fetchMaterIReading() async {
-    final response = await http.get(Uri.parse('http://192.168.118.122:8000/api/materiReading'));
+    final response = await http
+        .get(Uri.parse('http://10.251.130.167:8000/api/materiReading'));
 
     if (response.statusCode == 200) {
       final data = json.decode(response.body);
@@ -50,9 +52,12 @@ class _MateriLearningReadingPageState extends State<MateriLearningReadingPage> {
             leading: Padding(
               padding: const EdgeInsets.only(left: 17.0),
               child: IconButton(
-                icon: const Icon(Icons.menu),
-                color: Colors.white,
-                onPressed: () {},
+                icon: const Icon(
+                  Icons.arrow_back,
+                ),
+                onPressed: () {
+                  Navigator.of(context).pop();
+                },
               ),
             ),
             actions: [
@@ -107,7 +112,8 @@ class _MateriLearningReadingPageState extends State<MateriLearningReadingPage> {
                           },
                           child: Container(
                             width: double.infinity,
-                            margin: const EdgeInsets.symmetric(horizontal: 16.0),
+                            margin:
+                                const EdgeInsets.symmetric(horizontal: 16.0),
                             height: 80,
                             decoration: BoxDecoration(
                               color: Colors.white,
