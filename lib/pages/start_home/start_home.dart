@@ -10,7 +10,7 @@ class _StartHomeState extends State<StartHome> {
   void initState() {
     super.initState();
     // Menjalankan perpindahan halaman setelah 3 detik
-    Future.delayed(Duration(seconds: 4), () {
+    Future.delayed(Duration(seconds: 2), () {
       Navigator.pushReplacement(
         context,
         MaterialPageRoute(builder: (context) => MainPage()), // Ganti NextPage() dengan halaman berikutnya

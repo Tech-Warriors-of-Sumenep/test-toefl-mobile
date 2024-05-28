@@ -1,16 +1,21 @@
 import 'package:flutter/material.dart';
 import 'package:toefl_app/pages/menu_page/navigasi.dart';
 
-class FinishPage extends StatefulWidget {
-  const FinishPage({Key? key}) : super(key: key);
+
+class Finishtestgrammar extends StatefulWidget {
+  final int totalTime; // Tambahkan parameter untuk total waktu
+  const Finishtestgrammar({Key? key, required this.totalTime}) : super(key: key);
 
   @override
-  State<FinishPage> createState() => _FinishPageState();
+  State<Finishtestgrammar> createState() => _FinishPageState();
 }
 
-class _FinishPageState extends State<FinishPage> {
+
+class _FinishPageState extends State<Finishtestgrammar> {
   @override
   Widget build(BuildContext context) {
+     int minutes = widget.totalTime ~/ 60;
+    int seconds = widget.totalTime % 60;
     return Scaffold(
       appBar: PreferredSize(
         preferredSize: const Size.fromHeight(kToolbarHeight + 10),
@@ -96,7 +101,7 @@ class _FinishPageState extends State<FinishPage> {
                             child: SizedBox(
                               width: 35,
                               child: Text(
-                                '  : 43',
+                                '  : 13',
                                 style: TextStyle(
                                   color: Colors.black,
                                   fontSize: 15,
@@ -155,13 +160,13 @@ class _FinishPageState extends State<FinishPage> {
                               ),
                             ),
                           ),
-                          Positioned(
+                         Positioned(
                             left: 96,
                             top: 16,
                             child: SizedBox(
                               width: 70,
                               child: Text(
-                                ': 98 m 5s',
+                                ':$minutes m $seconds s', // Menampilkan waktu total
                                 style: TextStyle(
                                   color: Colors.black,
                                   fontSize: 15,
@@ -297,7 +302,7 @@ class _FinishPageState extends State<FinishPage> {
                             child: SizedBox(
                               width: 70,
                               child: Text(
-                                '         : 50',
+                                '         : 20',
                                 style: TextStyle(
                                   color: Colors.black,
                                   fontSize: 15,
@@ -478,4 +483,5 @@ class _FinishPageState extends State<FinishPage> {
       ),
     );
   }
+  
 }
