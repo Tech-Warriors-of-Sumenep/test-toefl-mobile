@@ -4,14 +4,14 @@ import 'dart:async';
 import 'package:toefl_app/pages/test_grammar/finish.dart';
 import 'package:toefl_app/pages/test_listening/exit_card.dart';
 
-class listening extends StatefulWidget {
-  const listening({super.key});
+class Listening extends StatefulWidget {
+  const Listening({super.key});
 
   @override
-  State<listening> createState() => _listeningState();
+  State<Listening> createState() => _ListeningState();
 }
 
-class _listeningState extends State<listening> {
+class _ListeningState extends State<Listening> {
   final AudioPlayer player = AudioPlayer();
   bool isDraggingSlider = false;
   Duration currentPosition = Duration.zero;
@@ -23,6 +23,37 @@ class _listeningState extends State<listening> {
   int numberOfPlays = 0;
   bool _isFirstAudioPlaying = false;
   String? _selectedOption;
+  int _currentQuestionIndex = 0;
+
+  final List<Map<String, dynamic>> _questions = [
+    {
+      'question': 'What does the man say about Sterling Watson?',
+      'options': [
+        'He is required to read one of his books but does not like his writing.',
+        'He has never read any of his works previously.',
+        'He appreciates his writing style.',
+        'He learned about his books from a computer.'
+      ]
+    },
+    {
+      'question': 'What is the main topic of the conversation?',
+      'options': [
+        'The quality of Sterling Watson\'s writing.',
+        'The man\'s experience with Watson\'s books.',
+        'The content of Watson\'s latest book.',
+        'The man\'s interest in reading fiction.'
+      ]
+    },
+    {
+      'question': 'Where did the conversation take place?',
+      'options': [
+        'In a library.',
+        'At a bookstore.',
+        'In a classroom.',
+        'At a coffee shop.'
+      ]
+    },
+  ];
 
   @override
   void initState() {
@@ -67,11 +98,32 @@ class _listeningState extends State<listening> {
     setState(() => _isPlaying = true);
   }
 
+  void _nextQuestion() {
+    if (_currentQuestionIndex < _questions.length - 1) {
+      setState(() {
+        _currentQuestionIndex++;
+        _selectedOption = null;
+      });
+    } else {
+      Navigator.push(
+        context,
+        MaterialPageRoute(builder: (context) => FinishPage()),
+      );
+    }
+  }
+
   @override
   void dispose() {
     _timer?.cancel();
     player.dispose();
     super.dispose();
+  }
+
+  void _finishTest() {
+    Navigator.push(
+      context,
+      MaterialPageRoute(builder: (context) => FinishPage()),
+    );
   }
 
   String _formatTime(int seconds) {
@@ -91,6 +143,8 @@ class _listeningState extends State<listening> {
   Widget build(BuildContext context) {
     final screenWidth = MediaQuery.of(context).size.width;
     final screenHeight = MediaQuery.of(context).size.height;
+    final currentQuestion = _questions[_currentQuestionIndex];
+
     return Scaffold(
       appBar: PreferredSize(
         preferredSize: const Size.fromHeight(kToolbarHeight + 10),
@@ -109,9 +163,7 @@ class _listeningState extends State<listening> {
             leading: Padding(
               padding: const EdgeInsets.only(left: 17.0),
               child: IconButton(
-                icon: const Icon(
-                  Icons.arrow_back,
-                ),
+                icon: const Icon(Icons.arrow_back),
                 onPressed: () {
                   Navigator.push(
                     context,
@@ -145,8 +197,8 @@ class _listeningState extends State<listening> {
                 child: Align(
                   alignment: Alignment.centerRight,
                   child: Container(
-                    width: 76, // Fixed width
-                    height: 30, // Fixed height
+                    width: 76,
+                    height: 30,
                     decoration: BoxDecoration(
                       color: Color(0xFFD9D9D9),
                     ),
@@ -163,7 +215,7 @@ class _listeningState extends State<listening> {
                               textAlign: TextAlign.center,
                               style: TextStyle(
                                 color: Colors.black,
-                                fontSize: 15, // Fixed font size
+                                fontSize: 15,
                                 fontFamily: 'Poppins',
                                 fontWeight: FontWeight.w400,
                                 height: 1.0,
@@ -193,17 +245,14 @@ class _listeningState extends State<listening> {
                           onPressed: () async {
                             if (!_isFirstAudioPlaying && numberOfPlays < 2) {
                               setState(() {
-                                _isFirstAudioPlaying =
-                                    true; // Menandai bahwa pemutaran pertama telah dimulai
-                                numberOfPlays++; // Menambah jumlah putaran
+                                _isFirstAudioPlaying = true;
+                                numberOfPlays++;
                               });
 
-                              // Memulai pemutaran audio pertama
                               await playAudioFromUrl(
                                 'https://commondatastorage.googleapis.com/codeskulptor-demos/DDR_assets/Kangaroo_MusiQue_-_The_Neverwritten_Role_Playing_Game.mp3',
                               );
 
-                              // Ketika audio pertama selesai diputar, atur _isFirstAudioPlaying menjadi false
                               setState(() {
                                 _isFirstAudioPlaying = false;
                               });
@@ -317,7 +366,7 @@ class _listeningState extends State<listening> {
                           0,
                         ),
                         child: Text(
-                          'Question 1',
+                          'Question ${_currentQuestionIndex + 1}',
                           style: TextStyle(
                             color: Colors.black,
                             fontSize: screenWidth * 0.05,
@@ -338,7 +387,7 @@ class _listeningState extends State<listening> {
                           screenHeight * 0.02,
                         ),
                         child: Text(
-                          'What does the man say about Sterling Watson?',
+                          currentQuestion['question'],
                           style: TextStyle(
                             color: Colors.black,
                             fontSize: screenWidth * 0.04,
@@ -350,239 +399,91 @@ class _listeningState extends State<listening> {
                     Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
-                        Padding(
-                          padding: const EdgeInsets.symmetric(vertical: 4.0),
-                          child: GestureDetector(
-                            onTap: () => _onOptionSelected('A'),
-                            child: Stack(
-                              alignment: Alignment.centerLeft,
-                              children: [
-                                Positioned(
-                                  left: 0,
-                                  child: RawMaterialButton(
-                                    onPressed: () => _onOptionSelected('A'),
-                                    fillColor: _selectedOption == 'A'
-                                        ? Colors.blue
-                                        : Colors.transparent,
-                                    shape: CircleBorder(
-                                      side: BorderSide(
-                                        color: _selectedOption == 'A'
-                                            ? Colors.blue
-                                            : Colors.black,
+                        for (String option in currentQuestion['options'])
+                          Padding(
+                            padding: const EdgeInsets.symmetric(vertical: 8.0),
+                            child: GestureDetector(
+                              onTap: () => _onOptionSelected(option),
+                              child: Stack(
+                                alignment: Alignment.centerLeft,
+                                children: [
+                                  Positioned(
+                                    left: 0,
+                                    child: RawMaterialButton(
+                                      onPressed: () =>
+                                          _onOptionSelected(option),
+                                      fillColor: _selectedOption == option
+                                          ? Colors.blue
+                                          : Colors.transparent,
+                                      shape: CircleBorder(
+                                          side: BorderSide(
+                                              color: _selectedOption == option
+                                                  ? Colors.blue
+                                                  : Colors.black)),
+                                      elevation: 0,
+                                      child: Text(
+                                        '',
+                                        style: TextStyle(
+                                          color: _selectedOption == option
+                                              ? Colors.white
+                                              : Colors.black,
+                                          fontSize: screenWidth * 0.04,
+                                          fontFamily: 'Poppins',
+                                        ),
                                       ),
                                     ),
-                                    elevation: 0,
-                                    constraints: BoxConstraints(
-                                      minWidth:
-                                          15.0, // ukuran minimum lingkaran
-                                      minHeight:
-                                          40.0, // ukuran minimum lingkaran
-                                    ),
+                                  ),
+                                  Padding(
+                                    padding: EdgeInsets.only(
+                                        left: screenWidth * 0.1),
                                     child: Text(
-                                      '',
+                                      option,
                                       style: TextStyle(
-                                        color: _selectedOption == 'A'
-                                            ? Colors.white
+                                        color: _selectedOption == option
+                                            ? Colors.blue
                                             : Colors.black,
                                         fontSize: screenWidth * 0.04,
                                         fontFamily: 'Poppins',
                                       ),
                                     ),
                                   ),
-                                ),
-                                Padding(
-                                  padding:
-                                      EdgeInsets.only(left: screenWidth * 0.1),
-                                  child: Text(
-                                    'He is required to read one of his books but does not like his writing.',
-                                    style: TextStyle(
-                                      color: _selectedOption == 'A'
-                                          ? Colors
-                                              .blue // Jika dipilih, warna teks menjadi biru
-                                          : Colors.black,
-                                      fontSize: screenWidth * 0.04,
-                                      fontFamily: 'Poppins',
-                                    ),
-                                  ),
-                                ),
-                              ],
+                                ],
+                              ),
+                            ),
+                          ),
+                      ],
+                    ),
+                    SizedBox(height: screenHeight * 0.02),
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        ElevatedButton(
+                          onPressed: _finishTest,
+                          child: Text('Finish'),
+                          style: ElevatedButton.styleFrom(
+                            backgroundColor: Colors.red,
+                            padding: EdgeInsets.symmetric(
+                              horizontal: screenWidth * 0.05,
+                              vertical: screenHeight * 0.02,
+                            ),
+                            textStyle: TextStyle(
+                              fontSize: screenWidth * 0.04,
+                              fontFamily: 'Poppins',
                             ),
                           ),
                         ),
-                        Padding(
-                          padding: const EdgeInsets.symmetric(vertical: 8.0),
-                          child: GestureDetector(
-                            onTap: () => _onOptionSelected('B'),
-                            child: Stack(
-                              alignment: Alignment.centerLeft,
-                              children: [
-                                Positioned(
-                                  left: 0,
-                                  child: RawMaterialButton(
-                                    onPressed: () => _onOptionSelected('B'),
-                                    fillColor: _selectedOption == 'B'
-                                        ? Colors.blue
-                                        : Colors.transparent,
-                                    shape: CircleBorder(
-                                      side: BorderSide(
-                                        color: _selectedOption == 'B'
-                                            ? Colors.blue
-                                            : Colors.black,
-                                      ),
-                                    ),
-                                    elevation: 0,
-                                    constraints: BoxConstraints(
-                                      minWidth:
-                                          15.0, // ukuran minimum lingkaran
-                                      minHeight:
-                                          40.0, // ukuran minimum lingkaran
-                                    ),
-                                    child: Text(
-                                      '',
-                                      style: TextStyle(
-                                        color: _selectedOption == 'B'
-                                            ? Colors.white
-                                            : Colors.black,
-                                        fontSize: screenWidth * 0.04,
-                                        fontFamily: 'Poppins',
-                                      ),
-                                    ),
-                                  ),
-                                ),
-                                Padding(
-                                  padding:
-                                      EdgeInsets.only(left: screenWidth * 0.1),
-                                  child: Text(
-                                    'He has never read any of his works previously.',
-                                    style: TextStyle(
-                                      color: _selectedOption == 'B'
-                                          ? Colors
-                                              .blue // Jika dipilih, warna teks menjadi biru
-                                          : Colors.black,
-                                      fontSize: screenWidth * 0.04,
-                                      fontFamily: 'Poppins',
-                                    ),
-                                  ),
-                                ),
-                              ],
+                        ElevatedButton(
+                          onPressed: _nextQuestion,
+                          child: Text('Next'),
+                          style: ElevatedButton.styleFrom(
+                            backgroundColor: Colors.blue,
+                            padding: EdgeInsets.symmetric(
+                              horizontal: screenWidth * 0.05,
+                              vertical: screenHeight * 0.02,
                             ),
-                          ),
-                        ),
-                        Padding(
-                          padding: const EdgeInsets.symmetric(vertical: 8.0),
-                          child: GestureDetector(
-                            onTap: () => _onOptionSelected('C'),
-                            child: Stack(
-                              alignment: Alignment.centerLeft,
-                              children: [
-                                Positioned(
-                                  left: 0,
-                                  child: RawMaterialButton(
-                                    onPressed: () => _onOptionSelected('C'),
-                                    fillColor: _selectedOption == 'C'
-                                        ? Colors.blue
-                                        : Colors.transparent,
-                                    shape: CircleBorder(
-                                      side: BorderSide(
-                                        color: _selectedOption == 'C'
-                                            ? Colors.blue
-                                            : Colors.black,
-                                      ),
-                                    ),
-                                    elevation: 0,
-                                    constraints: BoxConstraints(
-                                      minWidth:
-                                          15.0, // ukuran minimum lingkaran
-                                      minHeight:
-                                          40.0, // ukuran minimum lingkaran
-                                    ),
-                                    child: Text(
-                                      '',
-                                      style: TextStyle(
-                                        color: _selectedOption == 'C'
-                                            ? Colors.white
-                                            : Colors.black,
-                                        fontSize: screenWidth * 0.04,
-                                        fontFamily: 'Poppins',
-                                      ),
-                                    ),
-                                  ),
-                                ),
-                                Padding(
-                                  padding:
-                                      EdgeInsets.only(left: screenWidth * 0.1),
-                                  child: Text(
-                                    'He appreciates his writing style.',
-                                    style: TextStyle(
-                                      color: _selectedOption == 'C'
-                                          ? Colors
-                                              .blue // Jika dipilih, warna teks menjadi biru
-                                          : Colors.black,
-                                      fontSize: screenWidth * 0.04,
-                                      fontFamily: 'Poppins',
-                                    ),
-                                  ),
-                                ),
-                              ],
-                            ),
-                          ),
-                        ),
-                        Padding(
-                          padding: const EdgeInsets.symmetric(vertical: 8.0),
-                          child: GestureDetector(
-                            onTap: () => _onOptionSelected('D'),
-                            child: Stack(
-                              alignment: Alignment.centerLeft,
-                              children: [
-                                Positioned(
-                                  left: 0,
-                                  child: RawMaterialButton(
-                                    onPressed: () => _onOptionSelected('D'),
-                                    fillColor: _selectedOption == 'D'
-                                        ? Colors.blue
-                                        : Colors.transparent,
-                                    shape: CircleBorder(
-                                      side: BorderSide(
-                                        color: _selectedOption == 'D'
-                                            ? Colors.blue
-                                            : Colors.black,
-                                      ),
-                                    ),
-                                    elevation: 0,
-                                    constraints: BoxConstraints(
-                                      minWidth:
-                                          15.0, // ukuran minimum lingkaran
-                                      minHeight:
-                                          40.0, // ukuran minimum lingkaran
-                                    ),
-                                    child: Text(
-                                      '',
-                                      style: TextStyle(
-                                        color: _selectedOption == 'D'
-                                            ? Colors.white
-                                            : Colors.black,
-                                        fontSize: screenWidth * 0.04,
-                                        fontFamily: 'Poppins',
-                                      ),
-                                    ),
-                                  ),
-                                ),
-                                Padding(
-                                  padding:
-                                      EdgeInsets.only(left: screenWidth * 0.1),
-                                  child: Text(
-                                    'He learned about his books from a computer.',
-                                    style: TextStyle(
-                                      color: _selectedOption == 'D'
-                                          ? Colors
-                                              .blue // Jika dipilih, warna teks menjadi biru
-                                          : Colors.black,
-                                      fontSize: screenWidth * 0.04,
-                                      fontFamily: 'Poppins',
-                                    ),
-                                  ),
-                                ),
-                              ],
+                            textStyle: TextStyle(
+                              fontSize: screenWidth * 0.04,
+                              fontFamily: 'Poppins',
                             ),
                           ),
                         ),
@@ -630,23 +531,6 @@ class _listeningState extends State<listening> {
                     ),
                   ),
                 ),
-              ),
-            ),
-            Padding(
-              padding: EdgeInsets.only(right: screenWidth * 0.08),
-              child: IconButton(
-                icon: const Icon(
-                  Icons.arrow_forward,
-                  color: Colors.black,
-                ),
-                onPressed: () {
-                  Navigator.push(
-                    context,
-                    MaterialPageRoute(
-                        builder: (context) =>
-                            FinishPage()), // Navigate to FinishPage
-                  );
-                },
               ),
             ),
           ],
