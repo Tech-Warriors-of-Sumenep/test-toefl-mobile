@@ -312,7 +312,7 @@ class _MenuPageState extends State<MenuPage> {
                                               context,
                                               MaterialPageRoute(
                                                   builder: (context) =>
-                                                      grammarDashboard()),
+                                                      GrammarDashboard()),
                                             );
                                           },
                                           child: Stack(
