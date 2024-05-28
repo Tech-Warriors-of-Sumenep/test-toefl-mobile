@@ -78,55 +78,65 @@ class _ModelLearningReadingPagesState extends State<ModelLearningReadingPages> {
           children: [
             Text(
               materi.title,
-              style: TextStyle(
+              style: const TextStyle(
                 fontSize: 24,
                 fontWeight: FontWeight.bold,
                 fontFamily: 'Fugaz One',
               ),
             ),
-            SizedBox(height: 10),
-            Text(
-              materi.description,
-              style: TextStyle(
-                fontSize: 16,
-                fontFamily: 'Poppins',
-                color: Colors.black,
-              ),
-            ),
-            // Tambahkan tombol "GET STARTED" di bawah deskripsi
-            SizedBox(height: 20), // Space di antara deskripsi dan tombol
-            Container(
-              width: 120,
-              height: 30,
-              decoration: BoxDecoration(
-                borderRadius: BorderRadius.circular(20),
-                color: const Color(0xFFFBFF4A),
-                boxShadow: [
-                  BoxShadow(
-                    color: Colors.black.withOpacity(0.3),
-                    spreadRadius: 0,
-                    blurRadius: 4,
-                    offset: const Offset(0, 2),
-                  ),
-                ],
-              ),
-              child: TextButton(
-                onPressed: () {
-                  Navigator.push(
-                    context,
-                    MaterialPageRoute(
-                        builder: (context) =>
-                            MateriLearningReadingPage()), // Pindah ke MateriLearningReadingPage
-                  );
-                },
-                child: const Text(
-                  'Contoh Soal',
-                  style: TextStyle(
-                    fontSize: 13,
-                    fontWeight: FontWeight.bold,
-                    fontFamily: 'Poppins',
-                    color: const Color(0xFF2E00BA),
-                  ),
+            const SizedBox(height: 10),
+            Expanded(
+              child: SingleChildScrollView(
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Text(
+                      materi.description,
+                      style: const TextStyle(
+                        fontSize: 16,
+                        fontFamily: 'Poppins',
+                        color: Colors.black,
+                      ),
+                    ),
+                    const SizedBox(
+                        height: 20), // Space between description and button
+                    Container(
+                      width: 120,
+                      height: 30,
+                      decoration: BoxDecoration(
+                        borderRadius: BorderRadius.circular(20),
+                        color: const Color(0xFFFBFF4A),
+                        boxShadow: [
+                          BoxShadow(
+                            color: Colors.black.withOpacity(0.3),
+                            spreadRadius: 0,
+                            blurRadius: 4,
+                            offset: const Offset(0, 2),
+                          ),
+                        ],
+                      ),
+                      child: TextButton(
+                        onPressed: () {
+                          Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                              builder: (context) =>
+                                  MateriLearningReadingPage(), // Pindah ke MateriLearningReadingPage
+                            ),
+                          );
+                        },
+                        child: const Text(
+                          'Contoh Soal',
+                          style: TextStyle(
+                            fontSize: 13,
+                            fontWeight: FontWeight.bold,
+                            fontFamily: 'Poppins',
+                            color: Color(0xFF2E00BA),
+                          ),
+                        ),
+                      ),
+                    ),
+                  ],
                 ),
               ),
             ),
@@ -164,8 +174,8 @@ class _ModelLearningReadingPagesState extends State<ModelLearningReadingPages> {
             ),
             GestureDetector(
               onTap: navigateToNext,
-              child: Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 10.0),
+              child: const Padding(
+                padding: EdgeInsets.symmetric(horizontal: 10.0),
                 child: Icon(Icons.arrow_forward),
               ),
             ),
