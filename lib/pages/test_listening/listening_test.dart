@@ -1,8 +1,11 @@
+import 'dart:convert';
+
 import 'package:audioplayers/audioplayers.dart';
 import 'package:flutter/material.dart';
 import 'dart:async';
-import 'package:toefl_app/pages/test_grammar/finish.dart';
+import 'package:toefl_app/pages/test_listening/finish.dart';
 import 'package:toefl_app/pages/test_listening/exit_card.dart';
+import 'package:http/http.dart' as http;
 
 class Listening extends StatefulWidget {
   const Listening({super.key});
@@ -25,35 +28,20 @@ class _ListeningState extends State<Listening> {
   String? _selectedOption;
   int _currentQuestionIndex = 0;
 
-  final List<Map<String, dynamic>> _questions = [
-    {
-      'question': 'What does the man say about Sterling Watson?',
-      'options': [
-        'He is required to read one of his books but does not like his writing.',
-        'He has never read any of his works previously.',
-        'He appreciates his writing style.',
-        'He learned about his books from a computer.'
-      ]
-    },
-    {
-      'question': 'What is the main topic of the conversation?',
-      'options': [
-        'The quality of Sterling Watson\'s writing.',
-        'The man\'s experience with Watson\'s books.',
-        'The content of Watson\'s latest book.',
-        'The man\'s interest in reading fiction.'
-      ]
-    },
-    {
-      'question': 'Where did the conversation take place?',
-      'options': [
-        'In a library.',
-        'At a bookstore.',
-        'In a classroom.',
-        'At a coffee shop.'
-      ]
-    },
-  ];
+  late List<dynamic> questions = [];
+
+  Future<void> fetchData() async {
+    print('fetchUsers called');
+    const url = 'http://10.251.13.140:8000/api/ujian-listening/664a227f6f1fc';
+    final uri = Uri.parse(url);
+    final response = await http.get(uri);
+    final body = response.body;
+    final json = jsonDecode(body);
+    setState(() {
+      questions = json['payload']['soal'];
+    });
+    print(questions);
+  }
 
   @override
   void initState() {
@@ -73,6 +61,7 @@ class _ListeningState extends State<Listening> {
         currentPosition = Duration.zero;
       });
     });
+    fetchData();
   }
 
   void _startCountdownTimer() {
@@ -99,7 +88,7 @@ class _ListeningState extends State<Listening> {
   }
 
   void _nextQuestion() {
-    if (_currentQuestionIndex < _questions.length - 1) {
+    if (_currentQuestionIndex < questions.length - 1) {
       setState(() {
         _currentQuestionIndex++;
         _selectedOption = null;
@@ -143,7 +132,20 @@ class _ListeningState extends State<Listening> {
   Widget build(BuildContext context) {
     final screenWidth = MediaQuery.of(context).size.width;
     final screenHeight = MediaQuery.of(context).size.height;
-    final currentQuestion = _questions[_currentQuestionIndex];
+
+    if (questions.isEmpty) {
+      return Scaffold(
+        appBar: AppBar(
+          title: Text('Listening Test'),
+        ),
+        body: Center(
+          child:
+              CircularProgressIndicator(), // Menampilkan loading indicator saat data sedang diambil
+        ),
+      );
+    }
+
+    final currentQuestion = questions[_currentQuestionIndex];
 
     return Scaffold(
       appBar: PreferredSize(
@@ -387,7 +389,7 @@ class _ListeningState extends State<Listening> {
                           screenHeight * 0.02,
                         ),
                         child: Text(
-                          currentQuestion['question'],
+                          currentQuestion['soal'],
                           style: TextStyle(
                             color: Colors.black,
                             fontSize: screenWidth * 0.04,
@@ -399,11 +401,11 @@ class _ListeningState extends State<Listening> {
                     Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
-                        for (String option in currentQuestion['options'])
+                        for (var answerMap in currentQuestion['jawaban'])
                           Padding(
                             padding: const EdgeInsets.symmetric(vertical: 8.0),
                             child: GestureDetector(
-                              onTap: () => _onOptionSelected(option),
+                              onTap: () => _onOptionSelected(answerMap['name']),
                               child: Stack(
                                 alignment: Alignment.centerLeft,
                                 children: [
@@ -411,20 +413,23 @@ class _ListeningState extends State<Listening> {
                                     left: 0,
                                     child: RawMaterialButton(
                                       onPressed: () =>
-                                          _onOptionSelected(option),
-                                      fillColor: _selectedOption == option
-                                          ? Colors.blue
-                                          : Colors.transparent,
+                                          _onOptionSelected(answerMap['name']),
+                                      fillColor:
+                                          _selectedOption == answerMap['name']
+                                              ? Colors.blue
+                                              : Colors.transparent,
                                       shape: CircleBorder(
                                           side: BorderSide(
-                                              color: _selectedOption == option
+                                              color: _selectedOption ==
+                                                      answerMap['name']
                                                   ? Colors.blue
                                                   : Colors.black)),
                                       elevation: 0,
                                       child: Text(
                                         '',
                                         style: TextStyle(
-                                          color: _selectedOption == option
+                                          color: _selectedOption ==
+                                                  answerMap['name']
                                               ? Colors.white
                                               : Colors.black,
                                           fontSize: screenWidth * 0.04,
@@ -437,11 +442,12 @@ class _ListeningState extends State<Listening> {
                                     padding: EdgeInsets.only(
                                         left: screenWidth * 0.1),
                                     child: Text(
-                                      option,
+                                      answerMap['name'],
                                       style: TextStyle(
-                                        color: _selectedOption == option
-                                            ? Colors.blue
-                                            : Colors.black,
+                                        color:
+                                            _selectedOption == answerMap['name']
+                                                ? Colors.blue
+                                                : Colors.black,
                                         fontSize: screenWidth * 0.04,
                                         fontFamily: 'Poppins',
                                       ),
