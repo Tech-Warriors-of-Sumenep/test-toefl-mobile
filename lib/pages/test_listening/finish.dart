@@ -3,7 +3,15 @@ import 'package:hexcolor/hexcolor.dart';
 import 'package:toefl_app/pages/menu_page/navigasi.dart';
 
 class FinishPage extends StatefulWidget {
-  const FinishPage({Key? key}) : super(key: key);
+  final int correctAnswers;
+  final int incorrectAnswers;
+  final Duration totalTimeSpent;
+
+  const FinishPage({
+    required this.correctAnswers,
+    required this.incorrectAnswers,
+    required this.totalTimeSpent,
+  });
 
   @override
   State<FinishPage> createState() => _FinishPageState();
@@ -12,6 +20,8 @@ class FinishPage extends StatefulWidget {
 class _FinishPageState extends State<FinishPage> {
   @override
   Widget build(BuildContext context) {
+    int totalQuestions = widget.correctAnswers + widget.incorrectAnswers;
+
     return Scaffold(
       appBar: PreferredSize(
         preferredSize: const Size.fromHeight(kToolbarHeight + 10),
@@ -34,9 +44,7 @@ class _FinishPageState extends State<FinishPage> {
                 onPressed: () {
                   Navigator.push(
                     context,
-                    MaterialPageRoute(
-                        builder: (context) =>
-                            MainPage()), // Ganti HalamanLain() dengan halaman tujuan Anda
+                    MaterialPageRoute(builder: (context) => MainPage()),
                   );
                 },
               ),
@@ -59,287 +67,43 @@ class _FinishPageState extends State<FinishPage> {
           Center(
             child: Row(
               children: [
-                Spacer(), // Menambahkan ruang kosong di sebelah kiri agar kotak-kotak di sebelah kanan berada lebih dekat dengan tengah
+                Spacer(),
                 Column(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
-                    Container(
-                      margin: EdgeInsets.only(top: 120),
-                      width: 170,
-                      height: 49,
-                      child: Stack(
-                        children: [
-                          Positioned(
-                            left: 0,
-                            top: 0,
-                            child: Container(
-                              width: 170,
-                              height: 49,
-                              decoration: ShapeDecoration(
-                                color: Color(0xFFF1F1F1),
-                                shape: RoundedRectangleBorder(
-                                  borderRadius: BorderRadius.circular(10),
-                                ),
-                                shadows: [
-                                  BoxShadow(
-                                    color: Color(0x3F000000),
-                                    blurRadius: 4,
-                                    offset: Offset(0, 0),
-                                    spreadRadius: 1,
-                                  )
-                                ],
-                              ),
-                            ),
-                          ),
-                          Positioned(
-                            left: 126,
-                            top: 16,
-                            child: SizedBox(
-                              width: 35,
-                              child: Text(
-                                '  : 43',
-                                style: TextStyle(
-                                  color: Colors.black,
-                                  fontSize: 15,
-                                  fontFamily: 'Poppins',
-                                  fontWeight: FontWeight.w400,
-                                  height: 0,
-                                ),
-                              ),
-                            ),
-                          ),
-                          Positioned(
-                            left: 13.85,
-                            top: 16,
-                            child: SizedBox(
-                              width: 120,
-                              child: Text(
-                                'Correct Answer',
-                                style: TextStyle(
-                                  color: Colors.black,
-                                  fontSize: 15,
-                                  fontFamily: 'Poppins',
-                                  fontWeight: FontWeight.w400,
-                                  height: 0,
-                                ),
-                              ),
-                            ),
-                          ),
-                        ],
-                      ),
+                    ResultBox(
+                      title: 'Correct Answer',
+                      value: widget.correctAnswers.toString(),
                     ),
                     SizedBox(height: 10),
-                    Container(
-                      width: 170,
-                      height: 49,
-                      child: Stack(
-                        children: [
-                          Positioned(
-                            left: 0,
-                            top: 0,
-                            child: Container(
-                              width: 170,
-                              height: 49,
-                              decoration: ShapeDecoration(
-                                color: Color(0xFFF1F1F1),
-                                shape: RoundedRectangleBorder(
-                                  borderRadius: BorderRadius.circular(10),
-                                ),
-                                shadows: [
-                                  BoxShadow(
-                                    color: Color(0x3F000000),
-                                    blurRadius: 4,
-                                    offset: Offset(0, 0),
-                                    spreadRadius: 1,
-                                  )
-                                ],
-                              ),
-                            ),
-                          ),
-                          Positioned(
-                            left: 96,
-                            top: 16,
-                            child: SizedBox(
-                              width: 70,
-                              child: Text(
-                                ': 98 m 5s',
-                                style: TextStyle(
-                                  color: Colors.black,
-                                  fontSize: 15,
-                                  fontFamily: 'Poppins',
-                                  fontWeight: FontWeight.w400,
-                                  height: 0,
-                                ),
-                              ),
-                            ),
-                          ),
-                          Positioned(
-                            left: 15,
-                            top: 16,
-                            child: SizedBox(
-                              width: 88,
-                              child: Text(
-                                'Total Time',
-                                style: TextStyle(
-                                  color: Colors.black,
-                                  fontSize: 15,
-                                  fontFamily: 'Poppins',
-                                  fontWeight: FontWeight.w400,
-                                  height: 0,
-                                ),
-                              ),
-                            ),
-                          ),
-                        ],
-                      ),
+                    ResultBox(
+                      title: 'Total Time',
+                      value: widget.totalTimeSpent.toString(),
                     ),
                   ],
                 ),
-                Spacer(), // Menambahkan ruang kosong di sebelah kanan agar kotak-kotak di sebelah kiri berada lebih dekat dengan tengah
+                Spacer(),
                 Column(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
-                    Container(
-                      margin: EdgeInsets.only(top: 120),
-                      width: 170,
-                      height: 49,
-                      child: Stack(
-                        children: [
-                          Positioned(
-                            left: 0,
-                            top: 0,
-                            child: Container(
-                              width: 170,
-                              height: 49,
-                              decoration: ShapeDecoration(
-                                color: Color(0xFFF1F1F1),
-                                shape: RoundedRectangleBorder(
-                                  borderRadius: BorderRadius.circular(10),
-                                ),
-                                shadows: [
-                                  BoxShadow(
-                                    color: Color(0x3F000000),
-                                    blurRadius: 4,
-                                    offset: Offset(0, 0),
-                                    spreadRadius: 1,
-                                  )
-                                ],
-                              ),
-                            ),
-                          ),
-                          Positioned(
-                            left: 126,
-                            top: 16,
-                            child: SizedBox(
-                              width: 40,
-                              child: Text(
-                                '     : 7',
-                                style: TextStyle(
-                                  color: Colors.black,
-                                  fontSize: 15,
-                                  fontFamily: 'Poppins',
-                                  fontWeight: FontWeight.w400,
-                                  height: 0,
-                                ),
-                              ),
-                            ),
-                          ),
-                          Positioned(
-                            left: 13.85,
-                            top: 16,
-                            child: SizedBox(
-                              width: 130,
-                              child: Text(
-                                'Incorrect Answer',
-                                style: TextStyle(
-                                  color: Colors.black,
-                                  fontSize: 15,
-                                  fontFamily: 'Poppins',
-                                  fontWeight: FontWeight.w400,
-                                  height: 0,
-                                ),
-                              ),
-                            ),
-                          ),
-                        ],
-                      ),
+                    ResultBox(
+                      title: 'Incorrect Answer',
+                      value: widget.incorrectAnswers.toString(),
                     ),
                     SizedBox(height: 10),
-                    Container(
-                      width: 170,
-                      height: 49,
-                      child: Stack(
-                        children: [
-                          Positioned(
-                            left: 0,
-                            top: 0,
-                            child: Container(
-                              width: 170,
-                              height: 49,
-                              decoration: ShapeDecoration(
-                                color: Color(0xFFF1F1F1),
-                                shape: RoundedRectangleBorder(
-                                  borderRadius: BorderRadius.circular(10),
-                                ),
-                                shadows: [
-                                  BoxShadow(
-                                    color: Color(0x3F000000),
-                                    blurRadius: 4,
-                                    offset: Offset(0, 0),
-                                    spreadRadius: 1,
-                                  )
-                                ],
-                              ),
-                            ),
-                          ),
-                          Positioned(
-                            left: 96,
-                            top: 16,
-                            child: SizedBox(
-                              width: 70,
-                              child: Text(
-                                '         : 50',
-                                style: TextStyle(
-                                  color: Colors.black,
-                                  fontSize: 15,
-                                  fontFamily: 'Poppins',
-                                  fontWeight: FontWeight.w400,
-                                  height: 0,
-                                ),
-                              ),
-                            ),
-                          ),
-                          Positioned(
-                            left: 15,
-                            top: 16,
-                            child: SizedBox(
-                              width: 120,
-                              child: Text(
-                                'Total Question',
-                                style: TextStyle(
-                                  color: Colors.black,
-                                  fontSize: 15,
-                                  fontFamily: 'Poppins',
-                                  fontWeight: FontWeight.w400,
-                                  height: 0,
-                                ),
-                              ),
-                            ),
-                          ),
-                        ],
-                      ),
+                    ResultBox(
+                      title: 'Total Question',
+                      value: totalQuestions.toString(),
                     ),
                   ],
                 ),
-                Spacer(), // Menambahkan ruang kosong di sebelah kanan dari kotak-kotak di sebelah kanan
+                Spacer(),
               ],
             ),
           ),
-
           Center(
             child: Transform.translate(
-              offset: Offset(0,
-                  -150), // Sesuaikan dengan nilai yang sesuai untuk posisi vertikal
+              offset: Offset(0, -150),
               child: Container(
                 width: 160,
                 height: 160,
@@ -352,11 +116,9 @@ class _FinishPageState extends State<FinishPage> {
                         width: 160,
                         height: 160,
                         decoration: ShapeDecoration(
-                          color:
-                              Color.fromARGB(255, 253, 253, 253).withOpacity(0),
+                          color: Colors.white.withOpacity(0),
                           shape: OvalBorder(
-                            side:
-                                BorderSide(width: 3, color: Color(0xFF027D44)),
+                            side: BorderSide(width: 3, color: Color(0xFF027D44)),
                           ),
                           shadows: [
                             BoxShadow(
@@ -364,7 +126,7 @@ class _FinishPageState extends State<FinishPage> {
                               blurRadius: 4,
                               offset: Offset(0, 0),
                               spreadRadius: 5,
-                            )
+                            ),
                           ],
                         ),
                       ),
@@ -373,14 +135,14 @@ class _FinishPageState extends State<FinishPage> {
                       child: Align(
                         alignment: Alignment.center,
                         child: Text(
-                          'FINISH ',
+                          'FINISH',
                           style: TextStyle(
                             color: Color(0xFF2BB231),
                             backgroundColor: Colors.white,
                             fontSize: 30,
                             fontFamily: 'Inter',
                             fontWeight: FontWeight.w600,
-                            height: 0,
+                            height: 1,
                           ),
                         ),
                       ),
@@ -390,7 +152,6 @@ class _FinishPageState extends State<FinishPage> {
               ),
             ),
           ),
-
           Center(
             child: Container(
               margin: EdgeInsets.only(top: 400),
@@ -415,7 +176,7 @@ class _FinishPageState extends State<FinishPage> {
                             blurRadius: 4,
                             offset: Offset(0, 0),
                             spreadRadius: 2,
-                          )
+                          ),
                         ],
                       ),
                     ),
@@ -434,7 +195,7 @@ class _FinishPageState extends State<FinishPage> {
                           fontSize: 20,
                           fontFamily: 'Poppins',
                           fontWeight: FontWeight.w700,
-                          height: 0,
+                          height: 1,
                         ),
                       ),
                     ),
@@ -476,6 +237,85 @@ class _FinishPageState extends State<FinishPage> {
             ),
           ],
         ),
+      ),
+    );
+  }
+}
+
+class ResultBox extends StatelessWidget {
+  final String title;
+  final String value;
+
+  const ResultBox({
+    Key? key,
+    required this.title,
+    required this.value,
+  }) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      width: 170,
+      height: 49,
+      child: Stack(
+        children: [
+          Positioned(
+            left: 0,
+            top: 0,
+            child: Container(
+              width: 170,
+              height: 49,
+              decoration: ShapeDecoration(
+                color: Color(0xFFF1F1F1),
+                shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(10),
+                ),
+                shadows: [
+                  BoxShadow(
+                    color: Color(0x3F000000),
+                    blurRadius: 4,
+                    offset: Offset(0, 0),
+                    spreadRadius: 1,
+                  ),
+                ],
+              ),
+            ),
+          ),
+          Positioned(
+            left: 130,
+            top: 16,
+            child: SizedBox(
+              width: 35,
+              child: Text(
+                ': $value',
+                style: TextStyle(
+                  color: Colors.black,
+                  fontSize: 15,
+                  fontFamily: 'Poppins',
+                  fontWeight: FontWeight.w400,
+                  height: 1,
+                ),
+              ),
+            ),
+          ),
+          Positioned(
+            left: 15,
+            top: 16,
+            child: SizedBox(
+              width: 120,
+              child: Text(
+                title,
+                style: TextStyle(
+                  color: Colors.black,
+                  fontSize: 15,
+                  fontFamily: 'Poppins',
+                  fontWeight: FontWeight.w400,
+                  height: 1,
+                ),
+              ),
+            ),
+          ),
+        ],
       ),
     );
   }

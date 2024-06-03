@@ -11,6 +11,14 @@ import 'package:toefl_app/pages/test_listening/finish.dart';//ini tadi salah ke 
 import 'package:toefl_app/pages/test_listening/exit_card.dart';
 import 'package:http/http.dart' as http;
 
+import 'dart:convert';
+import 'package:audioplayers/audioplayers.dart';
+import 'package:flutter/material.dart';
+import 'dart:async';
+import 'package:toefl_app/pages/test_listening/finish.dart';
+import 'package:toefl_app/pages/test_listening/exit_card.dart';
+import 'package:http/http.dart' as http;
+
 class Listening extends StatefulWidget {
   const Listening({super.key});
 
@@ -29,14 +37,18 @@ class _ListeningState extends State<Listening> {
   Timer? _timer;
   int numberOfPlays = 0;
   bool _isFirstAudioPlaying = false;
-  String? _selectedOption;
+  int? _selectedOption;
   int _currentQuestionIndex = 0;
+
+  int correctAnswers = 0;
+  int incorrectAnswers = 0;
+  DateTime? _startTime;
 
   late List<dynamic> questions = [];
 
   Future<void> fetchData() async {
     print('fetchUsers called');
-    const url = 'http://10.251.13.140:8000/api/ujian-listening/664a227f6f1fc';
+    const url = 'http://192.168.1.77:8000/api/ujian-listening/664a227f6f1fc';
     final uri = Uri.parse(url);
     final response = await http.get(uri);
     final body = response.body;
@@ -50,6 +62,7 @@ class _ListeningState extends State<Listening> {
   @override
   void initState() {
     super.initState();
+    _startTime = DateTime.now(); // Capture the start time
     _startCountdownTimer();
     player.onDurationChanged.listen((Duration d) {
       setState(() => totalDuration = d);
@@ -80,10 +93,16 @@ class _ListeningState extends State<Listening> {
     });
   }
 
-  void _onOptionSelected(String option) {
+  void _onOptionSelected(int option) {
     setState(() {
       _selectedOption = option;
     });
+    final currentQuestion = questions[_currentQuestionIndex];
+    if (option == currentQuestion['kunci_jawaban']['jawaban_id']) {
+      correctAnswers++;
+    } else {
+      incorrectAnswers++;
+    }
   }
 
   Future<void> playAudioFromUrl(String url) async {
@@ -98,11 +117,24 @@ class _ListeningState extends State<Listening> {
         _selectedOption = null;
       });
     } else {
-      Navigator.push(
-        context,
-        MaterialPageRoute(builder: (context) => FinishPage()),
-      );
+      _finishTest();
     }
+  }
+
+  void _finishTest() {
+    final endTime = DateTime.now();
+    final totalTimeSpent = endTime.difference(_startTime!);
+
+    Navigator.push(
+      context,
+      MaterialPageRoute(
+        builder: (context) => FinishPage(
+          correctAnswers: correctAnswers,
+          incorrectAnswers: incorrectAnswers,
+          totalTimeSpent: totalTimeSpent,
+        ),
+      ),
+    );
   }
 
   @override
@@ -110,13 +142,6 @@ class _ListeningState extends State<Listening> {
     _timer?.cancel();
     player.dispose();
     super.dispose();
-  }
-
-  void _finishTest() {
-    Navigator.push(
-      context,
-      MaterialPageRoute(builder: (context) => FinishPage()),
-    );
   }
 
   String _formatTime(int seconds) {
@@ -143,8 +168,7 @@ class _ListeningState extends State<Listening> {
           title: Text('Listening Test'),
         ),
         body: Center(
-          child:
-              CircularProgressIndicator(), // Menampilkan loading indicator saat data sedang diambil
+          child: CircularProgressIndicator(),
         ),
       );
     }
@@ -319,8 +343,7 @@ class _ListeningState extends State<Listening> {
                       ),
                     ),
                     TextSpan(
-                      text:
-                          '${2 - numberOfPlays} plays left', // Display remaining plays
+                      text: '${2 - numberOfPlays} plays left',
                       style: TextStyle(
                         color: Colors.black,
                         fontSize: screenWidth * 0.05,
@@ -340,7 +363,7 @@ class _ListeningState extends State<Listening> {
                 ),
                 margin: EdgeInsets.all(screenWidth * 0.02),
                 decoration: BoxDecoration(
-                  color: Colors.white, // Background color
+                  color: Colors.white,
                   border: Border.all(color: Colors.grey),
                   borderRadius: BorderRadius.circular(10),
                   boxShadow: [
@@ -417,15 +440,15 @@ class _ListeningState extends State<Listening> {
                                     left: 0,
                                     child: RawMaterialButton(
                                       onPressed: () =>
-                                          _onOptionSelected(answerMap['name']),
+                                          _onOptionSelected(answerMap['id']),
                                       fillColor:
-                                          _selectedOption == answerMap['name']
+                                          _selectedOption == answerMap['id']
                                               ? Colors.blue
                                               : Colors.transparent,
                                       shape: CircleBorder(
                                           side: BorderSide(
                                               color: _selectedOption ==
-                                                      answerMap['name']
+                                                      answerMap['id']
                                                   ? Colors.blue
                                                   : Colors.black)),
                                       elevation: 0,
@@ -535,7 +558,7 @@ class _ListeningState extends State<Listening> {
                     'Test Listening Page',
                     style: TextStyle(
                       color: Colors.black,
-                      fontSize: screenWidth * 0.05, // Adjust font size
+                      fontSize: screenWidth * 0.05,
                       fontFamily: 'Poppins',
                       fontWeight: FontWeight.bold,
                     ),
