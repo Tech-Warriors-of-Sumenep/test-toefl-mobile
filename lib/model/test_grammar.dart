@@ -1,5 +1,3 @@
-
-
 class TestGrammar {
   int id;
   int categoryId;
@@ -73,6 +71,7 @@ class Soal {
   DateTime createdAt;
   DateTime updatedAt;
   List<Jawaban> jawaban;
+  KunciJawaban kunciJawaban;
 
   Soal({
     required this.id,
@@ -82,6 +81,7 @@ class Soal {
     required this.createdAt,
     required this.updatedAt,
     required this.jawaban,
+    required this.kunciJawaban,
   });
 
   factory Soal.fromJson(Map<String, dynamic> json) {
@@ -93,6 +93,7 @@ class Soal {
       createdAt: DateTime.parse(json['created_at']),
       updatedAt: DateTime.parse(json['updated_at']),
       jawaban: Jawaban.fromJsonList(json['jawaban']),
+      kunciJawaban: KunciJawaban.fromJson(json['kunci_jawaban']),
     );
   }
 
@@ -128,5 +129,34 @@ class Jawaban {
 
   static List<Jawaban> fromJsonList(List<dynamic> jsonList) {
     return jsonList.map((json) => Jawaban.fromJson(json)).toList();
+  }
+}
+
+class KunciJawaban {
+  int id;
+  int soalId;
+  int jawabanId;
+  DateTime createdAt;
+  DateTime updatedAt;
+  Jawaban jawaban;
+
+  KunciJawaban({
+    required this.id,
+    required this.soalId,
+    required this.jawabanId,
+    required this.createdAt,
+    required this.updatedAt,
+    required this.jawaban,
+  });
+
+  factory KunciJawaban.fromJson(Map<String, dynamic> json) {
+    return KunciJawaban(
+      id: json['id'] ?? 0,
+      soalId: json['soal_id'] ?? 0,
+      jawabanId: json['jawaban_id'] ?? 0,
+      createdAt: DateTime.parse(json['created_at']),
+      updatedAt: DateTime.parse(json['updated_at']),
+      jawaban: Jawaban.fromJson(json['jawaban']),
+    );
   }
 }

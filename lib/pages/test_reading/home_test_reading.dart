@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'soal_cerita.dart';
+import 'latihan.dart';
 import 'package:toefl_app/pages/menu_page/navigasi.dart';
 
 class HomeTestReadingPages extends StatefulWidget {
@@ -183,7 +183,7 @@ class TestReadingPage extends StatelessWidget {
               onPressed: () {
                 Navigator.push(
                   context,
-                  MaterialPageRoute(builder: (context) => SoalPages()),
+                  MaterialPageRoute(builder: (context) => LatihanPages()),
                 );
               },
               child: const Text(

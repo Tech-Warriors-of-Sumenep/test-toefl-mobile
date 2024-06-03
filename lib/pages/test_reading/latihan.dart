@@ -1,39 +1,41 @@
 import 'dart:convert';
 import 'dart:async';
 import 'package:flutter/material.dart';
-import 'package:toefl_app/model/test_reading.dart'; // Import the correct model file
 import 'finish.dart';
+import 'package:toefl_app/model/test_reading.dart';
 import 'package:http/http.dart' as http;
 
 class LatihanPages extends StatefulWidget {
   const LatihanPages({Key? key}) : super(key: key);
 
   @override
-  State<LatihanPages> createState() => _LatihanPagesState();
+  State<LatihanPages> createState() => _Soal1PagesState();
 }
 
-class _LatihanPagesState extends State<LatihanPages> {
+class _Soal1PagesState extends State<LatihanPages> {
   int _currentQuestionIndex = 0;
   int _selectedAnswerIndex = -1;
   late Timer _timer;
-  late Future<List<TestReading>> futureReading; // Corrected variable name
-  static const int _durationInSeconds = 3600;
+  late Future<List<TestReading>> _futureReading;
+  static const int _durationInSeconds = 3600; // One hour duration (3600 seconds)
   int _secondsRemaining = _durationInSeconds;
+  int _correctAnswers = 0;
+  int _incorrectAnswers = 0;
 
   @override
   void initState() {
     super.initState();
     _startTimer();
-    futureReading = fetchTestReading(); // Corrected function call
+    _futureReading = fetchTestReading();
   }
 
-  Future<List<TestReading>> fetchTestReading() async { // Corrected function signature
-    final response = await http.get(Uri.parse('http://10.251.130.107:8000/api/ujian-reading'));
+  Future<List<TestReading>> fetchTestReading() async {
+    final response = await http.get(Uri.parse('http://192.168.1.209:8000/api/ujian-reading'));
 
     if (response.statusCode == 200) {
       final data = json.decode(response.body);
       final List<dynamic> payload = data['payload'];
-      return TestReading.fromJsonList(payload); // Corrected method call
+      return TestReading.fromJsonList(payload);
     } else {
       throw Exception('Failed to load data');
     }
@@ -52,37 +54,55 @@ class _LatihanPagesState extends State<LatihanPages> {
           _secondsRemaining--;
         } else {
           timer.cancel();
-          Navigator.push(
-            context,
-            MaterialPageRoute(
-              builder: (context) => Finishtestreading(totalTime: _durationInSeconds - _secondsRemaining),
-            ),
-          );
+          _navigateToFinishPage();
         }
       });
     });
   }
 
-  void _checkAnswer(int selectedIndex) {
+  void _checkAnswer(int selectedIndex, List<TestReading> testReadingList) {
     setState(() {
       _selectedAnswerIndex = selectedIndex;
+
+      // Get the current question
+      final currentSoal = testReadingList[_currentQuestionIndex].soal[0];
+
+      // Check if the selected answer is correct by comparing IDs
+      if (currentSoal.jawaban[selectedIndex].id == currentSoal.kunciJawaban.jawabanId) {
+        _correctAnswers++;
+      } else {
+        _incorrectAnswers++;
+      }
     });
   }
 
-  void _nextQuestion() {
-    setState(() {
-      if (_currentQuestionIndex < 19) {
+ 
+void _nextQuestion(List<TestReading> testReadingList) {
+  setState(() {
+    if (_selectedAnswerIndex != -1) {
+      // Proceed only if an answer is selected
+      if (_currentQuestionIndex < 19) { // Change 19 to the number of questions you want to display (20 in this case)
         _currentQuestionIndex++;
         _selectedAnswerIndex = -1;
       } else {
-        Navigator.push(
-          context,
-          MaterialPageRoute(
-            builder: (context) => Finishtestreading(totalTime: _durationInSeconds - _secondsRemaining),
-          ),
-        );
+        _timer.cancel(); // Stop the timer
+        _navigateToFinishPage(); // Navigate to the finish page
       }
-    });
+    }
+  });
+}
+
+  void _navigateToFinishPage() {
+    Navigator.push(
+      context,
+      MaterialPageRoute(
+        builder: (context) => FinishTestReading(
+          totalTime: _durationInSeconds - _secondsRemaining,
+          correctAnswers: _correctAnswers,
+          incorrectAnswers: _incorrectAnswers,
+        ),
+      ),
+    );
   }
 
   @override
@@ -150,14 +170,7 @@ class _LatihanPagesState extends State<LatihanPages> {
               children: [
                 Spacer(),
                 InkWell(
-                  onTap: () {
-                    Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                        builder: (context) => Finishtestreading(totalTime: _durationInSeconds - _secondsRemaining),
-                      ),
-                    );
-                  },
+                  onTap: _navigateToFinishPage,
                   child: Container(
                     width: 72,
                     height: 24,
@@ -188,48 +201,60 @@ class _LatihanPagesState extends State<LatihanPages> {
                 ),
                 Spacer(),
                 Spacer(), // Kolom kosong
-                InkWell(
-                  onTap: () {
-                    _nextQuestion();
-                  },
-                  child: Container(
-                    width: 72,
-                    height: 24,
-                    child: Stack(
-                      children: [
-                        Positioned.fill(
-                          child: Container(
-                            decoration: BoxDecoration(
-                              color: Color(0xFF1A6DCE),
-                              shape: BoxShape.rectangle,
-                              borderRadius: BorderRadius.circular(20),
-                              boxShadow: [
-                                BoxShadow(
-                                  color: Color(0x3F000000),
-                                  blurRadius: 3,
-                                  offset: Offset(0, 0),
-                                  spreadRadius: 1,
+                FutureBuilder<List<TestReading>>(
+                  future: _futureReading,
+                  builder: (context, snapshot) {
+                    if (snapshot.connectionState == ConnectionState.waiting) {
+                      return CircularProgressIndicator();
+                    } else if (snapshot.hasError) {
+                      return Text('Error: ${snapshot.error}');
+                    } else {
+                      List<TestReading> testReadingList = snapshot.data ?? [];
+                      return InkWell(
+                        onTap: () {
+                          _nextQuestion(testReadingList);
+                        },
+                        child: Container(
+                          width: 72,
+                          height: 24,
+                          child: Stack(
+                            children: [
+                              Positioned.fill(
+                                child: Container(
+                                  decoration: BoxDecoration(
+                                    color: Color(0xFF1A6DCE),
+                                    shape: BoxShape.rectangle,
+                                    borderRadius: BorderRadius.circular(20),
+                                    boxShadow: [
+                                      BoxShadow(
+                                        color: Color(0x3F000000),
+                                        blurRadius: 3,
+                                        offset: Offset(0, 0),
+                                        spreadRadius: 1,
+                                      ),
+                                    ],
+                                  ),
                                 ),
-                              ],
-                            ),
+                              ),
+                              Positioned(
+                                left: 17,
+                                top: 1,
+                                child: Text(
+                                  'NEXT',
+                                  style: TextStyle(
+                                    color: Colors.white,
+                                    fontSize: 15,
+                                    fontFamily: 'Istok Web',
+                                    fontWeight: FontWeight.w400,
+                                  ),
+                                ),
+                              ),
+                            ],
                           ),
                         ),
-                        Positioned(
-                          left: 17,
-                          top: 1,
-                          child: Text(
-                            'NEXT',
-                            style: TextStyle(
-                              color: Colors.white,
-                              fontSize: 15,
-                              fontFamily: 'Istok Web',
-                              fontWeight: FontWeight.w400,
-                            ),
-                          ),
-                        ),
-                      ],
-                    ),
-                  ),
+                      );
+                    }
+                  },
                 ),
                 Spacer(),
               ],
@@ -242,7 +267,7 @@ class _LatihanPagesState extends State<LatihanPages> {
                 width: 403,
                 height: 263,
                 child: FutureBuilder<List<TestReading>>(
-                  future: futureReading,
+                  future: _futureReading,
                   builder: (context, snapshot) {
                     if (snapshot.connectionState == ConnectionState.waiting) {
                       return CircularProgressIndicator();
@@ -262,12 +287,11 @@ class _LatihanPagesState extends State<LatihanPages> {
                             decoration: ShapeDecoration(
                               color: Color.fromARGB(255, 255, 255, 255),
                               shape: RoundedRectangleBorder(
-                                borderRadius: BorderRadius.circular(5)
-                              ),
+                                  borderRadius: BorderRadius.circular(5)),
                               shadows: [
                                 BoxShadow(
                                   color: Color(0x3F000000),
-                              blurRadius: 4,
+                                  blurRadius: 4,
                                   offset: Offset(4, 4),
                                   spreadRadius: 0,
                                 )
@@ -294,50 +318,56 @@ class _LatihanPagesState extends State<LatihanPages> {
                                     ),
                                   ),
                                 ),
-                                SizedBox(height: 20), // Space between question and answers
+                                SizedBox(height: 20),
                                 Column(
-                                  crossAxisAlignment: CrossAxisAlignment.start,
-                                  children: List.generate(
-                                    options.length,
-                                    (index) {
-                                      return InkWell(
-                                        onTap: () {
-                                          _checkAnswer(index);
-                                        },
-                                        child: Padding(
-                                          padding: const EdgeInsets.only(left: 33),
-                                          child: Row(
-                                            children: [
-                                              Container(
-                                                width: 14,
-                                                height: 14,
-                                                decoration: BoxDecoration(
-                                                  color: _selectedAnswerIndex == index
-                                                      ? Colors.blue
-                                                      : Color(0xFFF2F2F2),
-                                                  shape: BoxShape.circle,
-                                                ),
-                                              ),
-                                              SizedBox(width: 8),
-                                              Text(
-                                                options[index],
-                                                style: TextStyle(
-                                                  color: _selectedAnswerIndex == index
-                                                      ? Colors.blue
-                                                      : Colors.black,
-                                                  fontSize: 15,
-                                                  fontFamily: 'Poppins',
-                                                  fontWeight: FontWeight.w400,
-                                                  height: 0,
-                                                ),
-                                              ),
-                                            ],
-                                          ),
-                                        ),
-                                      );
-                                    },
-                                  ),
-                                ),
+  crossAxisAlignment: CrossAxisAlignment.start,
+  children: List.generate(
+    options.length,
+    (index) {
+      return InkWell(
+        onTap: () {
+          _checkAnswer(index, testReadingList);
+        },
+        child: Padding(
+          padding: const EdgeInsets.only(left: 33, bottom: 8),
+          child: Row(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Container(
+                width: 14,
+                height: 14,
+                margin: const EdgeInsets.only(top: 2),
+                decoration: BoxDecoration(
+                  color: _selectedAnswerIndex == index
+                      ? Colors.blue
+                      : Color(0xFFF2F2F2),
+                  shape: BoxShape.circle,
+                ),
+              ),
+              SizedBox(width: 8),
+              Expanded(
+                child: Text(
+                  options[index],
+                  style: TextStyle(
+                    color: _selectedAnswerIndex == index
+                        ? Colors.blue
+                        : Colors.black,
+                    fontSize: 15,
+                    fontFamily: 'Poppins',
+                    fontWeight: FontWeight.w400,
+                  ),
+                  maxLines: null,
+                  overflow: TextOverflow.visible,
+                ),
+              ),
+            ],
+          ),
+        ),
+      );
+    },
+  ),
+),
+
                               ],
                             ),
                           ),
@@ -359,6 +389,95 @@ class _LatihanPagesState extends State<LatihanPages> {
                       );
                     }
                   },
+                ),
+              ),
+            ),
+          ),
+          Center(
+            child: Align(
+              alignment: Alignment(0, 0.60),
+              child: Container(
+                width: 350,
+                height: 240,
+                child: Stack(
+                  children: [
+                    Positioned.fill(
+                      child: Container(
+                        decoration: ShapeDecoration(
+                          color: Colors.white,
+                          shape: RoundedRectangleBorder(
+                            side: BorderSide(
+                              width: 1,
+                              color: Colors.black.withOpacity(0.2),
+                            ),
+                            borderRadius: BorderRadius.circular(5),
+                          ),
+                          shadows: [
+                            BoxShadow(
+                              color: const Color(0x3F000000),
+                              blurRadius: 4,
+                              offset: const Offset(4, 4),
+                              spreadRadius: 0,
+                            ),
+                          ],
+                        ),
+                      ),
+                    ),
+                    Center(
+                      child: FutureBuilder<List<TestReading>>(
+                        future: _futureReading,
+                        builder: (context, snapshot) {
+                          if (snapshot.connectionState == ConnectionState.waiting) {
+                            return CircularProgressIndicator();
+                          } else if (snapshot.hasError) {
+                            return Text('Error: ${snapshot.error}');
+                          } else {
+                            List<TestReading> testReadingList = snapshot.data ?? [];
+                            final readingData = testReadingList[_currentQuestionIndex];
+                            return SingleChildScrollView(
+                              child: Column(
+                                mainAxisAlignment: MainAxisAlignment.center,
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                children: [
+                                  SizedBox(
+                                    width: double.infinity,
+                                    child: Text(
+                                      readingData.title,
+                                      textAlign: TextAlign.center,
+                                      style: TextStyle(
+                                        color: Colors.black,
+                                        fontSize: 20,
+                                        fontFamily: 'Poppins',
+                                        fontWeight: FontWeight.bold,
+                                      ),
+                                    ),
+                                  ),
+                                  SizedBox(height: 10),
+                                  SizedBox(
+                                    width: 340,
+                                    child: Padding(
+                                      padding: EdgeInsets.only(left: 10),
+                                      child: Text(
+                                        readingData.description,
+                                        textAlign: TextAlign.justify,
+                                        style: TextStyle(
+                                          color: Colors.black,
+                                          fontSize: 15,
+                                          fontFamily: 'Poppins',
+                                          fontWeight: FontWeight.w400,
+                                        ),
+                                        overflow: TextOverflow.visible,
+                                      ),
+                                    ),
+                                  ),
+                                ],
+                              ),
+                            );
+                          }
+                        },
+                      ),
+                    ),
+                  ],
                 ),
               ),
             ),
@@ -445,4 +564,3 @@ class _LatihanPagesState extends State<LatihanPages> {
     );
   }
 }
-
