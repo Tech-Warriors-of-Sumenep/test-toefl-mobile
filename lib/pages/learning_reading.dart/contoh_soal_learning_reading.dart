@@ -1,7 +1,69 @@
+import 'dart:convert';
+import 'dart:io';
 import 'package:flutter/material.dart';
+import 'package:http/http.dart' as http;
+import 'package:path_provider/path_provider.dart';
 
-class ContohSoalLearningReading extends StatelessWidget {
-  const ContohSoalLearningReading({Key? key}) : super(key: key);
+class ContohSoalLearningReading extends StatefulWidget {
+  final String fileUrl;
+
+  const ContohSoalLearningReading({Key? key, required this.fileUrl}) : super(key: key);
+
+  @override
+  _ContohSoalLearningReadingState createState() => _ContohSoalLearningReadingState();
+}
+
+class _ContohSoalLearningReadingState extends State<ContohSoalLearningReading> {
+  late String imagePath;
+  late Future<List<String>> futureImageUrls;
+
+  @override
+  void initState() {
+    super.initState();
+    futureImageUrls = fetchImageUrls();
+  }
+
+  Future<void> fetchImage() async {
+    try {
+      final String fileUrl = widget.fileUrl;
+
+      if (fileUrl.isNotEmpty) {
+        final response = await http.get(Uri.parse(fileUrl));
+
+        if (response.statusCode == 200) {
+          final bytes = response.bodyBytes;
+          final dir = await getApplicationDocumentsDirectory();
+          final fileName = fileUrl.split('/').last;
+          final file = File('${dir.path}/$fileName');
+          await file.writeAsBytes(bytes, flush: true);
+          setState(() {
+            imagePath = file.path;
+          });
+        } else {
+          print('Failed to load image');
+        }
+      }
+    } catch (e) {
+      print('Error: $e');
+    }
+  }
+
+  Future<List<String>> fetchImageUrls() async {
+    try {
+      final response = await http.get(Uri.parse('http://192.168.1.14:8000/materiReading'));
+
+      if (response.statusCode == 200) {
+        final data = jsonDecode(response.body);
+        final List<dynamic> imageUrls = data['imageUrls'];
+        return imageUrls.map((url) => url.toString()).toList();
+      } else {
+        throw Exception('Failed to load image URLs');
+      }
+    } catch (e) {
+      print('Error: $e');
+      return [];
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -23,9 +85,7 @@ class ContohSoalLearningReading extends StatelessWidget {
             leading: Padding(
               padding: const EdgeInsets.only(left: 17.0),
               child: IconButton(
-                icon: const Icon(
-                  Icons.arrow_back,
-                ),
+                icon: const Icon(Icons.arrow_back),
                 onPressed: () {
                   Navigator.of(context).pop();
                 },
@@ -43,107 +103,41 @@ class ContohSoalLearningReading extends StatelessWidget {
           ),
         ),
       ),
-      body: SingleChildScrollView(
-        child: Padding(
-          padding: const EdgeInsets.symmetric(vertical: 10, horizontal: 20),
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              const Text(
-                'Main Idea',
-                style: TextStyle(
-                  fontSize: 20,
-                  fontFamily: 'Poppins',
-                  fontWeight: FontWeight.bold,
-                ),
-              ),
-              const SizedBox(height: 10),
-              _buildQuestionCard(
-                description:
-                    'Pablo Picasso was one of the most influential artists of the 20th century. He is best known for co-founding the Cubist movement and for his contributions to Surrealism. Picassos work is characterized by a radical departure from traditional artistic forms, with a focus on geometric shapes and abstract representations.',
-                question: 'What is the main idea of the passage?\n'
-                    'A. The history of modern art movements.\n'
-                    'B. The influence of technology on contemporary art.\n'
-                    'C. The life and work of Pablo Picasso.\n'
-                    'D. The importance of artistic expression in society',
-                answer: 'C. The life and work of Pablo Picasso.',
-              ),
-              const SizedBox(height: 15),
-              const Text(
-                'Main Topic',
-                style: TextStyle(
-                  fontSize: 20,
-                  fontFamily: 'Poppins',
-                  fontWeight: FontWeight.bold,
-                ),
-              ),
-              const SizedBox(height: 15),
-              _buildQuestionCard(
-                description:
-                    'Yoga is an ancient practice that originated in India. It encompasses a variety of physical, mental, and spiritual disciplines, with the goal of achieving a state of inner peace and harmony. There are several different forms of yoga, including Hatha, Vinyasa, and Ashtanga, each with its own unique focus and techniques',
-                question: 'What is the main idea of the passage?\n'
-                    'A. The history of modern art movements.\n'
-                    'B. The influence of technology on contemporary art.\n'
-                    'C. The life and work of Pablo Picasso.\n'
-                    'D. The importance of artistic expression in society',
-                answer: 'B. the history of yoga and its different forms',
-              ),
-            ],
+      body: imagePath == null
+          ? Center(child: CircularProgressIndicator())
+          : Image.file(File(imagePath)),
+      bottomNavigationBar: Container(
+        decoration: BoxDecoration(
+          color: Colors.white,
+          borderRadius: const BorderRadius.only(
+            topLeft: Radius.circular(15),
+            topRight: Radius.circular(15),
           ),
+          boxShadow: [
+            BoxShadow(
+              color: Colors.grey.withOpacity(0.5),
+              spreadRadius: 5,
+              blurRadius: 7,
+              offset: const Offset(0, -3),
+            ),
+          ],
+        ),
+        height: kToolbarHeight + 10,
+        child: Row(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: const [
+            Text(
+              'Learning Reading TOEFL',
+              style: TextStyle(
+                color: Colors.black,
+                fontSize: 20,
+                fontFamily: 'Poppins',
+                fontWeight: FontWeight.bold,
+              ),
+            ),
+          ],
         ),
       ),
-    );
-  }
-
-  Widget _buildQuestionCard({
-    required String description,
-    required String question,
-    required String answer,
-  }) {
-    return Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: [
-        Container(
-          decoration: BoxDecoration(
-            border: Border.all(color: Colors.grey),
-            borderRadius: BorderRadius.circular(5),
-          ),
-          padding: const EdgeInsets.all(10),
-          margin: const EdgeInsets.only(bottom: 10),
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              Text(
-                description,
-                style: const TextStyle(
-                  fontSize: 14,
-                  fontFamily: 'Poppins',
-                  color: Colors.black,
-                ),
-              ),
-            ],
-          ),
-        ),
-        const SizedBox(height: 10),
-        Text(
-          question,
-          style: const TextStyle(
-            fontSize: 14,
-            fontFamily: 'Poppins',
-            color: Colors.black,
-          ),
-        ),
-        const SizedBox(height: 10),
-        Text(
-          'Answer : $answer',
-          style: const TextStyle(
-            fontSize: 14,
-            fontWeight: FontWeight.bold,
-            fontFamily: 'Poppins',
-            color: Colors.black,
-          ),
-        ),
-      ],
     );
   }
 }
