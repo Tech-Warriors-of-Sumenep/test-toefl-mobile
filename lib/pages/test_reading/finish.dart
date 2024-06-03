@@ -1,16 +1,21 @@
 import 'package:flutter/material.dart';
 import 'package:toefl_app/pages/menu_page/navigasi.dart';
 
-class FinishPagereading extends StatefulWidget {
-  const FinishPagereading({Key? key}) : super(key: key);
+
+class Finishtestreading extends StatefulWidget {
+  final int totalTime; // Tambahkan parameter untuk total waktu
+  const Finishtestreading({Key? key, required this.totalTime}) : super(key: key);
 
   @override
-  State<FinishPagereading> createState() => _FinishPageState();
+  State<Finishtestreading> createState() => _FinishPageState();
 }
 
-class _FinishPageState extends State<FinishPagereading> {
+
+class _FinishPageState extends State<Finishtestreading> {
   @override
   Widget build(BuildContext context) {
+     int minutes = widget.totalTime ~/ 60;
+    int seconds = widget.totalTime % 60;
     return Scaffold(
       appBar: PreferredSize(
         preferredSize: const Size.fromHeight(kToolbarHeight + 10),
@@ -96,7 +101,7 @@ class _FinishPageState extends State<FinishPagereading> {
                             child: SizedBox(
                               width: 35,
                               child: Text(
-                                '  : 43',
+                                '  : 13',
                                 style: TextStyle(
                                   color: Colors.black,
                                   fontSize: 15,
@@ -155,13 +160,13 @@ class _FinishPageState extends State<FinishPagereading> {
                               ),
                             ),
                           ),
-                          Positioned(
+                         Positioned(
                             left: 96,
                             top: 16,
                             child: SizedBox(
                               width: 70,
                               child: Text(
-                                ': 98 m 5s',
+                                ':$minutes m $seconds s', // Menampilkan waktu total
                                 style: TextStyle(
                                   color: Colors.black,
                                   fontSize: 15,
@@ -297,7 +302,7 @@ class _FinishPageState extends State<FinishPagereading> {
                             child: SizedBox(
                               width: 70,
                               child: Text(
-                                '         : 50',
+                                '         : 20',
                                 style: TextStyle(
                                   color: Colors.black,
                                   fontSize: 15,
@@ -424,7 +429,7 @@ class _FinishPageState extends State<FinishPagereading> {
                     top: 12,
                     child: SizedBox(
                       width: 197,
-                      height: 30,
+                      height: 35,
                       child: Text(
                         'High Intermediate',
                         textAlign: TextAlign.center,
@@ -478,4 +483,5 @@ class _FinishPageState extends State<FinishPagereading> {
       ),
     );
   }
+  
 }
