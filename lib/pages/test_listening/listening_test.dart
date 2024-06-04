@@ -3,11 +3,7 @@ import 'dart:convert';
 import 'package:audioplayers/audioplayers.dart';
 import 'package:flutter/material.dart';
 import 'dart:async';
-<<<<<<< HEAD
-import 'package:toefl_app/pages/test_listening/finish.dart';
-=======
-import 'package:toefl_app/pages/test_listening/finish.dart';//ini tadi salah ke kami finish grammar jadi erorr juga jadi saya benerin 
->>>>>>> 4728099053cd6f57c1c60c62dc0ab0e421e69c5f
+import 'package:toefl_app/pages/test_listening/finish.dart'; //ini tadi salah ke kami finish grammar jadi erorr juga jadi saya benerin
 import 'package:toefl_app/pages/test_listening/exit_card.dart';
 import 'package:http/http.dart' as http;
 
@@ -19,7 +15,7 @@ class Listening extends StatefulWidget {
 }
 
 class _ListeningState extends State<Listening> {
-  final AudioPlayer player = AudioPlayer();
+  final player = AudioPlayer();
   bool isDraggingSlider = false;
   Duration currentPosition = Duration.zero;
   Duration totalDuration = Duration.zero;
@@ -36,7 +32,7 @@ class _ListeningState extends State<Listening> {
 
   Future<void> fetchData() async {
     print('fetchUsers called');
-    const url = 'http://10.251.13.140:8000/api/ujian-listening/664a227f6f1fc';
+    const url = 'http://192.168.1.26:8080/api/ujian-listening/664a227f6f1fc';
     final uri = Uri.parse(url);
     final response = await http.get(uri);
     final body = response.body;
@@ -87,8 +83,22 @@ class _ListeningState extends State<Listening> {
   }
 
   Future<void> playAudioFromUrl(String url) async {
-    await player.play(UrlSource(url));
-    setState(() => _isPlaying = true);
+    try {
+      // Ensure the player is stopped before attempting to play a new source
+      await player.stop();
+      String encodedUrl = Uri.encodeFull(url);
+      await player.play(UrlSource(encodedUrl));
+      setState(() => _isPlaying = true);
+    } catch (e) {
+      print('Error loading audio: $e');
+      // Show error message to the user
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(
+          content: Text('Error loading audio: $e'),
+          backgroundColor: Colors.red,
+        ),
+      );
+    }
   }
 
   void _nextQuestion() {
@@ -256,8 +266,7 @@ class _ListeningState extends State<Listening> {
                               });
 
                               await playAudioFromUrl(
-                                'https://commondatastorage.googleapis.com/codeskulptor-demos/DDR_assets/Kangaroo_MusiQue_-_The_Neverwritten_Role_Playing_Game.mp3',
-                              );
+                                  'http://192.168.1.26:8080/storage/file/${currentQuestion['file']}');
 
                               setState(() {
                                 _isFirstAudioPlaying = false;
@@ -429,6 +438,12 @@ class _ListeningState extends State<Listening> {
                                                   ? Colors.blue
                                                   : Colors.black)),
                                       elevation: 0,
+                                      constraints: BoxConstraints.tightFor(
+                                        width:
+                                            13.5, // Ubah ukuran ini sesuai keinginan Anda
+                                        height:
+                                            40.0, // Ubah ukuran ini sesuai keinginan Anda
+                                      ),
                                       child: Text(
                                         '',
                                         style: TextStyle(
@@ -473,8 +488,8 @@ class _ListeningState extends State<Listening> {
                           style: ElevatedButton.styleFrom(
                             backgroundColor: Colors.red,
                             padding: EdgeInsets.symmetric(
-                              horizontal: screenWidth * 0.05,
-                              vertical: screenHeight * 0.02,
+                              horizontal: screenWidth * 0.03,
+                              vertical: screenHeight * 0.01,
                             ),
                             textStyle: TextStyle(
                               fontSize: screenWidth * 0.04,
@@ -488,8 +503,8 @@ class _ListeningState extends State<Listening> {
                           style: ElevatedButton.styleFrom(
                             backgroundColor: Colors.blue,
                             padding: EdgeInsets.symmetric(
-                              horizontal: screenWidth * 0.05,
-                              vertical: screenHeight * 0.02,
+                              horizontal: screenWidth * 0.03,
+                              vertical: screenHeight * 0.01,
                             ),
                             textStyle: TextStyle(
                               fontSize: screenWidth * 0.04,
@@ -530,7 +545,8 @@ class _ListeningState extends State<Listening> {
               child: Align(
                 alignment: Alignment.center,
                 child: Padding(
-                  padding: EdgeInsets.only(left: screenWidth * 0.2),
+                  padding: EdgeInsets.only(
+                      left: screenWidth * 0.1, right: screenWidth * 0.1),
                   child: Text(
                     'Test Listening Page',
                     style: TextStyle(
