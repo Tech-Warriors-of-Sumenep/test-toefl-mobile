@@ -1,4 +1,4 @@
-class TestGrammar {
+class TestReading {
   int id;
   int categoryId;
   String uuid;
@@ -9,7 +9,7 @@ class TestGrammar {
   Category category;
   List<Soal> soal;
 
-  TestGrammar({
+  TestReading({
     required this.id,
     required this.categoryId,
     required this.uuid,
@@ -21,8 +21,8 @@ class TestGrammar {
     required this.soal,
   });
 
-  factory TestGrammar.fromJson(Map<String, dynamic> json) {
-    return TestGrammar(
+  factory TestReading.fromJson(Map<String, dynamic> json) {
+    return TestReading(
       id: json['id'] ?? 0,
       categoryId: json['category_id'] ?? 0,
       uuid: json['uuid'] ?? '',
@@ -35,8 +35,8 @@ class TestGrammar {
     );
   }
 
-  static List<TestGrammar> fromJsonList(List<dynamic> jsonList) {
-    return jsonList.map((json) => TestGrammar.fromJson(json)).toList();
+  static List<TestReading> fromJsonList(List<dynamic> jsonList) {
+    return jsonList.map((json) => TestReading.fromJson(json)).toList();
   }
 }
 

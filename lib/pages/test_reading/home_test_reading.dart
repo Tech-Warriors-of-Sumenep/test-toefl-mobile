@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'soal_cerita.dart';
+import 'latihan.dart';
 import 'package:toefl_app/pages/menu_page/navigasi.dart';
 
 class HomeTestReadingPages extends StatefulWidget {
@@ -144,7 +144,7 @@ class TestReadingPage extends StatelessWidget {
                 const Icon(Icons.access_time),
                 const SizedBox(width: 5),
                 Text(
-                  '100 menit',
+                  '60 menit',
                   style: TextStyle(
                     fontSize: 18, // Ubah ukuran font menjadi 18px
                     color: const Color(0xFF020052), // Ubah warna teks
@@ -154,7 +154,7 @@ class TestReadingPage extends StatelessWidget {
                 const Icon(Icons.book),
                 const SizedBox(width: 5),
                 Text(
-                  '50 soal',
+                  '20 soal',
                   style: TextStyle(
                     fontSize: 18, // Ubah ukuran font menjadi 18px
                     color: const Color(0xFF020052), // Ubah warna teks
@@ -183,7 +183,7 @@ class TestReadingPage extends StatelessWidget {
               onPressed: () {
                 Navigator.push(
                   context,
-                  MaterialPageRoute(builder: (context) => SoalPages()),
+                  MaterialPageRoute(builder: (context) => LatihanPages()),
                 );
               },
               child: const Text(

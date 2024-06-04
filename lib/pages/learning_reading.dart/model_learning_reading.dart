@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:toefl_app/model/learning_reading.dart';
-import 'package:toefl_app/pages/learning_reading.dart/materi_learning_reading.dart'; // Import halaman tujuan
+import 'package:toefl_app/pages/learning_reading.dart/contoh_soal_learning_reading.dart'; // Import halaman tujuan
 
 class ModelLearningReadingPages extends StatefulWidget {
   final List<materIReading> materiList;
@@ -98,8 +98,7 @@ class _ModelLearningReadingPagesState extends State<ModelLearningReadingPages> {
                         color: Colors.black,
                       ),
                     ),
-                    const SizedBox(
-                        height: 20), // Space between description and button
+                    const SizedBox(height: 20), // Space between description and button
                     Container(
                       width: 120,
                       height: 30,
@@ -120,8 +119,7 @@ class _ModelLearningReadingPagesState extends State<ModelLearningReadingPages> {
                           Navigator.push(
                             context,
                             MaterialPageRoute(
-                              builder: (context) =>
-                                  MateriLearningReadingPage(), // Pindah ke MateriLearningReadingPage
+                              builder: (context) => ContohSoalLearningReading(fileUrl: materi.fileUrl), 
                             ),
                           );
                         },

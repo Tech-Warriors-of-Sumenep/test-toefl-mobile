@@ -16,25 +16,26 @@ class _Soal1PagesState extends State<Soal1Pages> {
   int _currentQuestionIndex = 0;
   int _selectedAnswerIndex = -1;
   late Timer _timer;
-  late Future<List<test_grammar>> futuregrammar;
-  late AsyncSnapshot<List<test_grammar>> snapshot;
- static const int _durationInSeconds = 3600; // Mengatur waktu selama satu jam (3600 detik)
+  late Future<List<TestGrammar>> futuregrammar;
+  static const int _durationInSeconds = 3600; // One hour duration (3600 seconds)
   int _secondsRemaining = _durationInSeconds;
+  int _correctAnswers = 0;
+  int _incorrectAnswers = 0;
 
   @override
   void initState() {
     super.initState();
     _startTimer();
-    futuregrammar = fetchtestgrammar();
+    futuregrammar = fetchTestGrammar();
   }
 
-  Future<List<test_grammar>> fetchtestgrammar() async {
-    final response = await http.get(Uri.parse('http://192.168.0.104:8000/api/ujian-grammar'));
+  Future<List<TestGrammar>> fetchTestGrammar() async {
+    final response = await http.get(Uri.parse('http://192.168.1.209:8000/api/ujian-grammar'));
 
     if (response.statusCode == 200) {
       final data = json.decode(response.body);
       final List<dynamic> payload = data['payload'];
-      return test_grammar.fromJsonList(payload);
+      return TestGrammar.fromJsonList(payload);
     } else {
       throw Exception('Failed to load data');
     }
@@ -53,40 +54,57 @@ class _Soal1PagesState extends State<Soal1Pages> {
           _secondsRemaining--;
         } else {
           timer.cancel();
-          Navigator.push(
-            context,
-             MaterialPageRoute(
-          builder: (context) => Finishtestgrammar(totalTime: _durationInSeconds - _secondsRemaining),
-        ),
-          );
+          _navigateToFinishPage();
         }
       });
     });
   }
 
-  void _checkAnswer(int selectedIndex) {
-    setState(() {
-      _selectedAnswerIndex = selectedIndex;
-    });
-  }
-void _nextQuestion() {
+void _checkAnswer(int selectedIndex, List<TestGrammar> testGrammarList) {
   setState(() {
-    if (_currentQuestionIndex < 19) {
-      _currentQuestionIndex++;
-      _selectedAnswerIndex = -1;
+    _selectedAnswerIndex = selectedIndex;
+
+    // Get the current question
+    final currentSoal = testGrammarList[_currentQuestionIndex].soal[0];
+
+    // Check if the selected answer is correct by comparing IDs
+    if (currentSoal.jawaban[selectedIndex].id == currentSoal.kunciJawaban.jawabanId) {
+      _correctAnswers++;
     } else {
-      Navigator.push(
-        context,
-        MaterialPageRoute(
-          builder: (context) => Finishtestgrammar(totalTime: _durationInSeconds - _secondsRemaining),
-        ),
-      );
+      _incorrectAnswers++;
     }
   });
 }
 
 
+void _nextQuestion(List<TestGrammar> testGrammarList) {
+  setState(() {
+    if (_selectedAnswerIndex != -1) {
+      // Proceed only if an answer is selected
+      if (_currentQuestionIndex < 19) { // Change 19 to the number of questions you want to display (20 in this case)
+        _currentQuestionIndex++;
+        _selectedAnswerIndex = -1;
+      } else {
+        _timer.cancel(); // Stop the timer
+        _navigateToFinishPage(); // Navigate to the finish page
+      }
+    }
+  });
+}
 
+
+  void _navigateToFinishPage() {
+    Navigator.push(
+      context,
+      MaterialPageRoute(
+        builder: (context) => FinishTestGrammar(
+          totalTime: _durationInSeconds - _secondsRemaining,
+          correctAnswers: _correctAnswers,
+          incorrectAnswers: _incorrectAnswers,
+        ),
+      ),
+    );
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -153,14 +171,7 @@ void _nextQuestion() {
               children: [
                 Spacer(),
                 InkWell(
-                  onTap: () {
-                    Navigator.push(
-                      context,
-                       MaterialPageRoute(
-          builder: (context) => Finishtestgrammar(totalTime: _durationInSeconds - _secondsRemaining),
-        ),
-                    );
-                  },
+                  onTap: _navigateToFinishPage,
                   child: Container(
                     width: 72,
                     height: 24,
@@ -191,48 +202,60 @@ void _nextQuestion() {
                 ),
                 Spacer(),
                 Spacer(), // Kolom kosong
-                InkWell(
-                  onTap: () {
-                    _nextQuestion();
-                  },
-                  child: Container(
-                    width: 72,
-                    height: 24,
-                    child: Stack(
-                      children: [
-                        Positioned.fill(
-                          child: Container(
-                            decoration: BoxDecoration(
-                              color: Color(0xFF1A6DCE),
-                              shape: BoxShape.rectangle,
-                              borderRadius: BorderRadius.circular(20),
-                              boxShadow: [
-                                BoxShadow(
-                                  color: Color(0x3F000000),
-                                  blurRadius: 3,
-                                  offset: Offset(0, 0),
-                                  spreadRadius: 1,
+                FutureBuilder<List<TestGrammar>>(
+                  future: futuregrammar,
+                  builder: (context, snapshot) {
+                    if (snapshot.connectionState == ConnectionState.waiting) {
+                      return CircularProgressIndicator();
+                    } else if (snapshot.hasError) {
+                      return Text('Error: ${snapshot.error}');
+                    } else {
+                      List<TestGrammar> testGrammarList = snapshot.data ?? [];
+                      return InkWell(
+                        onTap: () {
+                          _nextQuestion(testGrammarList);
+                        },
+                        child: Container(
+                          width: 72,
+                          height: 24,
+                          child: Stack(
+                            children: [
+                              Positioned.fill(
+                                child: Container(
+                                  decoration: BoxDecoration(
+                                    color: Color(0xFF1A6DCE),
+                                    shape: BoxShape.rectangle,
+                                    borderRadius: BorderRadius.circular(20),
+                                    boxShadow: [
+                                      BoxShadow(
+                                        color: Color(0x3F000000),
+                                        blurRadius: 3,
+                                        offset: Offset(0, 0),
+                                        spreadRadius: 1,
+                                      ),
+                                    ],
+                                  ),
                                 ),
-                              ],
-                            ),
+                              ),
+                              Positioned(
+                                left: 17,
+                                top: 1,
+                                child: Text(
+                                  'NEXT',
+                                  style: TextStyle(
+                                    color: Colors.white,
+                                    fontSize: 15,
+                                    fontFamily: 'Istok Web',
+                                    fontWeight: FontWeight.w400,
+                                  ),
+                                ),
+                              ),
+                            ],
                           ),
                         ),
-                        Positioned(
-                          left: 17,
-                          top: 1,
-                          child: Text(
-                            'NEXT',
-                            style: TextStyle(
-                              color: Colors.white,
-                              fontSize: 15,
-                              fontFamily: 'Istok Web',
-                              fontWeight: FontWeight.w400,
-                            ),
-                          ),
-                        ),
-                      ],
-                    ),
-                  ),
+                      );
+                    }
+                  },
                 ),
                 Spacer(),
               ],
@@ -240,20 +263,22 @@ void _nextQuestion() {
           ),
           Center(
             child: Align(
-              alignment: Alignment(0, -0.7), // Sesuaikan nilai untuk mengatur posisi vertikal
+              alignment: Alignment(0, -0.7),
               child: Container(
                 width: 403,
                 height: 263,
-                child: FutureBuilder<List<test_grammar>>(
+                child: FutureBuilder<List<TestGrammar>>(
                   future: futuregrammar,
                   builder: (context, snapshot) {
                     if (snapshot.connectionState == ConnectionState.waiting) {
-                      return CircularProgressIndicator(); // Show a loading indicator while waiting for data
+                      return CircularProgressIndicator();
                     } else if (snapshot.hasError) {
                       return Text('Error: ${snapshot.error}');
                     } else {
-                      List<test_grammar> questions = snapshot.data ?? [];
-                      List<String> options = ['a', 'b', 'c', 'd', 'e']; // Jawaban sementara
+                      List<TestGrammar> testGrammarList = snapshot.data ?? [];
+                      var currentQuestion = testGrammarList[_currentQuestionIndex].soal[0];
+                      var options = currentQuestion.jawaban.map((jawaban) => jawaban.name).toList();
+
                       return Stack(
                         alignment: Alignment.center,
                         children: [
@@ -283,7 +308,7 @@ void _nextQuestion() {
                                   child: Padding(
                                     padding: const EdgeInsets.only(left: 13),
                                     child: Text(
-                                      questions[_currentQuestionIndex].title,
+                                      currentQuestion.soal,
                                       style: TextStyle(
                                         color: Colors.black,
                                         fontSize: 15,
@@ -294,7 +319,7 @@ void _nextQuestion() {
                                     ),
                                   ),
                                 ),
-                                SizedBox(height: 20), // Jarak antara pertanyaan dan jawaban
+                                SizedBox(height: 20),
                                 Column(
                                   crossAxisAlignment: CrossAxisAlignment.start,
                                   children: List.generate(
@@ -302,7 +327,7 @@ void _nextQuestion() {
                                     (index) {
                                       return InkWell(
                                         onTap: () {
-                                          _checkAnswer(index);
+                                          _checkAnswer(index, testGrammarList);
                                         },
                                         child: Padding(
                                           padding: const EdgeInsets.only(left: 33),

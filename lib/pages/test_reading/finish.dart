@@ -1,16 +1,28 @@
 import 'package:flutter/material.dart';
 import 'package:toefl_app/pages/menu_page/navigasi.dart';
 
-class FinishPagereading extends StatefulWidget {
-  const FinishPagereading({Key? key}) : super(key: key);
+class FinishTestReading extends StatefulWidget {
+  final int totalTime; // Total time taken for the test
+  final int correctAnswers; // Number of correct answers
+  final int incorrectAnswers; // Number of incorrect answers
+
+  const FinishTestReading({
+    Key? key,
+    required this.totalTime,
+    required this.correctAnswers,
+    required this.incorrectAnswers,
+  }) : super(key: key);
 
   @override
-  State<FinishPagereading> createState() => _FinishPageState();
+  State<FinishTestReading> createState() => _FinishTestGrammarState();
 }
 
-class _FinishPageState extends State<FinishPagereading> {
+class _FinishTestGrammarState extends State<FinishTestReading> {
   @override
   Widget build(BuildContext context) {
+    int minutes = widget.totalTime ~/ 60;
+    int seconds = widget.totalTime % 60;
+
     return Scaffold(
       appBar: PreferredSize(
         preferredSize: const Size.fromHeight(kToolbarHeight + 10),
@@ -35,7 +47,7 @@ class _FinishPageState extends State<FinishPagereading> {
                     context,
                     MaterialPageRoute(
                         builder: (context) =>
-                            MainPage()), // Ganti HalamanLain() dengan halaman tujuan Anda
+                            MainPage()), // Replace MainPage() with your target page
                   );
                 },
               ),
@@ -54,11 +66,10 @@ class _FinishPageState extends State<FinishPagereading> {
       ),
       body: Stack(
         children: [
-          // Konten halaman
           Center(
             child: Row(
               children: [
-                Spacer(), // Menambahkan ruang kosong di sebelah kiri agar kotak-kotak di sebelah kanan berada lebih dekat dengan tengah
+                Spacer(), // Left Spacer
                 Column(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
@@ -96,7 +107,7 @@ class _FinishPageState extends State<FinishPagereading> {
                             child: SizedBox(
                               width: 35,
                               child: Text(
-                                '  : 43',
+                                '  : ${widget.correctAnswers}',
                                 style: TextStyle(
                                   color: Colors.black,
                                   fontSize: 15,
@@ -155,13 +166,13 @@ class _FinishPageState extends State<FinishPagereading> {
                               ),
                             ),
                           ),
-                          Positioned(
+                         Positioned(
                             left: 96,
                             top: 16,
                             child: SizedBox(
                               width: 70,
                               child: Text(
-                                ': 98 m 5s',
+                                ':$minutes m $seconds s', // Displaying total time
                                 style: TextStyle(
                                   color: Colors.black,
                                   fontSize: 15,
@@ -194,7 +205,7 @@ class _FinishPageState extends State<FinishPagereading> {
                     ),
                   ],
                 ),
-                Spacer(), // Menambahkan ruang kosong di sebelah kanan agar kotak-kotak di sebelah kiri berada lebih dekat dengan tengah
+                Spacer(), // Right Spacer
                 Column(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
@@ -232,7 +243,7 @@ class _FinishPageState extends State<FinishPagereading> {
                             child: SizedBox(
                               width: 40,
                               child: Text(
-                                '     : 7',
+                                '     :${widget.incorrectAnswers}',
                                 style: TextStyle(
                                   color: Colors.black,
                                   fontSize: 15,
@@ -297,7 +308,7 @@ class _FinishPageState extends State<FinishPagereading> {
                             child: SizedBox(
                               width: 70,
                               child: Text(
-                                '         : 50',
+                                '         : ${widget.correctAnswers + widget.incorrectAnswers}',
                                 style: TextStyle(
                                   color: Colors.black,
                                   fontSize: 15,
@@ -330,15 +341,13 @@ class _FinishPageState extends State<FinishPagereading> {
                     ),
                   ],
                 ),
-                Spacer(), // Menambahkan ruang kosong di sebelah kanan dari kotak-kotak di sebelah kanan
+                Spacer(), // Right Spacer
               ],
             ),
           ),
-
           Center(
             child: Transform.translate(
-              offset: Offset(0,
-                  -150), // Sesuaikan dengan nilai yang sesuai untuk posisi vertikal
+              offset: Offset(0, -150), // Adjust the vertical position as needed
               child: Container(
                 width: 160,
                 height: 160,
@@ -351,11 +360,9 @@ class _FinishPageState extends State<FinishPagereading> {
                         width: 160,
                         height: 160,
                         decoration: ShapeDecoration(
-                          color:
-                              Color.fromARGB(255, 253, 253, 253).withOpacity(0),
+                          color: Color.fromARGB(255, 253, 253, 253).withOpacity(0),
                           shape: OvalBorder(
-                            side:
-                                BorderSide(width: 3, color: Color(0xFF027D44)),
+                            side: BorderSide(width: 3, color: Color(0xFF027D44)),
                           ),
                           shadows: [
                             BoxShadow(
@@ -389,7 +396,6 @@ class _FinishPageState extends State<FinishPagereading> {
               ),
             ),
           ),
-
           Center(
             child: Container(
               margin: EdgeInsets.only(top: 400),
@@ -424,7 +430,7 @@ class _FinishPageState extends State<FinishPagereading> {
                     top: 12,
                     child: SizedBox(
                       width: 197,
-                      height: 30,
+                      height: 25,
                       child: Text(
                         'High Intermediate',
                         textAlign: TextAlign.center,
@@ -465,7 +471,7 @@ class _FinishPageState extends State<FinishPagereading> {
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
             const Text(
-              'Evaluate Grammar Page',
+              'Evaluate Reading Page',
               style: TextStyle(
                 color: Colors.black,
                 fontSize: 20,
