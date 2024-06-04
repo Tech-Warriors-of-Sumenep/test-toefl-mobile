@@ -1,19 +1,26 @@
-class materIGrammar {
+class MaterIGrammar {
   int id;
   String title;
   String description;
+  String file; // Use a list to store multiple files
 
-  materIGrammar({required this.id, required this.title, required this.description});
+  MaterIGrammar({
+    required this.id,
+    required this.title,
+    required this.description,
+    required this.file,
+  });
 
-  factory materIGrammar.fromJson(Map<String, dynamic> json) {
-    return materIGrammar(
+  factory MaterIGrammar.fromJson(Map<String, dynamic> json) {
+    return MaterIGrammar(
       id: json['id'] ?? 0,
       title: json['title'] ?? 'salah',
-      description: json['description'] ?? 'salah',
+      description: (json['description'] ?? 'salah').replaceAll('\\n', '\n'),
+      file: json['file'] ?? 'salah',
     );
   }
 
-  static List<materIGrammar> fromJsonList(List<dynamic> jsonList) {
-    return jsonList.map((json) => materIGrammar.fromJson(json)).toList();
+  static List<MaterIGrammar> fromJsonList(List<dynamic> jsonList) {
+    return jsonList.map((json) => MaterIGrammar.fromJson(json)).toList();
   }
 }

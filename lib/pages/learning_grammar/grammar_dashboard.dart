@@ -12,7 +12,7 @@ class GrammarDashboard extends StatefulWidget {
 }
 
 class _GrammarDashboardState extends State<GrammarDashboard> {
-  late Future<List<materIGrammar>> futureMateri;
+  late Future<List<MaterIGrammar>> futureMateri;
 
   @override
   void initState() {
@@ -20,13 +20,13 @@ class _GrammarDashboardState extends State<GrammarDashboard> {
     futureMateri = fetchMaterIGrammar();
   }
 
-  Future<List<materIGrammar>> fetchMaterIGrammar() async {
+  Future<List<MaterIGrammar>> fetchMaterIGrammar() async {
     final response = await http.get(Uri.parse('http://192.168.1.129:8000/api/materiGrammar'));
 
     if (response.statusCode == 200) {
       final data = json.decode(response.body);
       final List<dynamic> payload = data['payload'];
-      return materIGrammar.fromJsonList(payload);
+      return MaterIGrammar.fromJsonList(payload);
     } else {
       throw Exception('Failed to load data');
     }
@@ -70,7 +70,7 @@ class _GrammarDashboardState extends State<GrammarDashboard> {
           ),
         ),
       ),
-      body: FutureBuilder<List<materIGrammar>>(
+      body: FutureBuilder<List<MaterIGrammar>>(
         future: futureMateri,
         builder: (context, snapshot) {
           if (snapshot.connectionState == ConnectionState.waiting) {
@@ -104,6 +104,7 @@ class _GrammarDashboardState extends State<GrammarDashboard> {
                                 builder: (context) => NounsPage(
                                   title: materi.title,
                                   description: materi.description,
+                                  file: materi.file,
                                 ),
                               ),
                             );

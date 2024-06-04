@@ -3,9 +3,14 @@ import 'package:flutter/material.dart';
 class NounsPage extends StatefulWidget {
   final String title;
   final String description;
+  final String file;
 
-  const NounsPage({Key? key, required this.title, required this.description})
-      : super(key: key);
+  const NounsPage({
+    Key? key,
+    required this.title,
+    required this.description,
+    required this.file,
+  }) : super(key: key);
 
   @override
   State<NounsPage> createState() => _NounsPageState();
@@ -55,13 +60,16 @@ class _NounsPageState extends State<NounsPage> {
       body: Stack(
         children: [
           Padding(
-            padding: EdgeInsets.symmetric(vertical: 10),
+            padding: const EdgeInsets.symmetric(vertical: 10),
             child: Column(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
                 Expanded(
                   child: LearningReadingPage(
-                      title: widget.title, description: widget.description),
+                    title: widget.title,
+                    description: widget.description,
+                    file: widget.file,
+                  ),
                 ),
               ],
             ),
@@ -112,10 +120,14 @@ class _NounsPageState extends State<NounsPage> {
 class LearningReadingPage extends StatelessWidget {
   final String title;
   final String description;
+  final String file;
 
-  const LearningReadingPage(
-      {Key? key, required this.title, required this.description})
-      : super(key: key);
+  const LearningReadingPage({
+    Key? key,
+    required this.title,
+    required this.description,
+    required this.file,
+  }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -133,29 +145,54 @@ class LearningReadingPage extends StatelessWidget {
                   mainAxisAlignment: MainAxisAlignment.start,
                   crossAxisAlignment: CrossAxisAlignment.center,
                   children: [
-                    Text(
-                      title,
-                      style: TextStyle(
-                        color: Colors.black,
-                        fontSize: 20,
-                        fontFamily: 'Poppins',
-                        fontWeight: FontWeight.w700,
+                    // Add padding here to move the title down
+                    Padding(
+                      padding: const EdgeInsets.only(
+                          top: 30), // Adjust the top padding as needed
+                      child: Text(
+                        title,
+                        style: TextStyle(
+                          color: Colors.black,
+                          fontSize: 20,
+                          fontFamily: 'Poppins',
+                          fontWeight: FontWeight.w900,
+                        ),
+                        textAlign: TextAlign.center,
                       ),
-                      textAlign: TextAlign.center,
                     ),
-                    const SizedBox(height: 16),
+                    const SizedBox(height: 40),
                     Text(
                       description,
                       style: TextStyle(
                         color: Colors.black,
-                        fontSize: 16,
+                        fontSize: 14,
                         fontFamily: 'Poppins',
                         fontWeight: FontWeight.w400,
                         height: 1.5,
                       ),
                       textAlign: TextAlign.left,
                     ),
-                    // Additional content here...
+                    Image.network(
+                      'http://192.168.1.74:8000/api/images/' + file,
+                      width: 600, // Lebar gambar
+                      height: 450, // Tinggi gambar
+                      loadingBuilder: (BuildContext context, Widget child,
+                          ImageChunkEvent? loadingProgress) {
+                        if (loadingProgress == null) {
+                          return child;
+                        } else {
+                          return Center(
+                            child: CircularProgressIndicator(
+                              value: loadingProgress.expectedTotalBytes != null
+                                  ? loadingProgress.cumulativeBytesLoaded /
+                                      (loadingProgress.expectedTotalBytes ?? 1)
+                                  : null,
+                            ),
+                          );
+                        }
+                      },
+                    ),
+                    const SizedBox(height: 60),
                   ],
                 ),
               ),
