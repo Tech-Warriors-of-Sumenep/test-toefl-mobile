@@ -6,9 +6,11 @@ class ModelLearningReadingPages extends StatefulWidget {
   final List<materIReading> materiList;
   final int initialIndex;
 
-  const ModelLearningReadingPages(
-      {Key? key, required this.materiList, this.initialIndex = 0})
-      : super(key: key);
+  const ModelLearningReadingPages({
+    Key? key,
+    required this.materiList,
+    this.initialIndex = 0,
+  }) : super(key: key);
 
   @override
   _ModelLearningReadingPagesState createState() =>
@@ -85,57 +87,60 @@ class _ModelLearningReadingPagesState extends State<ModelLearningReadingPages> {
               ),
             ),
             const SizedBox(height: 10),
-            Expanded(
-              child: SingleChildScrollView(
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Text(
-                      materi.description,
-                      style: const TextStyle(
-                        fontSize: 16,
-                        fontFamily: 'Poppins',
-                        color: Colors.black,
+          
+            const SizedBox(height: 10),
+            Text(
+              materi.description,
+              style: const TextStyle(
+                fontSize: 16,
+                fontFamily: 'Poppins',
+                color: Colors.black,
+              ),
+            ),
+            const SizedBox(height: 20), // Space between description and button
+            Container(
+              width: 120,
+              height: 30,
+              decoration: BoxDecoration(
+                borderRadius: BorderRadius.circular(20),
+                color: const Color(0xFFFBFF4A),
+                boxShadow: [
+                  BoxShadow(
+                    color: Colors.black.withOpacity(0.3),
+                    spreadRadius: 0,
+                    blurRadius: 4,
+                    offset: const Offset(0, 2),
+                  ),
+                ],
+              ),
+              child: TextButton(
+                onPressed: () {
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                      builder: (context) => ContohSoalLearningReading(
+                        imageUrl: 'http://10.251.12.2:8000/storage/files/reading/' + materi.file,
                       ),
                     ),
-                    const SizedBox(height: 20), // Space between description and button
-                    Container(
-                      width: 120,
-                      height: 30,
-                      decoration: BoxDecoration(
-                        borderRadius: BorderRadius.circular(20),
-                        color: const Color(0xFFFBFF4A),
-                        boxShadow: [
-                          BoxShadow(
-                            color: Colors.black.withOpacity(0.3),
-                            spreadRadius: 0,
-                            blurRadius: 4,
-                            offset: const Offset(0, 2),
-                          ),
-                        ],
-                      ),
-                      child: TextButton(
-                        onPressed: () {
-                          Navigator.push(
-                            context,
-                            MaterialPageRoute(
-                              builder: (context) => ContohSoalLearningReading(fileUrl: materi.fileUrl), 
-                            ),
-                          );
-                        },
-                        child: const Text(
-                          'Contoh Soal',
-                          style: TextStyle(
-                            fontSize: 13,
-                            fontWeight: FontWeight.bold,
-                            fontFamily: 'Poppins',
-                            color: Color(0xFF2E00BA),
-                          ),
-                        ),
-                      ),
-                    ),
-                  ],
+                  );
+                },
+                child: const Text(
+                  'Contoh Soal',
+                  style: TextStyle(
+                    fontSize: 13,
+                    fontWeight: FontWeight.bold,
+                    fontFamily: 'Poppins',
+                    color: Color(0xFF2E00BA),
+                  ),
                 ),
+              ),
+            ),
+              Opacity(
+              opacity: 0.0, 
+              child: Image.network(
+                'http://10.251.12.2:8000/storage/files/reading/' + materi.file,
+                width: 600,
+                height: 450,
               ),
             ),
           ],

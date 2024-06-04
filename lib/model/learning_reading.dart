@@ -2,16 +2,16 @@ class materIReading {
   int id;
   String title;
   String description;
-  String fileUrl;
+  String file;
 
-  materIReading({required this.id, required this.title, required this.description, required this.fileUrl});
+  materIReading({required this.id, required this.title, required this.description, required this.file});
 
   factory materIReading.fromJson(Map<String, dynamic> json) {
     return materIReading(
       id: json['id'] ?? 0,
       title: json['title'] ?? 'salah',
       description: json['description'] ?? 'salah',
-      fileUrl: json['file'] ?? 'salah'
+      file: json['file'] ?? 'salah'
     );
   }
 

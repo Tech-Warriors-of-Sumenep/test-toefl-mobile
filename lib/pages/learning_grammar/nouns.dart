@@ -173,7 +173,7 @@ class LearningReadingPage extends StatelessWidget {
                       textAlign: TextAlign.left,
                     ),
                     Image.network(
-                      'http://192.168.1.74:8000/api/images/' + file,
+                      'http://10.251.12.2:8000/api/images/' + file,
                       width: 600, // Lebar gambar
                       height: 450, // Tinggi gambar
                       loadingBuilder: (BuildContext context, Widget child,
