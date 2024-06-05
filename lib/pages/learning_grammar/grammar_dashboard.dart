@@ -1,6 +1,7 @@
 import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
+import 'package:toefl_app/model/flip_materi.dart';
 import 'package:toefl_app/model/learning_grammar.dart';
 import 'package:toefl_app/pages/learning_grammar/nouns.dart';
 
@@ -13,6 +14,7 @@ class GrammarDashboard extends StatefulWidget {
 
 class _GrammarDashboardState extends State<GrammarDashboard> {
   late Future<List<MaterIGrammar>> futureMateri;
+  late Future<List<FlipMateri>> futureFlip;
 
   @override
   void initState() {
@@ -21,7 +23,7 @@ class _GrammarDashboardState extends State<GrammarDashboard> {
   }
 
   Future<List<MaterIGrammar>> fetchMaterIGrammar() async {
-    final response = await http.get(Uri.parse('http://10.251.12.2:8000/api/materiGrammar'));
+    final response = await http.get(Uri.parse('http://192.168.1.223:8000/api/materiGrammar'));
 
     if (response.statusCode == 200) {
       final data = json.decode(response.body);
@@ -31,6 +33,17 @@ class _GrammarDashboardState extends State<GrammarDashboard> {
       throw Exception('Failed to load data');
     }
   }
+  Future<List<FlipMateri>> fetchFlipMateri(int materiId) async {
+  final response = await http.get(Uri.parse('http://192.168.1.223:8000/api/flipmateri'));
+
+  if (response.statusCode == 200) {
+    final data = json.decode(response.body);
+    final List<dynamic> payload = data['payload'];
+    return FlipMateri.fromJsonList(payload);
+  } else {
+    throw Exception('Failed to load data');
+  }
+}
 
   @override
   Widget build(BuildContext context) {
@@ -102,9 +115,10 @@ class _GrammarDashboardState extends State<GrammarDashboard> {
                               context,
                               MaterialPageRoute(
                                 builder: (context) => NounsPage(
+                                  id: materi.id,
                                   title: materi.title,
                                   description: materi.description,
-                                  file: materi.file,
+                                  files: materi.file,
                                 ),
                               ),
                             );

@@ -1,15 +1,21 @@
+import 'dart:math';
 import 'package:flutter/material.dart';
+import 'dart:convert';
+import 'package:http/http.dart' as http;
+import 'package:toefl_app/model/flip_materi.dart';
 
 class NounsPage extends StatefulWidget {
+  final int id;
   final String title;
   final String description;
-  final String file;
+  final String files;
 
   const NounsPage({
     Key? key,
+    required this.id,
     required this.title,
     required this.description,
-    required this.file,
+    required this.files,
   }) : super(key: key);
 
   @override
@@ -17,6 +23,30 @@ class NounsPage extends StatefulWidget {
 }
 
 class _NounsPageState extends State<NounsPage> {
+  late Future<List<FlipMateri>> futureFlip;
+
+  @override
+  void initState() {
+    super.initState();
+    futureFlip = fetchFlipMateri(widget.id);
+  }
+
+  Future<List<FlipMateri>> fetchFlipMateri(int materiId) async {
+    final response = await http.get(Uri.parse('http://192.168.1.223:8000/api/flipmateri'));
+
+    if (response.statusCode == 200) {
+      final data = json.decode(response.body);
+      final List<dynamic> payload = data['payload'];
+
+      // Filter data berdasarkan materiId
+      final filteredData = payload.where((element) => element['materi_id'] == materiId).toList();
+
+      return FlipMateri.fromJsonList(filteredData);
+    } else {
+      throw Exception('Failed to load data');
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -68,7 +98,8 @@ class _NounsPageState extends State<NounsPage> {
                   child: LearningReadingPage(
                     title: widget.title,
                     description: widget.description,
-                    file: widget.file,
+                    file: widget.files,
+                    futureFlip: futureFlip,
                   ),
                 ),
               ],
@@ -117,17 +148,32 @@ class _NounsPageState extends State<NounsPage> {
   }
 }
 
-class LearningReadingPage extends StatelessWidget {
+class LearningReadingPage extends StatefulWidget {
   final String title;
   final String description;
   final String file;
+  final Future<List<FlipMateri>> futureFlip;
 
   const LearningReadingPage({
     Key? key,
     required this.title,
     required this.description,
     required this.file,
+    required this.futureFlip,
   }) : super(key: key);
+
+  @override
+  _LearningReadingPageState createState() => _LearningReadingPageState();
+}
+
+class _LearningReadingPageState extends State<LearningReadingPage> {
+  bool _showFront = true;
+
+  void _flipImage() {
+    setState(() {
+      _showFront = !_showFront;
+    });
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -145,12 +191,10 @@ class LearningReadingPage extends StatelessWidget {
                   mainAxisAlignment: MainAxisAlignment.start,
                   crossAxisAlignment: CrossAxisAlignment.center,
                   children: [
-                    // Add padding here to move the title down
                     Padding(
-                      padding: const EdgeInsets.only(
-                          top: 30), // Adjust the top padding as needed
+                      padding: const EdgeInsets.only(top: 30),
                       child: Text(
-                        title,
+                        widget.title,
                         style: TextStyle(
                           color: Colors.black,
                           fontSize: 20,
@@ -162,7 +206,7 @@ class LearningReadingPage extends StatelessWidget {
                     ),
                     const SizedBox(height: 40),
                     Text(
-                      description,
+                      widget.description,
                       style: TextStyle(
                         color: Colors.black,
                         fontSize: 14,
@@ -172,27 +216,99 @@ class LearningReadingPage extends StatelessWidget {
                       ),
                       textAlign: TextAlign.left,
                     ),
-                    Image.network(
-                      'http://10.251.12.2:8000/api/images/' + file,
-                      width: 600, // Lebar gambar
-                      height: 450, // Tinggi gambar
-                      loadingBuilder: (BuildContext context, Widget child,
-                          ImageChunkEvent? loadingProgress) {
-                        if (loadingProgress == null) {
-                          return child;
-                        } else {
-                          return Center(
-                            child: CircularProgressIndicator(
-                              value: loadingProgress.expectedTotalBytes != null
-                                  ? loadingProgress.cumulativeBytesLoaded /
-                                      (loadingProgress.expectedTotalBytes ?? 1)
-                                  : null,
-                            ),
+                    FutureBuilder<List<FlipMateri>>(
+                      future: widget.futureFlip,
+                      builder: (context, snapshot) {
+                        if (snapshot.connectionState == ConnectionState.waiting) {
+                          return Center(child: CircularProgressIndicator());
+                        } else if (snapshot.hasError) {
+                          return Center(child: Text('Error: ${snapshot.error}'));
+                        } else if (snapshot.hasData) {
+                          return Column(
+                            children: [
+                              Padding(
+                                padding: const EdgeInsets.all(16.0),
+                                child: Text(
+                                  'example',
+                                  style: TextStyle(
+                                    fontSize: 24,
+                                    fontWeight: FontWeight.bold,
+                                    fontFamily: 'Fugaz One',
+                                  ),
+                                ),
+                              ),
+                              Column(
+                                children: snapshot.data!.map((materi) {
+                                  return GestureDetector(
+                                    onTap: _flipImage,
+                                    child: AnimatedSwitcher(
+                                      duration: const Duration(seconds: 1),
+                                      transitionBuilder: (Widget child, Animation<double> animation) {
+                                        final flipAnim = Tween(begin: pi, end: 0.0).animate(animation);
+                                        return AnimatedBuilder(
+                                          animation: flipAnim,
+                                          child: child,
+                                          builder: (BuildContext context, Widget? child) {
+                                            final angle = flipAnim.value;
+                                            return Transform(
+                                              transform: Matrix4.rotationY(angle),
+                                              alignment: Alignment.center,
+                                              child: child,
+                                            );
+                                          },
+                                        );
+                                      },
+                                      child: _showFront
+                                        ? Image.network(
+                                            'http://192.168.1.223:8000/api/imagesflip/' + materi.file,
+                                            key: ValueKey<bool>(_showFront),
+                                            width: 600,
+                                            height
+: 450,
+                                            loadingBuilder: (BuildContext context, Widget child, ImageChunkEvent? loadingProgress) {
+                                              if (loadingProgress == null) {
+                                                return child;
+                                              } else {
+                                                return Center(
+                                                  child: CircularProgressIndicator(
+                                                    value: loadingProgress.expectedTotalBytes != null
+                                                        ? loadingProgress.cumulativeBytesLoaded / (loadingProgress.expectedTotalBytes ?? 1)
+                                                        : null,
+                                                  ),
+                                                );
+                                              }
+                                            },
+                                          )
+                                        : Container(
+                                            key: ValueKey<bool>(!_showFront),
+                                            width: 600,
+                                            height: 450,
+                                            color: Colors.grey, // warna latar belakang untuk menunjukkan flip
+                                            child: Center(
+                                              child: Text(
+                                                'Back of the Image: ${materi.description}',
+                                                style: TextStyle(
+                                                  color: Colors.white,
+                                                  fontSize: 24,
+                                                  fontFamily: 'Poppins',
+                                                  fontWeight: FontWeight.w500,
+                                                ),
+                                                textAlign: TextAlign.center,
+                                              ),
+                                            ),
+                                          ),
+                                    ),
+                                  );
+                                }).toList(),
+                              ),
+                              const SizedBox(height: 60),
+                            ],
                           );
+                        } else {
+                          return Container(); // Placeholder widget for other states
                         }
                       },
                     ),
-                    const SizedBox(height: 60),
                   ],
                 ),
               ),
