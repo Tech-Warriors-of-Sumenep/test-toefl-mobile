@@ -21,7 +21,7 @@ class _MateriLearningReadingPageState extends State<MateriLearningReadingPage> {
 
   Future<List<materIReading>> fetchMaterIReading() async {
     final response = await http
-        .get(Uri.parse('http://10.251.12.2:8000/api/materiReading'));
+        .get(Uri.parse('http://192.168.1.72:8000/api/materiReading'));
 
     if (response.statusCode == 200) {
       final data = json.decode(response.body);

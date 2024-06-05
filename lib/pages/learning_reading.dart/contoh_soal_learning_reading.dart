@@ -18,7 +18,7 @@ class _ContohSoalLearningReadingState extends State<ContohSoalLearningReading> {
       appBar: AppBar(
         title: Text('Contoh Soal'),
       ),
-      body: Padding(
+      body: SingleChildScrollView(
         padding: const EdgeInsets.all(16.0),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.center,
