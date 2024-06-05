@@ -1,5 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:audioplayers/audioplayers.dart';
+import 'package:toefl_app/model/learning_listenning.dart';
+import 'package:http/http.dart' as http;
+import 'dart:convert';
 
 class ShortConversationPages extends StatefulWidget {
   const ShortConversationPages({Key? key}) : super(key: key);
@@ -15,9 +18,13 @@ class _ShortConversationPagesState extends State<ShortConversationPages> {
   Duration currentPosition = Duration.zero;
   Duration totalDuration = Duration.zero;
 
+  List<Payload> _payloads = [];
+  bool _isLoading = true;
+
   @override
   void initState() {
     super.initState();
+    fetchData();
 
     player.onPlayerStateChanged.listen((state) {
       setState(() {
@@ -38,6 +45,32 @@ class _ShortConversationPagesState extends State<ShortConversationPages> {
         totalDuration = duration;
       });
     });
+  }
+
+  Future<void> fetchData() async {
+    const url = 'http://192.168.1.74:8000/api/MateriListening';
+    try {
+      final response = await http.get(Uri.parse(url));
+      if (response.statusCode == 200) {
+        final Map<String, dynamic> data = json.decode(response.body);
+        if (data.containsKey('payload')) {
+          final List<dynamic> payloads = data['payload'];
+          setState(() {
+            _payloads = Payload.fromJsonList(payloads);
+            _isLoading = false;
+          });
+        } else {
+          throw Exception('Payload data not found');
+        }
+      } else {
+        throw Exception('Failed to load data');
+      }
+    } catch (e) {
+      print('Error fetching data: $e');
+      setState(() {
+        _isLoading = false;
+      });
+    }
   }
 
   Future<void> playAudioFromUrl(String url) async {
@@ -189,22 +222,49 @@ class _ShortConversationPagesState extends State<ShortConversationPages> {
             ),
           ),
           Expanded(
-            child: Stack(
-              children: [
-                if (!isPlaying)
-                  Positioned.fill(
-                    child: Align(
-                      alignment: Alignment.center,
-                      child: GestureDetector(
-                        onTap: () async {
-                          await playAudioFromUrl(
-                              'https://commondatastorage.googleapis.com/codeskulptor-demos/DDR_assets/Kangaroo_MusiQue_-_The_Neverwritten_Role_Playing_Game.mp3');
-                        },
-                      ),
-                    ),
+            child: _isLoading
+                ? const Center(child: CircularProgressIndicator())
+                : ListView.builder(
+                    itemCount: _payloads.length,
+                    itemBuilder: (context, index) {
+                      final payload = _payloads[index];
+                      return Padding(
+                        padding: const EdgeInsets.symmetric(
+                            horizontal: 15.0, vertical: 10.0),
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            Text(
+                              payload.description,
+                              style: const TextStyle(
+                                fontSize: 16,
+                                fontWeight: FontWeight.bold,
+                              ),
+                            ),
+                            const SizedBox(height: 5),
+                            ...payload.contohSoal.map((soal) {
+                              return Column(
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                children: [
+                                  Text(
+                                    soal.soal,
+                                    style: const TextStyle(
+                                      fontSize: 14,
+                                    ),
+                                  ),
+                                  const SizedBox(height: 3),
+                                  // Menampilkan nama contoh jawaban saja
+                                  ...soal.contohJawaban.map((jawaban) =>
+                                      Text('- ${jawaban['name']}')),
+                                  const SizedBox(height: 10),
+                                ],
+                              );
+                            }).toList(),
+                          ],
+                        ),
+                      );
+                    },
                   ),
-              ],
-            ),
           ),
           Container(
             decoration: BoxDecoration(
