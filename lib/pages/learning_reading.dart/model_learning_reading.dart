@@ -73,77 +73,83 @@ class _ModelLearningReadingPagesState extends State<ModelLearningReadingPages> {
           ),
         ),
       ),
-      body: Padding(
-        padding: const EdgeInsets.all(16.0),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            Text(
-              materi.title,
-              style: const TextStyle(
-                fontSize: 24,
-                fontWeight: FontWeight.bold,
-                fontFamily: 'Fugaz One',
+      body: SingleChildScrollView(
+        child: Padding(
+          padding: const EdgeInsets.all(16.0),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Text(
+                materi.title,
+                style: const TextStyle(
+                  fontSize: 24,
+                  fontWeight: FontWeight.bold,
+                  fontFamily: 'Fugaz One',
+                ),
               ),
-            ),
-            const SizedBox(height: 10),
-          
-            const SizedBox(height: 10),
-            Text(
-              materi.description,
-              style: const TextStyle(
-                fontSize: 16,
-                fontFamily: 'Poppins',
-                color: Colors.black,
+              const SizedBox(height: 10),
+
+              const SizedBox(height: 10),
+              Text(
+                materi.description,
+                style: const TextStyle(
+                  fontSize: 16,
+                  fontFamily: 'Poppins',
+                  color: Colors.black,
+                ),
               ),
-            ),
-            const SizedBox(height: 20), // Space between description and button
-            Container(
-              width: 120,
-              height: 30,
-              decoration: BoxDecoration(
-                borderRadius: BorderRadius.circular(20),
-                color: const Color(0xFFFBFF4A),
-                boxShadow: [
-                  BoxShadow(
-                    color: Colors.black.withOpacity(0.3),
-                    spreadRadius: 0,
-                    blurRadius: 4,
-                    offset: const Offset(0, 2),
-                  ),
-                ],
-              ),
-              child: TextButton(
-                onPressed: () {
-                  Navigator.push(
-                    context,
-                    MaterialPageRoute(
-                      builder: (context) => ContohSoalLearningReading(
-                        imageUrl: 'http://10.251.12.2:8000/storage/files/reading/' + materi.file,
-                      ),
+              const SizedBox(
+                  height: 20), // Space between description and button
+              Container(
+                width: 120,
+                height: 30,
+                decoration: BoxDecoration(
+                  borderRadius: BorderRadius.circular(20),
+                  color: const Color(0xFFFBFF4A),
+                  boxShadow: [
+                    BoxShadow(
+                      color: Colors.black.withOpacity(0.3),
+                      spreadRadius: 0,
+                      blurRadius: 4,
+                      offset: const Offset(0, 2),
                     ),
-                  );
-                },
-                child: const Text(
-                  'Contoh Soal',
-                  style: TextStyle(
-                    fontSize: 13,
-                    fontWeight: FontWeight.bold,
-                    fontFamily: 'Poppins',
-                    color: Color(0xFF2E00BA),
+                  ],
+                ),
+                child: TextButton(
+                  onPressed: () {
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                        builder: (context) => ContohSoalLearningReading(
+                          imageUrl:
+                              'http://192.168.1.72:8000/storage/files/reading/' +
+                                  materi.file,
+                        ),
+                      ),
+                    );
+                  },
+                  child: const Text(
+                    'Contoh Soal',
+                    style: TextStyle(
+                      fontSize: 13,
+                      fontWeight: FontWeight.bold,
+                      fontFamily: 'Poppins',
+                      color: Color(0xFF2E00BA),
+                    ),
                   ),
                 ),
               ),
-            ),
               Opacity(
-              opacity: 0.0, 
-              child: Image.network(
-                'http://10.251.12.2:8000/storage/files/reading/' + materi.file,
-                width: 600,
-                height: 450,
+                opacity: 0.0,
+                child: Image.network(
+                  'http://192.168.1.72:8000/storage/files/reading/' +
+                      materi.file,
+                  width: 600,
+                  height: 450,
+                ),
               ),
-            ),
-          ],
+            ],
+          ),
         ),
       ),
       bottomNavigationBar: Container(

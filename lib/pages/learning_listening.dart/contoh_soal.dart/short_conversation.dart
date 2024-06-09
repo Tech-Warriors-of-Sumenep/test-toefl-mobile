@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:audioplayers/audioplayers.dart';
+import 'package:http/http.dart' as http;
+import 'dart:convert';
 
 class ShortConversationPages extends StatefulWidget {
   const ShortConversationPages({Key? key}) : super(key: key);
@@ -15,9 +17,15 @@ class _ShortConversationPagesState extends State<ShortConversationPages> {
   Duration currentPosition = Duration.zero;
   Duration totalDuration = Duration.zero;
 
+  String title = '';
+  String description = '';
+  String audioUrl =
+      'http://192.168.43.196:8000/storage/files/listening/pjs3CZrcE3tkCjl6Votm4KHa0l8y4PoLKuDBLmSx.mp3';
+
   @override
   void initState() {
     super.initState();
+    fetchData();
 
     player.onPlayerStateChanged.listen((state) {
       setState(() {
@@ -38,6 +46,28 @@ class _ShortConversationPagesState extends State<ShortConversationPages> {
         totalDuration = duration;
       });
     });
+  }
+
+  Future<void> fetchData() async {
+    try {
+      final response = await http
+          .get(Uri.parse('http://192.168.43.196:8000/api/MateriListening'));
+
+      if (response.statusCode == 200) {
+        final responseBody = response.body;
+        final data = json.decode(responseBody);
+        final payload = data['payload'][0];
+
+        setState(() {
+          title = payload['title'] ?? 'Title not available';
+          description = payload['description'] ?? 'Description not available';
+        });
+      } else {
+        print('Failed to load data: ${response.statusCode}');
+      }
+    } catch (error) {
+      print('Error fetching data: $error');
+    }
   }
 
   Future<void> playAudioFromUrl(String url) async {
@@ -66,185 +96,169 @@ class _ShortConversationPagesState extends State<ShortConversationPages> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: PreferredSize(
-        preferredSize: const Size.fromHeight(kToolbarHeight + 10),
-        child: Container(
-          decoration: BoxDecoration(
-            boxShadow: [
-              BoxShadow(
-                color: Colors.black.withOpacity(0.3),
-                spreadRadius: 0,
-                blurRadius: 4,
-                offset: const Offset(0, 4),
-              ),
-            ],
-          ),
-          child: AppBar(
-            leading: Padding(
-              padding: const EdgeInsets.only(left: 17.0),
-              child: IconButton(
-                icon: const Icon(Icons.arrow_back),
-                onPressed: () {
-                  Navigator.of(context).pop();
-                },
-              ),
-            ),
-            actions: [
-              Padding(
-                padding: const EdgeInsets.only(right: 27.0),
-                child: Image.asset(
-                  'images/pens_remBG.png',
-                  height: 50,
-                ),
-              ),
-            ],
-          ),
+      appBar: AppBar(
+        leading: IconButton(
+          icon: const Icon(Icons.arrow_back),
+          onPressed: () {
+            Navigator.of(context).pop();
+          },
         ),
-      ),
-      body: Column(
-        mainAxisAlignment: MainAxisAlignment.start,
-        crossAxisAlignment: CrossAxisAlignment.stretch,
-        children: [
-          const Padding(
-            padding: EdgeInsets.only(top: 36.0),
-            child: Text(
-              'Bagian A : Short Conversation',
-              textAlign: TextAlign.center,
-              style: TextStyle(
-                fontSize: 18,
-                fontWeight: FontWeight.w600,
-                color: Colors.black,
-                fontFamily: 'Poppins',
-              ),
-            ),
-          ),
-          const Padding(
-            padding: EdgeInsets.only(top: 20.0, left: 15.0),
-            child: Text(
-              'Contoh Soal :',
-              style: TextStyle(
-                fontSize: 16,
-                fontWeight: FontWeight.bold,
-                color: Colors.black,
-              ),
-            ),
-          ),
+        actions: [
           Padding(
-            padding: const EdgeInsets.only(top: 16.0),
-            child: Container(
-              margin: const EdgeInsets.symmetric(horizontal: 22.0),
-              width: double.infinity,
-              decoration: BoxDecoration(
-                color: Colors.grey[300],
-                borderRadius: BorderRadius.circular(8.0),
-              ),
-              child: Row(
-                children: [
-                  IconButton(
-                    icon: Icon(isPlaying ? Icons.pause : Icons.play_arrow),
-                    onPressed: () async {
-                      if (isPlaying) {
-                        await player.pause();
-                      } else {
-                        await playAudioFromUrl(
-                            'https://commondatastorage.googleapis.com/codeskulptor-demos/DDR_assets/Kangaroo_MusiQue_-_The_Neverwritten_Role_Playing_Game.mp3');
-                      }
-                    },
-                  ),
-                  Expanded(
-                    child: Slider(
-                      value: isDraggingSlider
-                          ? currentPosition.inSeconds.toDouble()
-                          : totalDuration.inSeconds > 0
-                              ? currentPosition.inSeconds.toDouble()
-                              : 0.0,
-                      max: totalDuration.inSeconds.toDouble(),
-                      onChanged: (double value) async {
-                        setState(() {
-                          isDraggingSlider = true;
-                        });
-                        final position = Duration(seconds: value.toInt());
-                        await player.seek(position);
-                      },
-                      onChangeEnd: (double value) {
-                        setState(() {
-                          isDraggingSlider = false;
-                        });
-                      },
-                    ),
-                  ),
-                  Padding(
-                    padding: const EdgeInsets.only(right: 12.0),
-                    child: Text(
-                      formatDuration(currentPosition),
-                      style: const TextStyle(
-                        color: Colors.black,
-                        fontSize: 12,
-                        fontFamily: 'Poppins',
-                      ),
-                    ),
-                  ),
-                ],
-              ),
-            ),
-          ),
-          Expanded(
-            child: Stack(
-              children: [
-                if (!isPlaying)
-                  Positioned.fill(
-                    child: Align(
-                      alignment: Alignment.center,
-                      child: GestureDetector(
-                        onTap: () async {
-                          await playAudioFromUrl(
-                              'https://commondatastorage.googleapis.com/codeskulptor-demos/DDR_assets/Kangaroo_MusiQue_-_The_Neverwritten_Role_Playing_Game.mp3');
-                        },
-                      ),
-                    ),
-                  ),
-              ],
-            ),
-          ),
-          Container(
-            decoration: BoxDecoration(
-              color: Colors.white,
-              borderRadius: const BorderRadius.only(
-                topLeft: Radius.circular(15),
-                topRight: Radius.circular(15),
-              ),
-              boxShadow: [
-                BoxShadow(
-                  color: Colors.grey.withOpacity(0.5),
-                  spreadRadius: 5,
-                  blurRadius: 7,
-                  offset: const Offset(0, -3),
-                ),
-              ],
-            ),
-            height: kToolbarHeight + 10,
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                const Text(
-                  'Learning Listening TOEFL',
-                  style: TextStyle(
-                    color: Colors.black,
-                    fontSize: 20,
-                    fontFamily: 'Poppins',
-                    fontWeight: FontWeight.bold,
-                  ),
-                ),
-                IconButton(
-                  icon: const Icon(Icons.arrow_forward_sharp),
-                  onPressed: () {
-                    // Add logic to navigate to the next page here
-                  },
-                ),
-              ],
+            padding: const EdgeInsets.only(right: 27.0),
+            child: Image.asset(
+              'images/pens_remBG.png',
+              height: 50,
             ),
           ),
         ],
+      ),
+      body: CustomScrollView(
+        slivers: [
+          SliverToBoxAdapter(
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.stretch,
+              children: [
+                Padding(
+                  padding: const EdgeInsets.only(top: 36.0),
+                  child: Text(
+                    title,
+                    textAlign: TextAlign.center,
+                    style: const TextStyle(
+                      fontSize: 18,
+                      fontWeight: FontWeight.w600,
+                      color: Colors.black,
+                      fontFamily: 'Poppins',
+                    ),
+                  ),
+                ),
+                const Padding(
+                  padding: EdgeInsets.only(top: 20.0, left: 15.0),
+                  child: Text(
+                    'Contoh Soal :',
+                    style: TextStyle(
+                      fontSize: 16,
+                      fontWeight: FontWeight.bold,
+                      color: Colors.black,
+                    ),
+                  ),
+                ),
+                Padding(
+                  padding: const EdgeInsets.only(top: 16.0),
+                  child: Container(
+                    margin: const EdgeInsets.symmetric(horizontal: 22.0),
+                    width: double.infinity,
+                    decoration: BoxDecoration(
+                      color: Colors.grey[300],
+                      borderRadius: BorderRadius.circular(8.0),
+                    ),
+                    child: Row(
+                      children: [
+                        IconButton(
+                          icon:
+                              Icon(isPlaying ? Icons.pause : Icons.play_arrow),
+                          onPressed: () async {
+                            if (isPlaying) {
+                              await player.pause();
+                              print('Audio paused');
+                            } else {
+                              await playAudioFromUrl(audioUrl);
+                            }
+                          },
+                        ),
+                        Expanded(
+                          child: Slider(
+                            value: isDraggingSlider
+                                ? currentPosition.inSeconds.toDouble()
+                                : totalDuration.inSeconds > 0
+                                    ? currentPosition.inSeconds.toDouble()
+                                    : 0.0,
+                            max: totalDuration.inSeconds.toDouble(),
+                            onChanged: (double value) async {
+                              setState(() {
+                                isDraggingSlider = true;
+                              });
+                              final position = Duration(seconds: value.toInt());
+                              await player.seek(position);
+                            },
+                            onChangeEnd: (double value) {
+                              setState(() {
+                                isDraggingSlider = false;
+                              });
+                            },
+                          ),
+                        ),
+                        Padding(
+                          padding: const EdgeInsets.only(right: 12.0),
+                          child: Text(
+                            formatDuration(currentPosition),
+                            style: const TextStyle(
+                              color: Colors.black,
+                              fontSize: 12,
+                              fontFamily: 'Poppins',
+                            ),
+                          ),
+                        ),
+                      ],
+                    ),
+                  ),
+                ),
+              ],
+            ),
+          ),
+          SliverPadding(
+            padding: const EdgeInsets.all(16.0),
+            sliver: SliverToBoxAdapter(
+              child: SingleChildScrollView(
+                child: Text(
+                  description,
+                  style: const TextStyle(
+                    fontSize: 14,
+                    color: Colors.black,
+                  ),
+                ),
+              ),
+            ),
+          ),
+        ],
+      ),
+      bottomNavigationBar: Container(
+        decoration: BoxDecoration(
+          color: Colors.white,
+          borderRadius: const BorderRadius.only(
+            topLeft: Radius.circular(15),
+            topRight: Radius.circular(15),
+          ),
+          boxShadow: [
+            BoxShadow(
+              color: Colors.grey.withOpacity(0.5),
+              spreadRadius: 5,
+              blurRadius: 7,
+              offset: const Offset(0, -3),
+            ),
+          ],
+        ),
+        height: kToolbarHeight + 10,
+        child: Row(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            const Text(
+              'Learning Listening TOEFL',
+              style: TextStyle(
+                color: Colors.black,
+                fontSize: 20,
+                fontFamily: 'Poppins',
+                fontWeight: FontWeight.bold,
+              ),
+            ),
+            IconButton(
+              icon: const Icon(Icons.arrow_forward_sharp),
+              onPressed: () {
+                // Add logic to navigate to the next page here
+              },
+            ),
+          ],
+        ),
       ),
     );
   }
