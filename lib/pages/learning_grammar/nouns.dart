@@ -32,7 +32,7 @@ class _NounsPageState extends State<NounsPage> {
   }
 
   Future<List<FlipMateri>> fetchFlipMateri(int materiId) async {
-    final response = await http.get(Uri.parse('http://192.168.1.223:8000/api/flipmateri'));
+    final response = await http.get(Uri.parse('http://192.168.1.13:8000/api/flipmateri'));
 
     if (response.statusCode == 200) {
       final data = json.decode(response.body);
@@ -228,14 +228,7 @@ class _LearningReadingPageState extends State<LearningReadingPage> {
                             children: [
                               Padding(
                                 padding: const EdgeInsets.all(16.0),
-                                child: Text(
-                                  'example',
-                                  style: TextStyle(
-                                    fontSize: 24,
-                                    fontWeight: FontWeight.bold,
-                                    fontFamily: 'Fugaz One',
-                                  ),
-                                ),
+                                
                               ),
                               Column(
                                 children: snapshot.data!.map((materi) {
@@ -259,37 +252,40 @@ class _LearningReadingPageState extends State<LearningReadingPage> {
                                         );
                                       },
                                       child: _showFront
-                                        ? Image.network(
-                                            'http://192.168.1.223:8000/api/imagesflip/' + materi.file,
-                                            key: ValueKey<bool>(_showFront),
-                                            width: 600,
-                                            height
-: 450,
-                                            loadingBuilder: (BuildContext context, Widget child, ImageChunkEvent? loadingProgress) {
-                                              if (loadingProgress == null) {
-                                                return child;
-                                              } else {
-                                                return Center(
-                                                  child: CircularProgressIndicator(
-                                                    value: loadingProgress.expectedTotalBytes != null
-                                                        ? loadingProgress.cumulativeBytesLoaded / (loadingProgress.expectedTotalBytes ?? 1)
-                                                        : null,
-                                                  ),
-                                                );
-                                              }
-                                            },
+                                        ? Transform.translate(
+                                            offset: Offset(0, -10), // Move image up by 10 pixels
+                                            child: Image.network(
+                                              'http://192.168.1.13:8000/api/imagesflip/' + materi.file,
+                                              key: ValueKey<bool>(_showFront),
+                                              width: 300, // Reduced width
+                                              height: 225, // Reduced height
+                                              loadingBuilder: (BuildContext context, Widget child, ImageChunkEvent? loadingProgress) {
+                                                if (loadingProgress == null) {
+                                                  return child;
+                                                } else {
+                                                  return Center(
+                                                    child: CircularProgressIndicator(
+                                                      value: loadingProgress.expectedTotalBytes != null
+                                                          ? loadingProgress.cumulativeBytesLoaded / (loadingProgress.expectedTotalBytes ?? 1)
+                                                          : null,
+                                                    ),
+                                                  );
+                                                }
+                                              },
+                                            ),
                                           )
                                         : Container(
                                             key: ValueKey<bool>(!_showFront),
-                                            width: 600,
-                                            height: 450,
-                                            color: Colors.grey, // warna latar belakang untuk menunjukkan flip
+                                            width: 300, // Adjusted to match the reduced image size
+                                            height: 225, // Adjusted to match the reduced image size
+                                            color: Colors.transparent, // Set to transparent color
+                                            padding: EdgeInsets.symmetric(horizontal: 10, vertical: 10), // Add padding
                                             child: Center(
                                               child: Text(
-                                                'Back of the Image: ${materi.description}',
+                                                '${materi.description}',
                                                 style: TextStyle(
-                                                  color: Colors.white,
-                                                  fontSize: 24,
+                                                  color: Colors.black,
+                                                  fontSize: 20,
                                                   fontFamily: 'Poppins',
                                                   fontWeight: FontWeight.w500,
                                                 ),
