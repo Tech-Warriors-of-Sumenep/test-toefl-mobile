@@ -1,16 +1,15 @@
 import 'package:flutter/material.dart';
-import 'model_materi2.dart';
 import 'package:http/http.dart' as http;
 import 'dart:convert';
 
-class ModelMateriPages extends StatefulWidget {
-  const ModelMateriPages({Key? key}) : super(key: key);
+class ModelMateri3 extends StatefulWidget {
+  const ModelMateri3({Key? key}) : super(key: key);
 
   @override
-  State<ModelMateriPages> createState() => _ModelMateriPagesState();
+  State<ModelMateri3> createState() => _ModelMateri3State();
 }
 
-class _ModelMateriPagesState extends State<ModelMateriPages> {
+class _ModelMateri3State extends State<ModelMateri3> {
   String title = '';
   String description = '';
 
@@ -28,12 +27,21 @@ class _ModelMateriPagesState extends State<ModelMateriPages> {
       if (response.statusCode == 200) {
         final responseBody = response.body;
         final data = json.decode(responseBody);
-        final payload = data['payload'][0];
 
-        setState(() {
-          title = payload['title'] ?? 'Title not available';
-          description = payload['description'] ?? 'Description not available';
-        });
+        // Find the item with id 2
+        final payload = data['payload'].firstWhere(
+          (item) => item['id'] == 8,
+          orElse: () => null,
+        );
+
+        if (payload != null) {
+          setState(() {
+            title = payload['title'] ?? 'Title not available';
+            description = payload['description'] ?? 'Description not available';
+          });
+        } else {
+          print('Item with id 8 not found');
+        }
       } else {
         print('Failed to load data: ${response.statusCode}');
       }
@@ -165,7 +173,7 @@ class _ModelMateriPagesState extends State<ModelMateriPages> {
               onPressed: () {
                 Navigator.push(
                   context,
-                  MaterialPageRoute(builder: (context) => ModelMateri2Pages()),
+                  MaterialPageRoute(builder: (context) => const ModelMateri3()),
                 );
               },
             ),

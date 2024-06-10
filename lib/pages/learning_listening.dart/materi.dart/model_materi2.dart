@@ -1,15 +1,56 @@
 import 'package:flutter/material.dart';
-import 'package:toefl_app/pages/learning_listening.dart/contoh_soal.dart/short_conversation.dart';
-import 'model_materi2.dart'; // Import halaman ModelMateri2Pages
+import 'package:http/http.dart' as http;
+import 'dart:convert';
+import 'package:toefl_app/pages/learning_listening.dart/materi.dart/model_materi3.dart';
 
 class ModelMateri2Pages extends StatefulWidget {
   const ModelMateri2Pages({Key? key}) : super(key: key);
 
   @override
-  State<ModelMateri2Pages> createState() => _ModelMateriPagesState();
+  State<ModelMateri2Pages> createState() => _ModelMateri2PagesState();
 }
 
-class _ModelMateriPagesState extends State<ModelMateri2Pages> {
+class _ModelMateri2PagesState extends State<ModelMateri2Pages> {
+  String title = '';
+  String description = '';
+
+  @override
+  void initState() {
+    super.initState();
+    fetchData();
+  }
+
+  Future<void> fetchData() async {
+    try {
+      final response = await http.get(
+          Uri.parse('https://test-toefl.kerissumenep.com/api/MateriListening'));
+
+      if (response.statusCode == 200) {
+        final responseBody = response.body;
+        final data = json.decode(responseBody);
+
+        // Find the item with id 2
+        final payload = data['payload'].firstWhere(
+          (item) => item['id'] == 7,
+          orElse: () => null,
+        );
+
+        if (payload != null) {
+          setState(() {
+            title = payload['title'] ?? 'Title not available';
+            description = payload['description'] ?? 'Description not available';
+          });
+        } else {
+          print('Item with id 7 not found');
+        }
+      } else {
+        print('Failed to load data: ${response.statusCode}');
+      }
+    } catch (error) {
+      print('Error fetching data: $error');
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -50,214 +91,92 @@ class _ModelMateriPagesState extends State<ModelMateri2Pages> {
           ),
         ),
       ),
-      body: Stack(
-        children: [
-          Padding(
-            padding: const EdgeInsets.symmetric(vertical: 10),
+      body: CustomScrollView(
+        slivers: [
+          SliverToBoxAdapter(
             child: Column(
-              mainAxisAlignment: MainAxisAlignment.center,
+              crossAxisAlignment: CrossAxisAlignment.stretch,
               children: [
-                Expanded(
-                  child: MateriPage(),
+                Padding(
+                  padding: const EdgeInsets.only(top: 36.0),
+                  child: Text(
+                    title,
+                    textAlign: TextAlign.center,
+                    style: const TextStyle(
+                      fontSize: 18,
+                      fontWeight: FontWeight.w600,
+                      color: Colors.black,
+                      fontFamily: 'Poppins',
+                    ),
+                  ),
+                ),
+                Padding(
+                  padding: const EdgeInsets.only(top: 16.0),
+                  child: Container(
+                    margin: const EdgeInsets.symmetric(horizontal: 22.0),
+                    width: double.infinity,
+                    decoration: BoxDecoration(
+                      color: Colors.grey[300],
+                      borderRadius: BorderRadius.circular(8.0),
+                    ),
+                  ),
                 ),
               ],
             ),
           ),
-          Positioned(
-            left: 0,
-            right: 0,
-            bottom: 0,
-            child: Container(
-              decoration: BoxDecoration(
-                color: Colors.white,
-                borderRadius: const BorderRadius.only(
-                  topLeft: Radius.circular(15),
-                  topRight: Radius.circular(15),
+          SliverPadding(
+            padding: const EdgeInsets.all(16.0),
+            sliver: SliverToBoxAdapter(
+              child: SingleChildScrollView(
+                child: Text(
+                  description,
+                  style: const TextStyle(
+                    fontSize: 15,
+                    color: Colors.black,
+                  ),
                 ),
-                boxShadow: [
-                  BoxShadow(
-                    color: Colors.grey.withOpacity(0.5),
-                    spreadRadius: 5,
-                    blurRadius: 7,
-                    offset: const Offset(0, -3),
-                  ),
-                ],
-              ),
-              height: kToolbarHeight + 10,
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  const Text(
-                    'Learning Listening TOEFL',
-                    style: TextStyle(
-                      color: Colors.black,
-                      fontSize: 20,
-                      fontFamily: 'Poppins',
-                      fontWeight: FontWeight.bold,
-                    ),
-                  ),
-                  GestureDetector(
-                    onTap: () {
-                      Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                            builder: (context) =>
-                                const ShortConversationPages()), // Pindah ke ModelMateri2Pages
-                      );
-                    },
-                    child: Padding(
-                      padding: const EdgeInsets.symmetric(horizontal: 10.0),
-                      child: const Icon(Icons.arrow_forward),
-                    ),
-                  ),
-                ],
               ),
             ),
           ),
         ],
       ),
-    );
-  }
-}
-
-class MateriPage extends StatelessWidget {
-  const MateriPage({Key? key}) : super(key: key);
-
-  @override
-  Widget build(BuildContext context) {
-    return SingleChildScrollView(
-      child: Padding(
-        padding: const EdgeInsets.symmetric(horizontal: 20),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
+      bottomNavigationBar: Container(
+        decoration: BoxDecoration(
+          color: Colors.white,
+          borderRadius: const BorderRadius.only(
+            topLeft: Radius.circular(15),
+            topRight: Radius.circular(15),
+          ),
+          boxShadow: [
+            BoxShadow(
+              color: Colors.grey.withOpacity(0.5),
+              spreadRadius: 5,
+              blurRadius: 7,
+              offset: const Offset(0, -3),
+            ),
+          ],
+        ),
+        height: kToolbarHeight + 10,
+        child: Row(
+          mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            Padding(
-              padding: const EdgeInsets.only(
-                top: 10,
-                bottom: 0,
-              ), // Menambahkan space antara gambar dan teks
-              child: Align(
-                alignment: Alignment.center,
-                child: const Text(
-                  'TOEFL Listening terdiri dari tiga bagian yang berbeda :',
-                  style: TextStyle(
-                    fontSize: 15,
-                    fontFamily: 'Poppins',
-                    fontWeight: FontWeight.bold,
-                  ),
-                ),
+            const Text(
+              'Learning Listening TOEFL',
+              style: TextStyle(
+                color: Colors.black,
+                fontSize: 20,
+                fontFamily: 'Poppins',
+                fontWeight: FontWeight.bold,
               ),
             ),
-            Padding(
-              padding: const EdgeInsets.only(
-                bottom: 20,
-                left: 10, // Memberikan jarak ke kiri
-              ),
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: const [
-                  Text(
-                    '• Bagian A',
-                    style: TextStyle(
-                      fontSize: 13,
-                      fontFamily: 'Poppins',
-                      fontWeight: FontWeight.bold,
-                    ),
-                  ),
-                  Text(
-                    '• Bagian B',
-                    style: TextStyle(
-                      fontSize: 13,
-                      fontFamily: 'Poppins',
-                      fontWeight: FontWeight.bold,
-                    ),
-                  ),
-                  Text(
-                    '• Bagian C',
-                    style: TextStyle(
-                      fontSize: 13,
-                      fontFamily: 'Poppins',
-                      fontWeight: FontWeight.bold,
-                    ),
-                  ),
-                  SizedBox(height: 10),
-                  Text(
-                    'Mari kita bahas masing-masingnya :',
-                    style: TextStyle(
-                      fontSize: 13,
-                      fontFamily: 'Poppins',
-                      fontWeight: FontWeight.bold,
-                    ),
-                  ),
-                  SizedBox(height: 20),
-                  Text(
-                    'Bagian A : Short Conversation',
-                    style: TextStyle(
-                      fontSize: 13,
-                      fontFamily: 'Poppins',
-                      fontWeight: FontWeight.bold,
-                    ),
-                  ),
-                  SizedBox(height: 10),
-                  Text(
-                    '• Bagian ini biasanya terdiri dari percakapan antara dua orang di lingkungan sehari-hari. seperti di kampus, di kantor, atau di tempat umum lainnya.',
-                    style: TextStyle(
-                      fontSize: 13,
-                      fontFamily: 'Poppins',
-                    ),
-                  ),
-                  SizedBox(height: 5),
-                  Text(
-                    '• Tujuannya adalah untuk menguji kemampuanmu dalam memahami percakapan informal antara orang-orang dalam berbagai situasi.',
-                    style: TextStyle(
-                      fontSize: 13,
-                      fontFamily: 'Poppins',
-                    ),
-                  ),
-                  SizedBox(height: 20),
-                  Text(
-                    'Bagian B : Long Conversation',
-                    style: TextStyle(
-                      fontSize: 13,
-                      fontFamily: 'Poppins',
-                      fontWeight: FontWeight.bold,
-                    ),
-                  ),
-                  SizedBox(height: 10),
-                  Text(
-                    '• Pada bagian ini, kamu akan mendengarkan ceramah singkat mengenai topik-topik yang beragam seperti sejarah, seni, ilmu pengetahuan, dan lain-lain.',
-                    style: TextStyle(
-                      fontSize: 13,
-                      fontFamily: 'Poppins',
-                    ),
-                  ),
-                  SizedBox(height: 5),
-                  Text(
-                    '• Biasanya, setelah ceramah, kamu akan diminta untuk menjawab beberapa pertanyaan yang berkaitan dengan isi ceramah tersebut.',
-                    style: TextStyle(
-                      fontSize: 13,
-                      fontFamily: 'Poppins',
-                    ),
-                  ),
-                  SizedBox(height: 20),
-                  Text(
-                    'Bagian C : Talks',
-                    style: TextStyle(
-                      fontSize: 13,
-                      fontFamily: 'Poppins',
-                      fontWeight: FontWeight.bold,
-                    ),
-                  ),
-                  SizedBox(height: 10),
-                  Text(
-                    '• Bagian ini terdiri dari percakapan yang lebih panjang atau ceramah yang lebih mendalam menanai topik-topik akademis atau umum.',
-                    style: TextStyle(
-                      fontSize: 13,
-                      fontFamily: 'Poppins',
-                    ),
-                  ),
-                ],
-              ),
+            IconButton(
+              icon: const Icon(Icons.arrow_forward_sharp),
+              onPressed: () {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(builder: (context) => const ModelMateri3()),
+                );
+              },
             ),
           ],
         ),
