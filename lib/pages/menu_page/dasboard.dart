@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:toefl_app/pages/test_grammar/home_test_grammar.dart';
-import 'package:toefl_app/pages/learning_grammar/grammar_dashboard.dart';
+import 'package:toefl_app/pages/learning_grammar/home_grammar.dart';
 import 'package:toefl_app/pages/learning_reading.dart/home_learning_reading.dart';
 import 'package:toefl_app/pages/learning_listening.dart/materi.dart/home_materi.dart';
 import 'package:toefl_app/pages/test_listening/learningtest.dart';
@@ -312,7 +312,7 @@ class _MenuPageState extends State<MenuPage> {
                                               context,
                                               MaterialPageRoute(
                                                   builder: (context) =>
-                                                      GrammarDashboard()),
+                                                      HomeLearningGrammarPages()),
                                             );
                                           },
                                           child: Stack(
