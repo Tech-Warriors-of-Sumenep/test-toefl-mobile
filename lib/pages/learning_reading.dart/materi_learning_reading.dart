@@ -21,7 +21,7 @@ class _MateriLearningReadingPageState extends State<MateriLearningReadingPage> {
 
   Future<List<MaterIReading>> fetchMateriReading() async {
     final response = await http.get(
-        Uri.parse('http://10.251.134.193:8000/api/materiReading'));
+        Uri.parse('https://test-toefl.kerissumenep.com/api/materiReading'));
 
     if (response.statusCode == 200) {
       final data = json.decode(response.body);

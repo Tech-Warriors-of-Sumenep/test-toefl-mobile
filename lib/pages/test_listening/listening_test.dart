@@ -3,18 +3,6 @@ import 'dart:convert';
 import 'package:audioplayers/audioplayers.dart';
 import 'package:flutter/material.dart';
 import 'dart:async';
-//<<<<<<< HEAD // ini bikin erorr
-import 'package:toefl_app/pages/test_listening/finish.dart';
-//======= // ini bikin erorr
-import 'package:toefl_app/pages/test_listening/finish.dart'; //ini tadi salah ke kami finish grammar jadi erorr juga jadi saya benerin
-//>>>>>>> 4728099053cd6f57c1c60c62dc0ab0e421e69c5f // ini bikin erorr
-import 'package:toefl_app/pages/test_listening/exit_card.dart';
-import 'package:http/http.dart' as http;
-
-import 'dart:convert';
-import 'package:audioplayers/audioplayers.dart';
-import 'package:flutter/material.dart';
-import 'dart:async';
 import 'package:toefl_app/pages/test_listening/finish.dart';
 import 'package:toefl_app/pages/test_listening/exit_card.dart';
 import 'package:http/http.dart' as http;
