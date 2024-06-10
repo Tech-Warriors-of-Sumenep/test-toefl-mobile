@@ -20,7 +20,7 @@ class _ShortConversationPagesState extends State<ShortConversationPages> {
   String title = '';
   String description = '';
   String audioUrl =
-      'http://192.168.43.196:8000/storage/files/listening/pjs3CZrcE3tkCjl6Votm4KHa0l8y4PoLKuDBLmSx.mp3';
+      'http://10.251.134.193:8000/storage/files/listening/pjs3CZrcE3tkCjl6Votm4KHa0l8y4PoLKuDBLmSx.mp3';
 
   @override
   void initState() {
@@ -51,7 +51,7 @@ class _ShortConversationPagesState extends State<ShortConversationPages> {
   Future<void> fetchData() async {
     try {
       final response = await http
-          .get(Uri.parse('http://192.168.43.196:8000/api/MateriListening'));
+          .get(Uri.parse('http://10.251.134.193:8000/api/MateriListening'));
 
       if (response.statusCode == 200) {
         final responseBody = response.body;

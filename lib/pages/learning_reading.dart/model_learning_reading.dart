@@ -3,7 +3,7 @@ import 'package:toefl_app/model/learning_reading.dart';
 import 'package:toefl_app/pages/learning_reading.dart/contoh_soal_learning_reading.dart'; // Import halaman tujuan
 
 class ModelLearningReadingPages extends StatefulWidget {
-  final List<materIReading> materiList;
+  final List<MaterIReading> materiList;
   final int initialIndex;
 
   const ModelLearningReadingPages({
@@ -41,115 +41,82 @@ class _ModelLearningReadingPagesState extends State<ModelLearningReadingPages> {
     final materi = widget.materiList[currentIndex];
 
     return Scaffold(
-      appBar: PreferredSize(
-        preferredSize: const Size.fromHeight(kToolbarHeight + 10),
-        child: Container(
-          decoration: BoxDecoration(
-            boxShadow: [
-              BoxShadow(
-                color: Colors.black.withOpacity(0.3),
-                spreadRadius: 0,
-                blurRadius: 4,
-                offset: const Offset(0, 4),
-              ),
-            ],
-          ),
-          child: AppBar(
-            leading: Padding(
-              padding: const EdgeInsets.only(left: 17.0),
-              child: IconButton(
-                icon: const Icon(Icons.arrow_back),
-                onPressed: () {
-                  Navigator.of(context).pop();
-                },
-              ),
-            ),
-            actions: [
-              Padding(
-                padding: const EdgeInsets.only(right: 10.0),
-                child: Image.asset('images/pens_remBG.png', height: 50),
-              ),
-            ],
-          ),
+      appBar: AppBar(
+        leading: IconButton(
+          icon: const Icon(Icons.arrow_back),
+          onPressed: () {
+            Navigator.of(context).pop();
+          },
         ),
+        actions: [
+          Padding(
+            padding: const EdgeInsets.only(right: 10.0),
+            child: Image.asset('images/pens_remBG.png', height: 50),
+          ),
+        ],
       ),
       body: SingleChildScrollView(
-        child: Padding(
-          padding: const EdgeInsets.all(16.0),
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              Text(
-                materi.title,
-                style: const TextStyle(
-                  fontSize: 24,
-                  fontWeight: FontWeight.bold,
-                  fontFamily: 'Fugaz One',
-                ),
+        padding: const EdgeInsets.all(16.0),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Text(
+              materi.title,
+              style: const TextStyle(
+                fontSize: 24,
+                fontWeight: FontWeight.bold,
+                fontFamily: 'Fugaz One',
               ),
-              const SizedBox(height: 10),
-
-              const SizedBox(height: 10),
-              Text(
-                materi.description,
-                style: const TextStyle(
-                  fontSize: 16,
-                  fontFamily: 'Poppins',
-                  color: Colors.black,
-                ),
+            ),
+            const SizedBox(height: 10),
+            Text(
+              materi.description,
+              style: const TextStyle(
+                fontSize: 16,
+                fontFamily: 'Poppins',
+                color: Colors.black,
               ),
-              const SizedBox(
-                  height: 20), // Space between description and button
-              Container(
-                width: 120,
-                height: 30,
-                decoration: BoxDecoration(
-                  borderRadius: BorderRadius.circular(20),
-                  color: const Color(0xFFFBFF4A),
-                  boxShadow: [
-                    BoxShadow(
-                      color: Colors.black.withOpacity(0.3),
-                      spreadRadius: 0,
-                      blurRadius: 4,
-                      offset: const Offset(0, 2),
-                    ),
-                  ],
-                ),
-                child: TextButton(
-                  onPressed: () {
-                    Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                        builder: (context) => ContohSoalLearningReading(
-                          imageUrl:
-                              'http://192.168.1.72:8000/storage/files/reading/' +
-                                  materi.file,
-                        ),
+            ),
+            const SizedBox(
+                height: 20), // Space between description and button
+            Container(
+              width: 120,
+              height: 30,
+              decoration: BoxDecoration(
+                borderRadius: BorderRadius.circular(20),
+                color: const Color(0xFFFBFF4A),
+                boxShadow: [
+                  BoxShadow(
+                    color: Colors.black.withOpacity(0.3),
+                    spreadRadius: 0,
+                    blurRadius: 4,
+                    offset: const Offset(0, 2),
+                  ),
+                ],
+              ),
+              child: TextButton(
+                onPressed: () {
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                      builder: (context) => ContohSoalLearningReading(
+                        soalList: materi.soalList,
                       ),
-                    );
-                  },
-                  child: const Text(
-                    'Contoh Soal',
-                    style: TextStyle(
-                      fontSize: 13,
-                      fontWeight: FontWeight.bold,
-                      fontFamily: 'Poppins',
-                      color: Color(0xFF2E00BA),
                     ),
+                  );
+                },
+                child: const Text(
+                  'Contoh Soal',
+                  style: TextStyle(
+                    fontSize: 13,
+                    fontWeight: FontWeight.bold,
+                    fontFamily: 'Poppins',
+                    color: Color(0xFF2E00BA),
                   ),
                 ),
               ),
-              Opacity(
-                opacity: 0.0,
-                child: Image.network(
-                  'http://192.168.1.72:8000/storage/files/reading/' +
-                      materi.file,
-                  width: 600,
-                  height: 450,
-                ),
-              ),
-            ],
-          ),
+            ),
+          ],
         ),
       ),
       bottomNavigationBar: Container(
